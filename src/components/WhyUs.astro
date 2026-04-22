@@ -2,51 +2,50 @@
 import { Icon } from 'astro-icon/components';
 
 const reasons = [
-  { icon: 'lucide:shield-check', title: 'Matriculado', desc: 'Plomero matriculado con trabajos de gas aprobados. Vas tranquilo.', tone: 'brand' },
-  { icon: 'lucide:timer',        title: 'Mismo día', desc: 'Protocolos de respuesta bajo 2 horas para urgencias en Zona Norte.' },
+  { icon: 'lucide:shield-check', title: 'Matriculado', desc: 'Plomero matriculado con trabajos de gas aprobados ante distribuidora.' },
+  { icon: 'lucide:timer', title: 'Mismo día', desc: 'Protocolos de respuesta en menos de 2 horas para urgencias en la zona.' },
   { icon: 'lucide:file-check-2', title: 'Presupuesto claro', desc: 'Por escrito, sin letra chica y sin sorpresas al facturar.' },
-  { icon: 'lucide:handshake',    title: 'Trato profesional', desc: 'Limpieza del lugar, respeto de tiempos y comunicación transparente.' },
-  { icon: 'lucide:badge-check',  title: 'Garantía escrita', desc: 'Mano de obra y materiales con garantía. Si falla, volvemos.', tone: 'accent' },
-  { icon: 'lucide:credit-card',  title: 'Pago flexible', desc: 'Efectivo, transferencia, MercadoPago y Cuenta DNI. Factura A o B.' },
+  { icon: 'lucide:handshake', title: 'Trato directo', desc: 'Sin intermediarios. Hablás siempre con la persona que va a hacer el trabajo.' },
+  { icon: 'lucide:badge-check', title: 'Garantía escrita', desc: 'Mano de obra y materiales con garantía. Si falla, volvemos.' },
+  { icon: 'lucide:credit-card', title: 'Pago flexible', desc: 'Efectivo, transferencia, MercadoPago, débito y Cuenta DNI.' },
 ];
 ---
-<section id="por-que" class="section bg-white">
-  <div class="container-x">
-    <div class="max-w-3xl reveal">
-      <span class="eyebrow"><Icon name="lucide:star" class="w-3.5 h-3.5" />Por qué elegirnos</span>
-      <h2 class="display-sm mt-5">
-        Un plomero de
-        <span class="italic-display text-brand-700">confianza</span>.
-      </h2>
-      <p class="mt-5 text-lg text-slate-600 max-w-xl">
-        Construimos la reputación cliente por cliente. Estas son las razones por las que nos recomiendan.
-      </p>
+<section id="por-que" class="section bg-white relative overflow-hidden">
+  <div aria-hidden="true" class="absolute -top-40 left-1/2 -translate-x-1/2 w-[80vw] h-[500px] opacity-40 pointer-events-none">
+    <div class="w-full h-full mesh-bg rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="container-x relative">
+    <div class="grid lg:grid-cols-12 gap-10 mb-20">
+      <div class="lg:col-span-7 reveal">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">— Por qué elegirnos</span>
+          <span class="h-px flex-1 max-w-24 bg-slate-200"></span>
+        </div>
+        <h2 class="display-lg">
+          Un plomero de
+          <span class="italic-display text-brand-700">confianza</span>.
+        </h2>
+      </div>
+      <div class="lg:col-span-5 reveal flex items-end">
+        <p class="text-lg text-slate-600 leading-relaxed">
+          Construimos la reputación cliente por cliente. Estas son las razones por las que nos recomiendan.
+        </p>
+      </div>
     </div>
 
-    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {reasons.map((r) => {
-        const toneClass =
-          r.tone === 'brand' ? 'bg-brand-600 text-white border-brand-600' :
-          r.tone === 'accent' ? 'bg-accent-500 text-ink border-accent-500' :
-          'bg-white text-ink';
-        const iconBg =
-          r.tone === 'brand' ? 'bg-white/10 text-white' :
-          r.tone === 'accent' ? 'bg-ink/10 text-ink' :
-          'bg-brand-50 text-brand-700';
-        const descColor =
-          r.tone === 'brand' ? 'text-white/80' :
-          r.tone === 'accent' ? 'text-ink/75' :
-          'text-slate-600';
-        return (
-          <article class={`reveal card ${toneClass}`}>
-            <div class={`grid place-items-center w-12 h-12 rounded-xl ${iconBg}`}>
-              <Icon name={r.icon} class="w-6 h-6" />
-            </div>
-            <h3 class="mt-6 text-xl font-semibold">{r.title}</h3>
-            <p class={`mt-2 text-sm leading-relaxed ${descColor}`}>{r.desc}</p>
-          </article>
-        );
-      })}
-    </div>
+    <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-slate-200 border border-slate-200 rounded-3xl overflow-hidden reveal-stagger">
+      {reasons.map((r, i) => (
+        <li class="bg-white p-8 sm:p-10 hover:bg-slate-50 transition-colors group relative">
+          <div class="flex items-start justify-between">
+            <Icon name={r.icon} class="w-7 h-7 text-brand-700" stroke-width="1.3" />
+            <span class="font-mono text-[10px] text-slate-300">/ {String(i+1).padStart(2,'0')}</span>
+          </div>
+          <h3 class="mt-10 text-2xl font-display text-ink">{r.title}</h3>
+          <p class="mt-3 text-[15px] text-slate-600 leading-relaxed">{r.desc}</p>
+          <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-ink scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500"></div>
+        </li>
+      ))}
+    </ul>
   </div>
 </section>

@@ -3,52 +3,68 @@ import { Icon } from 'astro-icon/components';
 import { waLink } from '../data/site';
 
 const services = [
-  { icon: 'lucide:zap', title: 'Urgencias 24/7', desc: 'Inundaciones, roturas y fugas. Llegamos el mismo día.', big: true, accent: true },
-  { icon: 'lucide:droplets', title: 'Destapaciones', desc: 'Piletas, inodoros y cloacas obstruidas.' },
-  { icon: 'lucide:waves', title: 'Pérdidas', desc: 'Detección sin romper y reparación de caños.' },
-  { icon: 'lucide:flame', title: 'Gas domiciliario', desc: 'Instalación y pruebas de hermeticidad. Matrícula vigente.', big: true },
-  { icon: 'lucide:thermometer', title: 'Termotanques', desc: 'Instalación, service y recambio de piezas.' },
-  { icon: 'lucide:bath', title: 'Baños y cocinas', desc: 'Griferías, rejillas, inodoros y bachas.' },
-  { icon: 'lucide:house', title: 'Obra y refacción', desc: 'Cañerías completas y montaje de sanitarios.' },
+  { icon: 'lucide:zap', title: 'Urgencias 24/7', desc: 'Inundaciones, roturas y fugas fuera de horario. Llegamos en menos de 2 horas.', big: true, accent: true, tag: 'Respuesta inmediata' },
+  { icon: 'lucide:droplets', title: 'Destapaciones', desc: 'Piletas, inodoros y cloacas obstruidas. Equipo profesional.' },
+  { icon: 'lucide:waves', title: 'Pérdidas y filtraciones', desc: 'Detección sin romper y reparación de caños rotos.' },
+  { icon: 'lucide:flame', title: 'Gas domiciliario', desc: 'Instalación, reparación y pruebas de hermeticidad. Matrícula vigente.', big: true, tag: 'Matriculado' },
+  { icon: 'lucide:thermometer', title: 'Termotanques y calefones', desc: 'Instalación, service y recambio de piezas.' },
+  { icon: 'lucide:bath', title: 'Baños y cocinas', desc: 'Griferías, rejillas, inodoros, bachas y desagües.' },
+  { icon: 'lucide:house-plug', title: 'Obra y refacción', desc: 'Cañerías completas y coordinación con obra.' },
 ];
 ---
 <section id="servicios" class="section bg-white">
   <div class="container-x">
-    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14">
-      <div class="max-w-2xl reveal">
-        <span class="eyebrow"><Icon name="lucide:wrench" class="w-3.5 h-3.5" />Servicios</span>
-        <h2 class="display-sm mt-5">
-          Todo lo que puede fallar,
-          <span class="italic-display text-brand-700">lo reparamos</span>.
+    <div class="grid md:grid-cols-12 gap-8 mb-16 md:items-end">
+      <div class="md:col-span-8 reveal">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">— Servicios</span>
+          <span class="h-px flex-1 max-w-24 bg-slate-200"></span>
+        </div>
+        <h2 class="display-lg">
+          Todo lo que puede
+          <span class="italic-display text-brand-700">fallar</span>,
+          lo reparamos.
         </h2>
-        <p class="mt-5 text-lg text-slate-600 max-w-xl">
-          Trabajos residenciales y comerciales. Presupuesto sin cargo antes de arrancar.
-        </p>
       </div>
-      <a href={waLink('Hola Jonatan, necesito consultar por un servicio.')} class="btn-outline self-start" target="_blank" rel="noopener">
-        Consultar ahora <Icon name="lucide:arrow-up-right" class="w-4 h-4" />
-      </a>
+      <div class="md:col-span-4 reveal">
+        <p class="text-lg text-slate-600 leading-relaxed">
+          Trabajos residenciales y comerciales en Zona Norte. Presupuesto sin cargo y trabajo con garantía escrita.
+        </p>
+        <a href={waLink('Hola Jonatan, necesito consultar por un servicio.')} class="mt-6 inline-flex items-center gap-2 text-ink font-semibold border-b-2 border-ink pb-0.5 hover:gap-3 transition-all" target="_blank" rel="noopener">
+          Consultar ahora <Icon name="lucide:arrow-up-right" class="w-4 h-4" />
+        </a>
+      </div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(200px,_auto)] gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(240px,_auto)] gap-3 reveal-stagger">
       {services.map((s, i) => {
-        const span = s.big ? 'sm:col-span-2' : '';
+        const span = s.big ? 'sm:col-span-2 row-span-1 sm:min-h-[300px]' : '';
         const isAccent = s.accent;
         return (
-          <article class={`reveal card gradient-border ${span} ${isAccent ? 'bg-ink !border-ink text-white hover:!border-ink' : ''} group`}>
-            <div class="flex items-start justify-between">
-              <div class={`grid place-items-center w-12 h-12 rounded-xl ${isAccent ? 'bg-white/10 text-white' : 'bg-brand-50 text-brand-700 group-hover:bg-brand-600 group-hover:text-white'} transition-colors duration-500`}>
-                <Icon name={s.icon} class="w-5 h-5" />
+          <article
+            class={`card group relative overflow-hidden flex flex-col justify-between ${span} ${isAccent ? '!bg-ink !border-ink text-white hover:!border-ink' : ''}`}
+            data-tilt
+          >
+            <div class={`flex items-start justify-between ${isAccent ? '' : ''}`}>
+              <div class={`grid place-items-center w-14 h-14 rounded-2xl ${isAccent ? 'bg-accent-500 text-ink' : 'bg-slate-100 text-ink group-hover:bg-ink group-hover:text-white'} transition-all duration-500`}>
+                <Icon name={s.icon} class="w-6 h-6" stroke-width="1.5" />
               </div>
-              <span class={`text-xs font-mono ${isAccent ? 'text-white/40' : 'text-slate-300'}`}>
-                0{i+1}
+              <span class={`font-mono text-[11px] tracking-wider ${isAccent ? 'text-white/40' : 'text-slate-300'}`}>
+                / 0{i+1}
               </span>
             </div>
-            <h3 class={`mt-6 text-xl font-semibold ${isAccent ? 'text-white' : 'text-ink'}`}>{s.title}</h3>
-            <p class={`mt-2 text-sm leading-relaxed ${isAccent ? 'text-white/70' : 'text-slate-600'}`}>{s.desc}</p>
+            <div class="mt-auto pt-8">
+              {s.tag && (
+                <span class={`inline-block text-[10px] uppercase tracking-[0.18em] font-semibold mb-3 ${isAccent ? 'text-accent-400' : 'text-brand-700'}`}>
+                  {s.tag}
+                </span>
+              )}
+              <h3 class={`display-sm ${isAccent ? 'text-white' : ''}`}>{s.title}</h3>
+              <p class={`mt-3 text-[15px] leading-relaxed ${isAccent ? 'text-white/70' : 'text-slate-600'}`}>{s.desc}</p>
+            </div>
             {s.big && (
-              <div class={`mt-auto pt-6 flex items-center gap-2 text-sm font-medium ${isAccent ? 'text-accent-400' : 'text-brand-700'}`}>
-                Consultar <Icon name="lucide:arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <div aria-hidden="true" class={`absolute -right-10 -bottom-10 text-[180px] font-display italic leading-none opacity-[0.04] ${isAccent ? 'text-white opacity-[0.08]' : 'text-ink'}`}>
+                {String(i+1).padStart(2, '0')}
               </div>
             )}
           </article>
@@ -56,4 +72,21 @@ const services = [
       })}
     </div>
   </div>
+
+  <script>
+    const tiltEls = document.querySelectorAll<HTMLElement>('[data-tilt]');
+    if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      tiltEls.forEach((el) => {
+        el.addEventListener('pointermove', (e) => {
+          const r = el.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - 0.5;
+          const py = (e.clientY - r.top) / r.height - 0.5;
+          el.style.transform = `perspective(1000px) rotateX(${-py * 3}deg) rotateY(${px * 3}deg) translateY(-6px)`;
+        });
+        el.addEventListener('pointerleave', () => {
+          el.style.transform = '';
+        });
+      });
+    }
+  </script>
 </section>

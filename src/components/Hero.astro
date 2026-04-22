@@ -1,83 +1,128 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { site, waLink, telLink } from '../data/site';
-
-const stats = [
-  { k: '+10', v: 'años', sub: 'de oficio' },
-  { k: '+2.400', v: 'trabajos', sub: 'resueltos' },
-  { k: '<2hs', v: 'respuesta', sub: 'en urgencias' },
-  { k: '4.9', v: '/5', sub: 'calificación' },
-];
 ---
-<section class="relative isolate overflow-hidden bg-white">
+<section class="relative isolate min-h-[100svh] bg-white overflow-hidden spotlight" data-spotlight>
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
-    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[120%] aspect-square max-w-[900px] opacity-40 orb"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-white/0 via-white/60 to-white"></div>
-    <svg class="absolute inset-0 w-full h-full opacity-[0.04]" aria-hidden="true">
+    <div class="absolute inset-0 mesh-bg"></div>
+    <svg class="absolute inset-0 w-full h-full text-slate-900/[0.035]" aria-hidden="true">
       <defs>
-        <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
-          <path d="M 56 0 L 0 0 0 56" fill="none" stroke="currentColor" stroke-width="1"/>
+        <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+          <path d="M 72 0 L 0 0 0 72" fill="none" stroke="currentColor" stroke-width="1"/>
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#grid)"/>
     </svg>
   </div>
 
-  <div class="container-x pt-16 pb-20 sm:pt-24 sm:pb-28 lg:pt-32 lg:pb-36">
-    <div class="max-w-4xl">
-      <span class="eyebrow reveal">
+  <div class="container-x pt-28 sm:pt-32 lg:pt-40 pb-20 lg:pb-28 relative">
+    <div class="flex items-center gap-3 reveal">
+      <span class="eyebrow">
         <span class="ring-dot"></span>
-        Disponible ahora · Zona Norte GBA
+        Disponible ahora
       </span>
+      <span class="text-xs text-slate-500 hidden sm:inline">Zona Norte GBA · Urgencias 24/7</span>
+    </div>
 
-      <h1 class="reveal mt-8 display text-ink">
-        Plomería de oficio,
-        <span class="italic-display text-brand-700">sin vueltas</span>,
-        <br class="hidden sm:block"/>
-        en <span class="underline decoration-accent-500 decoration-4 underline-offset-8">Zona&nbsp;Norte</span>.
-      </h1>
+    <h1 class="reveal mt-10 display-xl text-ink">
+      <span class="block">Plomería</span>
+      <span class="block">
+        <span class="italic-display text-brand-700">de oficio</span>,
+        <span class="text-slate-400">sin vueltas.</span>
+      </span>
+    </h1>
 
-      <p class="reveal mt-8 max-w-2xl text-lg sm:text-xl text-slate-600 leading-relaxed">
-        Soy <strong class="text-ink font-semibold">{site.owner.name}</strong>, plomero matriculado. Resuelvo
-        urgencias, fugas, gas y termotanques con presupuesto sin cargo y trabajo con garantía escrita.
-      </p>
-
-      <div class="reveal mt-10 flex flex-wrap gap-3">
-        <a href={waLink()} class="btn-whatsapp" target="_blank" rel="noopener">
-          <Icon name="lucide:message-circle" class="w-5 h-5" />
-          Pedir presupuesto
-          <Icon name="lucide:arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
-        </a>
-        <a href={telLink} class="btn-outline">
-          <Icon name="lucide:phone" class="w-4 h-4" />
-          Llamar ahora
-        </a>
-      </div>
-
-      <div class="reveal mt-14 flex items-center gap-3 text-sm text-slate-500">
-        <div class="flex -space-x-2">
-          {[0,1,2,3].map((i) => (
-            <span class="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-gradient-to-br from-brand-400 to-brand-700" style={`transform: rotate(${i*4}deg)`}></span>
-          ))}
+    <div class="mt-10 grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-6 xl:col-span-5 reveal">
+        <p class="text-xl sm:text-2xl text-slate-700 leading-[1.4] font-light max-w-xl">
+          Soy <strong class="text-ink font-medium">{site.owner.name}</strong>, plomero matriculado.
+          Urgencias, fugas, gas y termotanques en Zona Norte — con presupuesto sin cargo y garantía escrita.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href={waLink()} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener">
+            <Icon name="lucide:message-circle" class="w-[18px] h-[18px]" />
+            Pedir presupuesto
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
+          </a>
+          <a href={telLink} class="btn-outline">
+            <Icon name="lucide:phone" class="w-4 h-4" />
+            {site.contact.phoneDisplay}
+          </a>
         </div>
-        <span>Elegido por <strong class="text-ink">+500 familias</strong> en Vicente López, San Isidro y Tigre.</span>
+      </div>
+
+      <div class="lg:col-span-6 xl:col-span-7 lg:pl-10 reveal">
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-3 text-sm text-slate-500">
+            <span class="h-px w-10 bg-slate-300"></span>
+            <span class="uppercase tracking-[0.18em] text-[11px] font-semibold">Reconocimientos</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-slate-600">
+            <span class="flex items-center gap-2"><Icon name="lucide:shield-check" class="w-4 h-4 text-brand-700" /> Matriculado</span>
+            <span class="flex items-center gap-2"><Icon name="lucide:flame" class="w-4 h-4 text-brand-700" /> Gas aprobado</span>
+            <span class="flex items-center gap-2"><Icon name="lucide:badge-check" class="w-4 h-4 text-brand-700" /> Garantía escrita</span>
+            <span class="flex items-center gap-2"><Icon name="lucide:clock" class="w-4 h-4 text-brand-700" /> 24/7 urgencias</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="relative border-t border-slate-200 bg-slate-50/50">
+  <div class="relative border-t border-slate-200">
     <div class="container-x">
-      <ul class="grid grid-cols-2 md:grid-cols-4 divide-x divide-slate-200 border-x border-slate-200">
-        {stats.map((s) => (
-          <li class="px-5 py-8 sm:py-10">
-            <p class="flex items-baseline gap-1.5">
-              <span class="display-sm !text-3xl sm:!text-5xl text-ink">{s.k}</span>
-              <span class="text-sm font-medium text-slate-500">{s.v}</span>
-            </p>
-            <p class="mt-1 text-xs uppercase tracking-[0.14em] text-slate-500">{s.sub}</p>
-          </li>
+      <div class="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-slate-200 border-x border-slate-200">
+        {[
+          { n: '10+', label: 'años de oficio', icon: 'lucide:hammer' },
+          { n: '2.400', label: 'trabajos resueltos', icon: 'lucide:check-check', counter: true },
+          { n: '<2hs', label: 'en urgencias', icon: 'lucide:timer' },
+          { n: '4.9★', label: 'calificación promedio', icon: 'lucide:star' },
+        ].map((s, i) => (
+          <div class="px-6 sm:px-8 py-10 sm:py-14 flex items-start justify-between gap-6 hover:bg-slate-50/70 transition-colors group reveal">
+            <div>
+              <p class="display-md text-ink ticker" data-counter={s.counter ? '2400' : undefined}>
+                {s.n}
+              </p>
+              <p class="mt-2 text-sm text-slate-500">{s.label}</p>
+            </div>
+            <Icon name={s.icon} class="w-5 h-5 text-slate-300 group-hover:text-brand-600 transition-colors mt-1" />
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   </div>
+
+  <script>
+    const root = document.querySelector('[data-spotlight]') as HTMLElement | null;
+    if (root && window.matchMedia('(pointer: fine)').matches) {
+      root.addEventListener('pointermove', (e) => {
+        const r = root.getBoundingClientRect();
+        root.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        root.style.setProperty('--my', `${e.clientY - r.top}px`);
+      });
+    }
+
+    // counter animation
+    const counters = document.querySelectorAll<HTMLElement>('[data-counter]');
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const el = entry.target as HTMLElement;
+        const target = Number(el.dataset.counter);
+        const duration = 1800;
+        const start = performance.now();
+        const startText = el.textContent?.trim() ?? '';
+        const tick = (now: number) => {
+          const p = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const val = Math.round(eased * target);
+          el.textContent = val.toLocaleString('es-AR');
+          if (p < 1) requestAnimationFrame(tick);
+          else el.textContent = startText;
+        };
+        requestAnimationFrame(tick);
+        io.unobserve(el);
+      }
+    }, { threshold: 0.5 });
+    counters.forEach((c) => io.observe(c));
+  </script>
 </section>

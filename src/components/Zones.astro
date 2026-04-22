@@ -3,49 +3,62 @@ import { Icon } from 'astro-icon/components';
 import { site, waLink } from '../data/site';
 ---
 <section id="zonas" class="section bg-slate-50 relative overflow-hidden">
-  <div aria-hidden="true" class="absolute -right-40 top-20 h-96 w-96 rounded-full bg-brand-100 blur-3xl opacity-60"></div>
+  <div aria-hidden="true" class="absolute inset-0 opacity-50 pointer-events-none">
+    <svg class="absolute inset-0 w-full h-full text-slate-300/40" aria-hidden="true">
+      <defs>
+        <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+          <circle cx="1.2" cy="1.2" r="1.2" fill="currentColor"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dots)"/>
+    </svg>
+  </div>
 
   <div class="container-x relative">
-    <div class="grid lg:grid-cols-12 gap-12 items-start">
+    <div class="grid lg:grid-cols-12 gap-16 items-start">
       <div class="lg:col-span-5 lg:sticky lg:top-28 reveal">
-        <span class="eyebrow"><Icon name="lucide:map" class="w-3.5 h-3.5" />Cobertura</span>
-        <h2 class="display-sm mt-5">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">— Cobertura</span>
+          <span class="h-px flex-1 max-w-24 bg-slate-300"></span>
+        </div>
+        <h2 class="display-lg">
           Zona Norte
+          <br/>
           <span class="italic-display text-brand-700">del GBA</span>.
         </h2>
-        <p class="mt-5 text-lg text-slate-600 max-w-md">
-          Operamos de lunes a sábado en toda la zona norte del conurbano. Para urgencias atendemos también domingos.
+        <p class="mt-8 text-lg text-slate-600 max-w-md leading-relaxed">
+          Operamos de lunes a sábado en toda la zona norte del conurbano. Urgencias también domingos.
         </p>
 
-        <a href={waLink('Hola, ¿llegan hasta mi zona?')} class="mt-8 inline-flex items-center gap-2 text-brand-700 font-semibold hover:gap-3 transition-all" target="_blank" rel="noopener">
-          ¿Tu barrio no está en la lista? <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        <a href={waLink('Hola, ¿llegan hasta mi zona?')} class="mt-8 inline-flex items-center gap-2 text-ink font-semibold border-b-2 border-ink pb-0.5 hover:gap-3 transition-all" target="_blank" rel="noopener">
+          ¿Tu barrio no está en la lista? <Icon name="lucide:arrow-up-right" class="w-4 h-4" />
         </a>
 
-        <div class="mt-10 p-5 rounded-2xl bg-white border border-slate-200">
-          <div class="flex items-start gap-3">
-            <span class="grid place-items-center w-8 h-8 rounded-lg bg-accent-500 text-ink shrink-0">
-              <Icon name="lucide:siren" class="w-4 h-4" />
+        <div class="mt-12 p-6 rounded-2xl bg-ink text-white">
+          <div class="flex items-start gap-4">
+            <span class="grid place-items-center w-10 h-10 rounded-xl bg-accent-500 text-ink shrink-0">
+              <Icon name="lucide:siren" class="w-5 h-5" stroke-width="1.5" />
             </span>
             <div>
-              <p class="text-sm font-semibold text-ink">Urgencias fuera de zona</p>
-              <p class="text-sm text-slate-600 mt-0.5">Casos críticos: vamos a CABA y primer cordón Oeste. Consultá por WhatsApp.</p>
+              <p class="text-sm font-semibold">Urgencias fuera de zona</p>
+              <p class="text-sm text-white/70 mt-1 leading-relaxed">Casos críticos: CABA y primer cordón Oeste. Consultá por WhatsApp.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="lg:col-span-7 reveal">
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-          {site.address.areaServed.map((zone, i) => (
-            <div class="group flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3.5 hover:border-ink hover:bg-ink hover:text-white transition-all duration-300" style={`animation-delay: ${i*30}ms`}>
-              <span class="flex items-center gap-2.5">
-                <span class="inline-flex h-1.5 w-1.5 rounded-full bg-brand-500 group-hover:bg-accent-400 transition-colors"></span>
+      <div class="lg:col-span-7">
+        <ul class="grid grid-cols-2 sm:grid-cols-3 gap-2 reveal-stagger">
+          {site.address.areaServed.map((zone) => (
+            <li class="group relative flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-5 py-4 hover:border-ink hover:bg-ink hover:text-white transition-all duration-300 cursor-default">
+              <span class="flex items-center gap-3">
+                <Icon name="lucide:map-pin" class="w-4 h-4 text-brand-600 group-hover:text-accent-400 transition-colors" stroke-width="1.5" />
                 <span class="text-sm font-medium">{zone}</span>
               </span>
-              <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-            </div>
+              <Icon name="lucide:arrow-up-right" class="w-4 h-4 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   </div>

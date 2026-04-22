@@ -1,0 +1,26 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const logos = [
+  'Metrogas', 'AySA', 'Edenor', 'Ferrum', 'FV', 'Peisa', 'Hidronor', 'Escurri', 'Saladillo', 'Acqua System',
+];
+---
+<section class="relative bg-white border-y border-slate-200 overflow-hidden">
+  <div class="container-x py-10 grid md:grid-cols-[auto_1fr] items-center gap-6">
+    <p class="text-xs uppercase tracking-[0.2em] font-semibold text-slate-500 md:border-r md:border-slate-200 md:pr-8 whitespace-nowrap">
+      Trabajamos con<br/>marcas y entes líderes
+    </p>
+    <div class="relative overflow-hidden">
+      <div class="flex gap-14 marquee-track-slow w-max items-center">
+        {[...logos, ...logos, ...logos].map((name) => (
+          <div class="flex items-center gap-2 text-2xl font-display font-light italic text-slate-400 hover:text-ink transition-colors whitespace-nowrap">
+            <Icon name="lucide:circle-dot" class="w-4 h-4 opacity-40" />
+            {name}
+          </div>
+        ))}
+      </div>
+      <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent"></div>
+      <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"></div>
+    </div>
+  </div>
+</section>
