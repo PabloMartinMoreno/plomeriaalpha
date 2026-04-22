@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { site, waLink, telLink, licenseLabel } from '../data/site';
+import { site, waLink, telLink, licenseLabel, cta } from '../data/site';
 
 const stats = [
   { n: '10+', label: 'años de oficio', icon: 'lucide:hammer' },
@@ -48,12 +48,16 @@ const stats = [
           Urgencias, fugas, gas y termotanques con presupuesto sin cargo y garantía escrita.
         </p>
         <div class="mt-10 flex flex-wrap gap-3">
-          <a href={waLink()} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-magnetic="0.3">
+          <a href={waLink({ source: 'hero' })} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-magnetic="0.3" data-track="cta:hero:whatsapp">
             <Icon name="lucide:message-circle" class="w-[18px] h-[18px]" />
-            Pedir presupuesto
+            {cta.primary}
             <Icon name="lucide:arrow-right" class="w-4 h-4" />
           </a>
-          <a href={telLink} class="btn-outline" data-magnetic="0.25">
+          <a href="#consulta-guiada" class="btn-outline" data-magnetic="0.25" data-track="cta:hero:wizard">
+            <Icon name="lucide:sparkles" class="w-4 h-4" />
+            {cta.consult}
+          </a>
+          <a href={telLink} class="btn-ghost" data-track="cta:hero:phone">
             <Icon name="lucide:phone" class="w-4 h-4" />
             {site.contact.phoneDisplay}
           </a>

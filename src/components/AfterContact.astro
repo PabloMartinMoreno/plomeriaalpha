@@ -1,0 +1,39 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const steps = [
+  { icon: 'lucide:message-square-text',  title: 'Respuesta inmediata',  desc: 'Te contestamos el mensaje en horario hábil en menos de 2 horas. Si es urgencia, priorizado.' },
+  { icon: 'lucide:image-plus',           title: 'Diagnóstico por foto', desc: 'Si podemos evaluarlo por foto o video, te damos estimación ahí mismo. Si no, coordinamos visita sin cargo.' },
+  { icon: 'lucide:file-text',            title: 'Presupuesto por escrito', desc: 'Mano de obra + materiales detallados. Sin letra chica ni adicionales después.' },
+  { icon: 'lucide:shield-check',         title: 'Trabajo con garantía', desc: 'Una vez aprobado, coordinamos día. Entregamos comprobante y garantía escrita.' },
+];
+---
+<section class="section-tight bg-white relative overflow-hidden border-t border-slate-200">
+  <div class="container-x">
+    <div class="grid lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-4 reveal">
+        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">— Después de escribirnos</span>
+        <h2 class="mt-5 display-lg" data-split="words">
+          Sabés <span class="italic-display text-brand-700">qué esperar</span>.
+        </h2>
+        <p class="mt-6 text-[15px] text-slate-600 leading-relaxed">
+          Si nunca contrataste un plomero online, estas son las etapas por las que vas a pasar después del primer mensaje.
+        </p>
+      </div>
+      <ol class="lg:col-span-8 relative border-l border-slate-200 space-y-10 pl-8 reveal-stagger">
+        {steps.map((s, i) => (
+          <li class="relative">
+            <span class="absolute -left-[42px] top-0 grid place-items-center w-10 h-10 rounded-xl bg-ink text-white">
+              <Icon name={s.icon} class="w-5 h-5" stroke-width="1.5" />
+            </span>
+            <div class="flex items-center gap-3 mb-1">
+              <span class="font-mono text-[11px] text-slate-400">{String(i+1).padStart(2,'0')}</span>
+              <h3 class="text-xl font-display text-ink">{s.title}</h3>
+            </div>
+            <p class="text-[15px] text-slate-600 leading-relaxed max-w-xl">{s.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

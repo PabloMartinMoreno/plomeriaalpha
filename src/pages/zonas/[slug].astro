@@ -5,7 +5,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
 import BigCTA from '../../components/BigCTA.astro';
-import { zones, services, site, waLink, telLink } from '../../data/site';
+import { zones, services, site, waLink, telLink, cta } from '../../data/site';
 
 export function getStaticPaths() {
   return zones.map((z) => ({ params: { slug: z.slug }, props: { zone: z } }));
@@ -76,12 +76,12 @@ const localBusinessJsonLd = {
           </p>
 
           <div class="mt-10 flex flex-wrap gap-3">
-            <a href={waLink(`Hola, necesito un plomero en ${zone.name}.`)} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-magnetic="0.3">
+            <a href={waLink({ zone: zone.name, source: `zona-${zone.slug}` })} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-magnetic="0.3" data-track={`cta:zona-${zone.slug}:whatsapp`}>
               <Icon name="lucide:message-circle" class="w-[18px] h-[18px]" />
-              WhatsApp directo
+              {cta.primary} en {zone.name}
               <Icon name="lucide:arrow-right" class="w-4 h-4" />
             </a>
-            <a href={telLink} class="btn-outline" data-magnetic="0.25">
+            <a href={telLink} class="btn-outline" data-magnetic="0.25" data-track={`cta:zona-${zone.slug}:phone`}>
               <Icon name="lucide:phone" class="w-4 h-4" />
               {site.contact.phoneDisplay}
             </a>

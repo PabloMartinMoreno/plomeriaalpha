@@ -5,7 +5,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
 import BigCTA from '../../components/BigCTA.astro';
-import { services, zones, site, waLink, telLink } from '../../data/site';
+import { services, zones, site, waLink, telLink, cta } from '../../data/site';
 
 export function getStaticPaths() {
   return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
@@ -70,12 +70,16 @@ const breadcrumbJsonLd = {
             </div>
 
             <div class="mt-12 flex flex-wrap gap-3">
-              <a href={waLink(`Hola, quiero consultar por ${service.title.toLowerCase()}.`)} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-magnetic="0.3">
+              <a href={waLink({ service: service.title, source: `servicio-${service.slug}` })} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-magnetic="0.3" data-track={`cta:servicio-${service.slug}:whatsapp`}>
                 <Icon name="lucide:message-circle" class="w-[18px] h-[18px]" />
-                Consultar por WhatsApp
+                {cta.primary}
                 <Icon name="lucide:arrow-right" class="w-4 h-4" />
               </a>
-              <a href={telLink} class="btn-outline" data-magnetic="0.25">
+              <a href={`/contacto?servicio=${service.slug}`} class="btn-outline" data-magnetic="0.25" data-track={`cta:servicio-${service.slug}:form`}>
+                <Icon name="lucide:calendar-check" class="w-4 h-4" />
+                {cta.schedule}
+              </a>
+              <a href={telLink} class="btn-ghost" data-track={`cta:servicio-${service.slug}:phone`}>
                 <Icon name="lucide:phone" class="w-4 h-4" />
                 {site.contact.phoneDisplay}
               </a>

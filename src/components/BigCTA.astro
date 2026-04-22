@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { waLink } from '../data/site';
+import { waLink, cta } from '../data/site';
 ---
 <section class="bg-white">
   <div class="container-x section-tight">
@@ -16,9 +16,9 @@ import { waLink } from '../data/site';
           </p>
         </div>
         <div class="lg:col-span-4 flex lg:justify-end reveal">
-          <a href={waLink()} target="_blank" rel="noopener" class="btn-whatsapp btn-arrow text-base !px-8 !py-4" data-magnetic="0.35">
+          <a href={waLink({ source: 'big-cta' })} target="_blank" rel="noopener" class="btn-whatsapp btn-arrow text-base !px-8 !py-4" data-magnetic="0.35" data-track="cta:big-cta:whatsapp">
             <Icon name="lucide:message-circle" class="w-5 h-5" />
-            Escribinos ahora
+            {cta.primary}
             <Icon name="lucide:arrow-right" class="w-4 h-4" />
           </a>
         </div>

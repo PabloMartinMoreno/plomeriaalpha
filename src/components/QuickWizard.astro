@@ -1,0 +1,172 @@
+---
+import { Icon } from 'astro-icon/components';
+import { services, zones, site } from '../data/site';
+---
+<section id="consulta-guiada" class="section bg-white relative overflow-hidden">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 opacity-50">
+    <div class="absolute inset-0 mesh-bg"></div>
+  </div>
+  <div class="container-narrow relative">
+    <div class="grid lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-5 reveal">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">— Consulta guiada</span>
+          <span class="h-px flex-1 max-w-24 bg-slate-200"></span>
+        </div>
+        <h2 class="display-lg" data-split="words">
+          Armá tu consulta
+          <span class="italic-display text-brand-700">en 30 segundos</span>.
+        </h2>
+        <p class="mt-8 text-lg text-slate-600 leading-relaxed">
+          Tres preguntas rápidas y te llevamos directo a WhatsApp con toda la info para que Jonatan responda con presupuesto orientativo lo antes posible.
+        </p>
+        <ul class="mt-8 space-y-3 text-sm text-slate-600">
+          <li class="flex items-center gap-3"><Icon name="lucide:check" class="w-4 h-4 text-brand-700" /> Sin datos personales hasta el final</li>
+          <li class="flex items-center gap-3"><Icon name="lucide:check" class="w-4 h-4 text-brand-700" /> No cobramos por consultar</li>
+          <li class="flex items-center gap-3"><Icon name="lucide:check" class="w-4 h-4 text-brand-700" /> Respuesta priorizada si es urgencia</li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-7 reveal">
+        <div
+          data-wizard
+          data-phone={site.contact.whatsapp}
+          class="rounded-[28px] border border-slate-200 bg-white p-7 sm:p-10 shadow-xl shadow-slate-200/50"
+        >
+          <div class="flex items-center justify-between text-xs uppercase tracking-[0.18em] text-slate-500">
+            <span data-wizard-step-label>Paso 1 de 3</span>
+            <div class="flex gap-1.5">
+              <span class="w-8 h-1 rounded-full bg-ink" data-wizard-bar="1"></span>
+              <span class="w-8 h-1 rounded-full bg-slate-200" data-wizard-bar="2"></span>
+              <span class="w-8 h-1 rounded-full bg-slate-200" data-wizard-bar="3"></span>
+            </div>
+          </div>
+
+          <div data-wizard-slot="1">
+            <h3 class="mt-6 display-sm text-ink !font-medium">¿Qué necesitás resolver?</h3>
+            <div class="mt-6 grid sm:grid-cols-2 gap-2">
+              {services.map((s) => (
+                <button
+                  type="button"
+                  data-wizard-option="service"
+                  data-value={s.title}
+                  data-slug={s.slug}
+                  class="group text-left flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 hover:border-ink hover:bg-slate-50 transition-all"
+                >
+                  <span class="grid place-items-center w-10 h-10 rounded-xl bg-slate-100 text-ink group-hover:bg-ink group-hover:text-white transition shrink-0">
+                    <Icon name={s.icon} class="w-5 h-5" stroke-width="1.5" />
+                  </span>
+                  <span class="flex-1">
+                    <span class="block text-[14px] font-semibold text-ink">{s.title}</span>
+                    <span class="block text-[12px] text-slate-500 line-clamp-1">{s.short}</span>
+                  </span>
+                </button>
+              ))}
+              <button
+                type="button"
+                data-wizard-option="service"
+                data-value="Otro / no sé cuál"
+                class="group text-left flex items-start gap-3 rounded-2xl border border-dashed border-slate-300 bg-white p-4 hover:border-ink hover:bg-slate-50 transition-all"
+              >
+                <span class="grid place-items-center w-10 h-10 rounded-xl bg-slate-100 text-ink group-hover:bg-ink group-hover:text-white transition shrink-0">
+                  <Icon name="lucide:help-circle" class="w-5 h-5" stroke-width="1.5" />
+                </span>
+                <span class="flex-1">
+                  <span class="block text-[14px] font-semibold text-ink">No estoy seguro</span>
+                  <span class="block text-[12px] text-slate-500">Te ayudamos a identificarlo.</span>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div data-wizard-slot="2" class="hidden">
+            <h3 class="mt-6 display-sm text-ink !font-medium">¿En qué zona?</h3>
+            <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {zones.map((z) => (
+                <button
+                  type="button"
+                  data-wizard-option="zone"
+                  data-value={z.name}
+                  data-slug={z.slug}
+                  class="group flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-[13px] font-medium hover:border-ink hover:bg-slate-50 transition-all"
+                >
+                  <Icon name="lucide:map-pin" class="w-3.5 h-3.5 text-brand-600" />
+                  {z.name}
+                </button>
+              ))}
+              <button
+                type="button"
+                data-wizard-option="zone"
+                data-value="Otra zona"
+                class="group col-span-2 sm:col-span-1 flex items-center gap-2 rounded-xl border border-dashed border-slate-300 bg-white px-4 py-3 text-[13px] font-medium hover:border-ink hover:bg-slate-50 transition-all"
+              >
+                <Icon name="lucide:map" class="w-3.5 h-3.5 text-brand-600" />
+                Otra zona
+              </button>
+            </div>
+          </div>
+
+          <div data-wizard-slot="3" class="hidden">
+            <h3 class="mt-6 display-sm text-ink !font-medium">¿Es urgencia o trabajo programado?</h3>
+            <div class="mt-6 grid sm:grid-cols-2 gap-3">
+              <button
+                type="button"
+                data-wizard-option="urgency"
+                data-value="urgencia"
+                class="group text-left rounded-2xl border-2 border-slate-200 hover:border-accent-500 bg-white p-6 transition-all"
+              >
+                <span class="grid place-items-center w-11 h-11 rounded-xl bg-accent-500 text-ink mb-4">
+                  <Icon name="lucide:siren" class="w-5 h-5" stroke-width="1.5" />
+                </span>
+                <span class="block text-lg font-display text-ink">Urgencia</span>
+                <span class="block mt-1 text-[13px] text-slate-600">Necesito resolver hoy. Objetivo: llegada en menos de 2 horas.</span>
+              </button>
+              <button
+                type="button"
+                data-wizard-option="urgency"
+                data-value="programado"
+                class="group text-left rounded-2xl border-2 border-slate-200 hover:border-ink bg-white p-6 transition-all"
+              >
+                <span class="grid place-items-center w-11 h-11 rounded-xl bg-slate-100 text-ink mb-4">
+                  <Icon name="lucide:calendar-check" class="w-5 h-5" stroke-width="1.5" />
+                </span>
+                <span class="block text-lg font-display text-ink">Programado</span>
+                <span class="block mt-1 text-[13px] text-slate-600">Puedo coordinar día y horario. Sin apuro.</span>
+              </button>
+            </div>
+            <label class="block mt-6">
+              <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Detalle opcional</span>
+              <textarea
+                data-wizard-notes
+                rows="2"
+                maxlength="240"
+                class="mt-2 block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400 resize-none"
+                placeholder="Ej: pérdida debajo del inodoro desde ayer."
+              ></textarea>
+            </label>
+            <button
+              type="button"
+              data-wizard-submit
+              class="btn-whatsapp btn-arrow w-full mt-6 !py-4"
+            >
+              <Icon name="lucide:message-circle" class="w-5 h-5" />
+              Abrir WhatsApp con mi consulta
+              <Icon name="lucide:arrow-right" class="w-4 h-4" />
+            </button>
+          </div>
+
+          <div class="mt-8 flex items-center justify-between text-xs text-slate-500">
+            <button type="button" data-wizard-back class="hidden items-center gap-1.5 text-slate-500 hover:text-ink transition">
+              <Icon name="lucide:arrow-left" class="w-3.5 h-3.5" />
+              Volver
+            </button>
+            <button type="button" data-wizard-reset class="hidden items-center gap-1.5 text-slate-500 hover:text-ink transition">
+              <Icon name="lucide:rotate-ccw" class="w-3.5 h-3.5" />
+              Empezar de nuevo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

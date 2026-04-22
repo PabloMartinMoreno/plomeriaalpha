@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 
-const SITE = process.env.SITE_URL ?? 'https://plomerojonatanreyes.com.ar';
+const SITE = process.env.SITE_URL ?? 'https://plomeriaalpha.com.ar';
 
 export default defineConfig({
   site: SITE,

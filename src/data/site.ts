@@ -174,8 +174,31 @@ export const zones = [
 export type Service = (typeof services)[number];
 export type Zone = (typeof zones)[number];
 
-export const waLink = (msg?: string) =>
-  `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(msg ?? site.contact.whatsappMessage)}`;
+export type WaContext = {
+  service?: string;
+  zone?: string;
+  urgency?: "urgencia" | "programado";
+  source?: string;
+  notes?: string;
+};
+
+export const buildWaMessage = (ctx: WaContext = {}) => {
+  if (!ctx.service && !ctx.zone && !ctx.urgency && !ctx.notes) {
+    return site.contact.whatsappMessage;
+  }
+  const lines = ["Hola, consulta desde la web:"];
+  if (ctx.service) lines.push(`· Servicio: ${ctx.service}`);
+  if (ctx.zone) lines.push(`· Zona: ${ctx.zone}`);
+  if (ctx.urgency) lines.push(`· Tipo: ${ctx.urgency === "urgencia" ? "Urgencia" : "Programado"}`);
+  if (ctx.notes) lines.push(`· Detalle: ${ctx.notes}`);
+  return lines.join("\n");
+};
+
+export const waLink = (msgOrCtx?: string | WaContext) => {
+  const msg = typeof msgOrCtx === "string" ? msgOrCtx : buildWaMessage(msgOrCtx);
+  const src = typeof msgOrCtx === "object" && msgOrCtx?.source ? `&utm_source=web&utm_content=${encodeURIComponent(msgOrCtx.source)}` : "";
+  return `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(msg)}${src}`;
+};
 
 export const telLink = `tel:${site.contact.phone.replace(/\s|-/g, "")}`;
 
@@ -185,3 +208,13 @@ export const licenseLabel = () =>
     : "Matriculación en trámite";
 
 export const areaServedNames = () => zones.map((z) => z.name);
+
+export const cta = {
+  primary: "Resolver hoy",
+  primaryUrgent: "Urgencia ahora",
+  whatsapp: "WhatsApp directo",
+  phone: "Llamar ahora",
+  schedule: "Agendar visita",
+  quote: "Pedir presupuesto",
+  consult: "Consulta guiada",
+} as const;

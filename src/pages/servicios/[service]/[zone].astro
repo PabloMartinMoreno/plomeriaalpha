@@ -1,0 +1,135 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import WhatsAppFloat from '../../../components/WhatsAppFloat.astro';
+import BigCTA from '../../../components/BigCTA.astro';
+import { services, zones, site, waLink, telLink, cta } from '../../../data/site';
+
+export function getStaticPaths() {
+  return services.flatMap((s) =>
+    zones.map((z) => ({
+      params: { service: s.slug, zone: z.slug },
+      props: { service: s, zone: z },
+    }))
+  );
+}
+
+const { service, zone } = Astro.props;
+const other = zones.filter((z) => z.slug !== zone.slug).slice(0, 8);
+const title = `${service.title} en ${zone.name}`;
+const meta = `${service.title} en ${zone.name}: ${service.meta.toLowerCase()}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `${service.title} — ${zone.name}`,
+  description: meta,
+  provider: { '@type': 'Plumber', name: site.shortName, url: site.url },
+  areaServed: { '@type': 'City', name: zone.name },
+};
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Servicios', item: `${site.url}/servicios` },
+    { '@type': 'ListItem', position: 3, name: service.title, item: `${site.url}/servicios/${service.slug}` },
+    { '@type': 'ListItem', position: 4, name: zone.name, item: `${site.url}/servicios/${service.slug}/${zone.slug}` },
+  ],
+};
+---
+<BaseLayout title={title} description={meta}>
+  <Header />
+  <main id="main">
+    <article class="relative isolate bg-white">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
+        <div class="absolute inset-0 mesh-bg opacity-60"></div>
+      </div>
+
+      <div class="container-x pt-28 sm:pt-36 pb-20">
+        <nav class="text-xs uppercase tracking-[0.18em] text-slate-500 flex items-center gap-2 mb-10 flex-wrap" aria-label="Migas de pan">
+          <a href="/" class="hover:text-ink transition">Inicio</a>
+          <span class="text-slate-300">/</span>
+          <a href="/#servicios" class="hover:text-ink transition">Servicios</a>
+          <span class="text-slate-300">/</span>
+          <a href={`/servicios/${service.slug}`} class="hover:text-ink transition">{service.title}</a>
+          <span class="text-slate-300">/</span>
+          <span class="text-ink">{zone.name}</span>
+        </nav>
+
+        <div class="grid lg:grid-cols-12 gap-16 items-start">
+          <div class="lg:col-span-7">
+            <span class="grid place-items-center w-16 h-16 rounded-2xl bg-ink text-white mb-8">
+              <Icon name={service.icon} class="w-7 h-7" stroke-width="1.5" />
+            </span>
+            <h1 class="display-xl text-ink !leading-[0.95]" data-split="words">
+              {service.title}
+              <span class="block italic-display text-brand-700">en {zone.name}</span>
+            </h1>
+            <p class="mt-8 text-xl text-slate-600 leading-relaxed max-w-2xl font-light">
+              {service.longDesc}
+            </p>
+            <p class="mt-6 text-[15px] text-slate-500 leading-relaxed max-w-2xl">
+              {zone.lead}
+            </p>
+
+            <div class="mt-12 grid sm:grid-cols-2 gap-4 max-w-2xl">
+              {service.bullets.map((b) => (
+                <div class="flex items-start gap-3 p-5 rounded-2xl border border-slate-200 bg-white">
+                  <Icon name="lucide:check" class="w-4 h-4 text-brand-700 mt-1 shrink-0" />
+                  <p class="text-[15px] text-slate-700 leading-snug">{b}</p>
+                </div>
+              ))}
+            </div>
+
+            <div class="mt-12 flex flex-wrap gap-3">
+              <a href={waLink({ service: service.title, zone: zone.name, source: `cross-${service.slug}-${zone.slug}` })} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-magnetic="0.3" data-track={`cta:cross-${service.slug}-${zone.slug}:whatsapp`}>
+                <Icon name="lucide:message-circle" class="w-[18px] h-[18px]" />
+                {cta.primary} en {zone.name}
+                <Icon name="lucide:arrow-right" class="w-4 h-4" />
+              </a>
+              <a href={`/contacto?servicio=${service.slug}&zona=${zone.slug}`} class="btn-outline" data-magnetic="0.25" data-track={`cta:cross-${service.slug}-${zone.slug}:form`}>
+                <Icon name="lucide:calendar-check" class="w-4 h-4" />
+                {cta.schedule}
+              </a>
+              <a href={telLink} class="btn-ghost" data-track={`cta:cross-${service.slug}-${zone.slug}:phone`}>
+                <Icon name="lucide:phone" class="w-4 h-4" />
+                {site.contact.phoneDisplay}
+              </a>
+            </div>
+          </div>
+
+          <aside class="lg:col-span-5 lg:pl-6 lg:sticky lg:top-28">
+            <div class="rounded-3xl border border-slate-200 bg-white p-8">
+              <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">{service.title}</p>
+              <h2 class="mt-2 text-xl font-display text-ink">También en estas zonas</h2>
+              <ul class="mt-5 grid grid-cols-2 gap-1.5">
+                {other.map((z) => (
+                  <li>
+                    <a href={`/servicios/${service.slug}/${z.slug}`} class="flex items-center gap-2 text-sm text-slate-600 hover:text-ink transition py-1">
+                      <Icon name="lucide:map-pin" class="w-3.5 h-3.5 text-brand-600" />
+                      {z.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <a href={`/servicios/${service.slug}`} class="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink border-b border-ink pb-0.5 hover:gap-2.5 transition-all">
+                Ver servicio completo <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </article>
+
+    <BigCTA />
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
+</BaseLayout>

@@ -19,7 +19,7 @@ import { site, waLink, telLink } from '../data/site';
         </p>
 
         <div class="mt-12 flex flex-wrap gap-3">
-          <a href={waLink()} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-magnetic="0.3">
+          <a href={waLink({ source: 'contact-section' })} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-magnetic="0.3" data-track="cta:contact-section:whatsapp">
             <Icon name="lucide:message-circle" class="w-[18px] h-[18px]" />
             Abrir WhatsApp
             <Icon name="lucide:arrow-right" class="w-4 h-4" />

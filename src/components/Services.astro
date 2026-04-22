@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { waLink, services } from '../data/site';
+import { waLink, services, cta } from '../data/site';
 ---
 <section id="servicios" class="section bg-white">
   <div class="container-x">
@@ -20,8 +20,8 @@ import { waLink, services } from '../data/site';
         <p class="text-lg text-slate-600 leading-relaxed">
           Trabajos residenciales y comerciales en Zona Norte. Presupuesto sin cargo y trabajo con garantía escrita.
         </p>
-        <a href={waLink('Hola, necesito consultar por un servicio.')} class="mt-6 inline-flex items-center gap-2 text-ink font-semibold border-b-2 border-ink pb-0.5 hover:gap-3 transition-all" target="_blank" rel="noopener">
-          Consultar ahora <Icon name="lucide:arrow-up-right" class="w-4 h-4" />
+        <a href={waLink({ source: 'services-intro' })} class="mt-6 inline-flex items-center gap-2 text-ink font-semibold border-b-2 border-ink pb-0.5 hover:gap-3 transition-all" target="_blank" rel="noopener" data-track="cta:services-intro:whatsapp">
+          {cta.primary} <Icon name="lucide:arrow-up-right" class="w-4 h-4" />
         </a>
       </div>
     </div>

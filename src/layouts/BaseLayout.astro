@@ -24,6 +24,9 @@ const {
 
 const fullTitle = title === site.name ? title : `${title} · ${site.shortName}`;
 
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+const plausibleSrc = import.meta.env.PUBLIC_PLAUSIBLE_SRC || 'https://plausible.io/js/script.js';
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Plumber',
@@ -86,6 +89,13 @@ const jsonLd = {
     />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    {plausibleDomain && (
+      <>
+        <script defer data-domain={plausibleDomain} src={plausibleSrc}></script>
+        <script is:inline set:html={`window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}`} />
+      </>
+    )}
   </head>
   <body class="overflow-x-hidden">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:px-3 focus:py-2 focus:rounded focus:shadow">

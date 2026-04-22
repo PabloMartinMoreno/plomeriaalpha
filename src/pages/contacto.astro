@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import AfterContact from '../components/AfterContact.astro';
+import Contact from '../components/Contact.astro';
+---
+<BaseLayout title="Contacto" description="Agendá tu visita o consulta con Plomería Alpha.">
+  <Header />
+  <main id="main">
+    <div class="pt-20"></div>
+    <Contact />
+    <AfterContact />
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>

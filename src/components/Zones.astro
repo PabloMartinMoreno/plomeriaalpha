@@ -29,7 +29,7 @@ import { site, waLink, zones } from '../data/site';
           Operamos de lunes a sábado en toda la zona norte del conurbano. Urgencias también domingos.
         </p>
 
-        <a href={waLink('Hola, ¿llegan hasta mi zona?')} class="mt-8 inline-flex items-center gap-2 text-ink font-semibold border-b-2 border-ink pb-0.5 hover:gap-3 transition-all" target="_blank" rel="noopener">
+        <a href={waLink({ notes: '¿llegan hasta mi zona?', source: 'zones-ask' })} class="mt-8 inline-flex items-center gap-2 text-ink font-semibold border-b-2 border-ink pb-0.5 hover:gap-3 transition-all" target="_blank" rel="noopener" data-track="cta:zones-ask:whatsapp">
           ¿Tu barrio no está en la lista? <Icon name="lucide:arrow-up-right" class="w-4 h-4" />
         </a>
 

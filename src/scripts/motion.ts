@@ -267,6 +267,29 @@ function initOpenNow() {
 function initContactForm() {
   const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
   if (!form) return;
+
+  // pre-fill from URL params (?servicio=gas, ?zona=martinez, ?detalle=…)
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const servicioSlug = params.get('servicio');
+    const zonaSlug = params.get('zona');
+    const detalle = params.get('detalle');
+    const msgInput = form.querySelector<HTMLTextAreaElement>('[name="message"]');
+    const areaInput = form.querySelector<HTMLInputElement>('[name="area"]');
+    if (servicioSlug && msgInput && !msgInput.value) {
+      const pretty = servicioSlug.replace(/-/g, ' ');
+      msgInput.value = `Necesito ${pretty}.${detalle ? ` ${detalle}` : ''}`;
+    } else if (detalle && msgInput && !msgInput.value) {
+      msgInput.value = detalle;
+    }
+    if (zonaSlug && areaInput && !areaInput.value) {
+      areaInput.value = zonaSlug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    }
+    if (servicioSlug || zonaSlug) {
+      const anchor = form.closest('#contacto') as HTMLElement | null;
+      anchor?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  } catch {}
   const status = form.querySelector<HTMLElement>('[data-form-status]');
   const setStatus = (msg: string, ok: boolean) => {
     if (!status) return;
@@ -301,6 +324,91 @@ function initContactForm() {
   });
 }
 
+// ─────────────────────────────────────────────── quick wizard
+function initQuickWizard() {
+  const root = document.querySelector<HTMLElement>('[data-wizard]');
+  if (!root) return;
+  const phone = root.dataset.phone;
+  if (!phone) return;
+  const state: { service?: string; serviceSlug?: string; zone?: string; zoneSlug?: string; urgency?: 'urgencia' | 'programado'; notes?: string } = {};
+  let step = 1;
+
+  const slots = [1, 2, 3].map((n) => root.querySelector<HTMLElement>(`[data-wizard-slot="${n}"]`));
+  const bars = [1, 2, 3].map((n) => root.querySelector<HTMLElement>(`[data-wizard-bar="${n}"]`));
+  const label = root.querySelector<HTMLElement>('[data-wizard-step-label]');
+  const back = root.querySelector<HTMLButtonElement>('[data-wizard-back]');
+  const reset = root.querySelector<HTMLButtonElement>('[data-wizard-reset]');
+  const notes = root.querySelector<HTMLTextAreaElement>('[data-wizard-notes]');
+
+  const render = () => {
+    slots.forEach((s, i) => s?.classList.toggle('hidden', i + 1 !== step));
+    bars.forEach((b, i) => {
+      if (!b) return;
+      b.classList.toggle('bg-ink', i + 1 <= step);
+      b.classList.toggle('bg-slate-200', i + 1 > step);
+    });
+    if (label) label.textContent = `Paso ${step} de 3`;
+    if (back) {
+      back.classList.toggle('hidden', step === 1);
+      back.classList.toggle('inline-flex', step > 1);
+    }
+    if (reset) {
+      reset.classList.toggle('hidden', step === 1);
+      reset.classList.toggle('inline-flex', step > 1);
+    }
+  };
+
+  root.addEventListener('click', (e) => {
+    const t = (e.target as HTMLElement).closest<HTMLElement>('[data-wizard-option]');
+    if (!t) return;
+    const kind = t.dataset.wizardOption;
+    const value = t.dataset.value;
+    const slug = t.dataset.slug;
+    if (kind === 'service' && value) { state.service = value; state.serviceSlug = slug; step = 2; }
+    else if (kind === 'zone' && value) { state.zone = value; state.zoneSlug = slug; step = 3; }
+    else if (kind === 'urgency' && (value === 'urgencia' || value === 'programado')) { state.urgency = value; }
+    render();
+    if (kind === 'urgency') {
+      root.querySelectorAll<HTMLElement>('[data-wizard-option="urgency"]').forEach((b) => {
+        b.style.borderColor = b.dataset.value === state.urgency
+          ? (state.urgency === 'urgencia' ? 'rgb(245 158 11)' : 'rgb(11 18 32)')
+          : '';
+      });
+    }
+  });
+
+  back?.addEventListener('click', () => { if (step > 1) { step -= 1; render(); } });
+  reset?.addEventListener('click', () => { step = 1; state.service = state.zone = state.urgency = state.notes = undefined; state.serviceSlug = state.zoneSlug = undefined; if (notes) notes.value = ''; render(); });
+
+  root.querySelector<HTMLButtonElement>('[data-wizard-submit]')?.addEventListener('click', () => {
+    state.notes = notes?.value.trim() || undefined;
+    const lines = ['Hola, consulta desde la web:'];
+    if (state.service) lines.push(`· Servicio: ${state.service}`);
+    if (state.zone) lines.push(`· Zona: ${state.zone}`);
+    if (state.urgency) lines.push(`· Tipo: ${state.urgency === 'urgencia' ? 'Urgencia' : 'Programado'}`);
+    if (state.notes) lines.push(`· Detalle: ${state.notes}`);
+    const msg = encodeURIComponent(lines.join('\n'));
+    const url = `https://wa.me/${phone}?text=${msg}&utm_source=web&utm_content=wizard`;
+    window.dispatchEvent(new CustomEvent('track', { detail: { event: 'cta:wizard:whatsapp', state } }));
+    window.open(url, '_blank', 'noopener');
+  });
+
+  render();
+}
+
+// ─────────────────────────────────────────────── CTA event tracking
+function initTrackCTAs() {
+  document.addEventListener('click', (e) => {
+    const el = (e.target as HTMLElement).closest<HTMLElement>('[data-track]');
+    if (!el) return;
+    const name = el.dataset.track;
+    if (!name) return;
+    const plausible = (window as any).plausible;
+    if (typeof plausible === 'function') plausible(name, { props: { href: (el as HTMLAnchorElement).href || '' } });
+    window.dispatchEvent(new CustomEvent('track', { detail: { event: name } }));
+  });
+}
+
 // ─────────────────────────────────────────────── boot
 function boot() {
   initReveal();
@@ -311,6 +419,8 @@ function boot() {
   initSmoothAnchor();
   initOpenNow();
   initContactForm();
+  initQuickWizard();
+  initTrackCTAs();
   if (!isReduced) {
     initSplitText();
     initParallax();
