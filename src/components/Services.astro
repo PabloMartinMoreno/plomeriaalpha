@@ -1,0 +1,49 @@
+---
+import { Icon } from 'astro-icon/components';
+import { waLink } from '../data/site';
+
+const services = [
+  { icon: 'lucide:droplets', title: 'Destapaciones', desc: 'Piletas, inodoros, rejillas y cañerías obstruidas. Equipo de desobstrucción profesional.' },
+  { icon: 'lucide:waves', title: 'Pérdidas y filtraciones', desc: 'Detección sin romper, reparación de caños rotos y humedades.' },
+  { icon: 'lucide:flame', title: 'Gas domiciliario', desc: 'Instalación, reparación y pruebas de hermeticidad. Matrícula vigente.' },
+  { icon: 'lucide:thermometer', title: 'Termotanques y calefones', desc: 'Instalación, service, cambio de ánodo, resistencias y válvulas.' },
+  { icon: 'lucide:bath', title: 'Baños y cocinas', desc: 'Griferías, rejillas, inodoros, bachas, desagües y mesadas.' },
+  { icon: 'lucide:pipette', title: 'Cloacas y desagües', desc: 'Desobstrucción, cámaras sépticas, reparación de cañerías principales.' },
+  { icon: 'lucide:house', title: 'Obra nueva y refacción', desc: 'Cañerías completas, montaje de sanitarios y coordinación con obra.' },
+  { icon: 'lucide:zap', title: 'Urgencias 24/7', desc: 'Atención inmediata en inundaciones, roturas y fugas fuera de horario.' },
+];
+---
+<section id="servicios" class="section bg-white">
+  <div class="container-x">
+    <div class="max-w-3xl">
+      <span class="chip">
+        <Icon name="lucide:sparkles" class="w-3.5 h-3.5 text-brand-600" />
+        Servicios
+      </span>
+      <h2 class="section-title mt-3">Todo lo que puede fallar, lo reparamos.</h2>
+      <p class="section-subtitle">
+        Trabajos residenciales y comerciales en Zona Norte. Presupuesto sin cargo antes de arrancar.
+      </p>
+    </div>
+
+    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {services.map((s) => (
+        <article class="card group">
+          <div class="grid place-items-center w-11 h-11 rounded-xl bg-brand-50 text-brand-700 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+            <Icon name={s.icon} class="w-5 h-5" />
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-slate-900">{s.title}</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">{s.desc}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-10 flex flex-wrap items-center gap-4">
+      <a href={waLink('Hola Jonatan, quería consultar por un servicio.')} class="btn-primary" target="_blank" rel="noopener">
+        <Icon name="lucide:message-circle" class="w-5 h-5" />
+        Consultar por mi caso
+      </a>
+      <p class="text-sm text-slate-500">Respondemos en minutos en horario laboral.</p>
+    </div>
+  </div>
+</section>

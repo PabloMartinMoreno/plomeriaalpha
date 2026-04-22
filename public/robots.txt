@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://plomerojonatanreyes.com.ar/sitemap-index.xml

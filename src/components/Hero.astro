@@ -1,0 +1,89 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site, waLink, telLink } from '../data/site';
+
+const trust = [
+  { icon: 'lucide:shield-check', label: 'Matriculado' },
+  { icon: 'lucide:clock', label: 'Respuesta en el día' },
+  { icon: 'lucide:receipt', label: 'Presupuesto sin cargo' },
+  { icon: 'lucide:badge-check', label: 'Trabajo con garantía' },
+];
+---
+<section class="relative overflow-hidden bg-gradient-to-b from-brand-50 via-white to-white">
+  <div aria-hidden="true" class="absolute inset-0 -z-10">
+    <div class="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-brand-200/40 blur-3xl"></div>
+    <div class="absolute top-40 -left-16 h-80 w-80 rounded-full bg-accent-500/10 blur-3xl"></div>
+  </div>
+
+  <div class="container-x pt-14 pb-20 sm:pt-20 sm:pb-28 lg:pt-28 lg:pb-32">
+    <div class="grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7">
+        <span class="chip bg-white">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-500 opacity-75"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-accent-600"></span>
+          </span>
+          Urgencias 24/7 · Zona Norte GBA
+        </span>
+
+        <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900">
+          Plomero matriculado en <span class="text-brand-700">Zona Norte</span>.
+          <span class="block text-slate-700 font-semibold text-2xl sm:text-3xl lg:text-4xl mt-3">
+            Resolvemos la pérdida hoy.
+          </span>
+        </h1>
+
+        <p class="mt-6 max-w-xl text-lg text-slate-600">
+          {site.owner.name} — más de una década tapando fugas, desagotando cloacas y salvando termotanques
+          en Vicente López, San Isidro, Tigre y alrededores. Presupuesto sin cargo y trabajo con garantía.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={waLink()} class="btn-whatsapp" target="_blank" rel="noopener">
+            <Icon name="lucide:message-circle" class="w-5 h-5" />
+            Pedir por WhatsApp
+          </a>
+          <a href={telLink} class="btn-outline">
+            <Icon name="lucide:phone" class="w-5 h-5" />
+            {site.contact.phoneDisplay}
+          </a>
+        </div>
+
+        <ul class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
+          {trust.map((t) => (
+            <li class="flex items-center gap-2 text-sm text-slate-700">
+              <span class="grid place-items-center w-8 h-8 rounded-lg bg-brand-100 text-brand-700">
+                <Icon name={t.icon} class="w-4 h-4" />
+              </span>
+              {t.label}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="relative aspect-[4/5] w-full max-w-md mx-auto">
+          <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-brand-600 to-brand-800 shadow-2xl shadow-brand-900/20 rotate-2"></div>
+          <div class="absolute inset-0 rounded-3xl bg-white border border-slate-200 overflow-hidden -rotate-1">
+            <div class="h-full w-full grid place-items-center bg-gradient-to-br from-slate-100 to-slate-200 text-slate-400">
+              <div class="text-center p-6">
+                <Icon name="lucide:image" class="w-16 h-16 mx-auto mb-3 opacity-60" />
+                <p class="text-sm">Foto de {site.owner.name}</p>
+                <p class="text-xs opacity-70 mt-1">(reemplazar /public/jonatan.jpg)</p>
+              </div>
+            </div>
+          </div>
+          <div class="absolute -bottom-4 -left-4 rounded-2xl bg-white shadow-xl border border-slate-200 px-4 py-3 flex items-center gap-3">
+            <div class="grid place-items-center w-10 h-10 rounded-full bg-accent-500/10 text-accent-700">
+              <Icon name="lucide:star" class="w-5 h-5 fill-current" />
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-slate-900">+500 clientes</p>
+              <p class="text-xs text-slate-500">en Zona Norte</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
