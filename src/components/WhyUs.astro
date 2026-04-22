@@ -2,61 +2,51 @@
 import { Icon } from 'astro-icon/components';
 
 const reasons = [
-  {
-    icon: 'lucide:shield-check',
-    title: 'Matriculado y habilitado',
-    desc: 'Plomero matriculado con trabajos de gas aprobados por Metrogas. Vas tranquilo.',
-  },
-  {
-    icon: 'lucide:timer',
-    title: 'Llegamos el mismo día',
-    desc: 'Para urgencias en Zona Norte, tenemos protocolos de respuesta bajo 2 horas.',
-  },
-  {
-    icon: 'lucide:file-check-2',
-    title: 'Presupuesto sin cargo',
-    desc: 'Diagnóstico, presupuesto por escrito y sin letra chica. Sin sorpresas.',
-  },
-  {
-    icon: 'lucide:handshake',
-    title: 'Trato profesional',
-    desc: 'Limpieza del lugar, respeto de tiempos y comunicación clara del trabajo.',
-  },
-  {
-    icon: 'lucide:badge-check',
-    title: 'Garantía escrita',
-    desc: 'Todos los trabajos incluyen garantía sobre mano de obra y materiales utilizados.',
-  },
-  {
-    icon: 'lucide:credit-card',
-    title: 'Pago flexible',
-    desc: 'Efectivo, transferencia, MercadoPago y Cuenta DNI. Facturas A o B.',
-  },
+  { icon: 'lucide:shield-check', title: 'Matriculado', desc: 'Plomero matriculado con trabajos de gas aprobados. Vas tranquilo.', tone: 'brand' },
+  { icon: 'lucide:timer',        title: 'Mismo día', desc: 'Protocolos de respuesta bajo 2 horas para urgencias en Zona Norte.' },
+  { icon: 'lucide:file-check-2', title: 'Presupuesto claro', desc: 'Por escrito, sin letra chica y sin sorpresas al facturar.' },
+  { icon: 'lucide:handshake',    title: 'Trato profesional', desc: 'Limpieza del lugar, respeto de tiempos y comunicación transparente.' },
+  { icon: 'lucide:badge-check',  title: 'Garantía escrita', desc: 'Mano de obra y materiales con garantía. Si falla, volvemos.', tone: 'accent' },
+  { icon: 'lucide:credit-card',  title: 'Pago flexible', desc: 'Efectivo, transferencia, MercadoPago y Cuenta DNI. Factura A o B.' },
 ];
 ---
-<section id="por-que" class="section bg-slate-50">
+<section id="por-que" class="section bg-white">
   <div class="container-x">
-    <div class="max-w-3xl">
-      <span class="chip bg-white">
-        <Icon name="lucide:thumbs-up" class="w-3.5 h-3.5 text-brand-600" />
-        Por qué elegirnos
-      </span>
-      <h2 class="section-title mt-3">Un plomero de confianza en Zona Norte.</h2>
-      <p class="section-subtitle">
-        Construimos la reputación cliente por cliente. Estas son las razones por las que vuelven a llamarnos.
+    <div class="max-w-3xl reveal">
+      <span class="eyebrow"><Icon name="lucide:star" class="w-3.5 h-3.5" />Por qué elegirnos</span>
+      <h2 class="display-sm mt-5">
+        Un plomero de
+        <span class="italic-display text-brand-700">confianza</span>.
+      </h2>
+      <p class="mt-5 text-lg text-slate-600 max-w-xl">
+        Construimos la reputación cliente por cliente. Estas son las razones por las que nos recomiendan.
       </p>
     </div>
 
-    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      {reasons.map((r) => (
-        <article class="card">
-          <div class="grid place-items-center w-12 h-12 rounded-xl bg-brand-600 text-white">
-            <Icon name={r.icon} class="w-6 h-6" />
-          </div>
-          <h3 class="mt-4 text-lg font-semibold text-slate-900">{r.title}</h3>
-          <p class="mt-2 text-sm text-slate-600 leading-relaxed">{r.desc}</p>
-        </article>
-      ))}
+    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {reasons.map((r) => {
+        const toneClass =
+          r.tone === 'brand' ? 'bg-brand-600 text-white border-brand-600' :
+          r.tone === 'accent' ? 'bg-accent-500 text-ink border-accent-500' :
+          'bg-white text-ink';
+        const iconBg =
+          r.tone === 'brand' ? 'bg-white/10 text-white' :
+          r.tone === 'accent' ? 'bg-ink/10 text-ink' :
+          'bg-brand-50 text-brand-700';
+        const descColor =
+          r.tone === 'brand' ? 'text-white/80' :
+          r.tone === 'accent' ? 'text-ink/75' :
+          'text-slate-600';
+        return (
+          <article class={`reveal card ${toneClass}`}>
+            <div class={`grid place-items-center w-12 h-12 rounded-xl ${iconBg}`}>
+              <Icon name={r.icon} class="w-6 h-6" />
+            </div>
+            <h3 class="mt-6 text-xl font-semibold">{r.title}</h3>
+            <p class={`mt-2 text-sm leading-relaxed ${descColor}`}>{r.desc}</p>
+          </article>
+        );
+      })}
     </div>
   </div>
 </section>

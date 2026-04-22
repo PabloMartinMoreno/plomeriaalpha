@@ -1,0 +1,45 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const steps = [
+  { n: '01', icon: 'lucide:message-circle', title: 'Escribinos', desc: 'Contanos el problema por WhatsApp con una foto o video si podés.' },
+  { n: '02', icon: 'lucide:clipboard-check', title: 'Presupuesto', desc: 'Te damos una estimación aproximada o coordinamos visita sin cargo.' },
+  { n: '03', icon: 'lucide:hard-hat', title: 'Resolvemos', desc: 'Llegamos puntual, trabajamos limpio y te explicamos cada paso.' },
+  { n: '04', icon: 'lucide:shield-check', title: 'Garantía', desc: 'Entrega con comprobante y garantía escrita sobre el trabajo hecho.' },
+];
+---
+<section id="proceso" class="section bg-ink text-white grain relative overflow-hidden">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-0">
+    <div class="absolute top-0 right-0 h-[400px] w-[400px] rounded-full bg-brand-500/20 blur-[120px]"></div>
+    <div class="absolute bottom-0 left-0 h-[300px] w-[300px] rounded-full bg-accent-500/15 blur-[100px]"></div>
+  </div>
+
+  <div class="container-x relative">
+    <div class="max-w-3xl reveal">
+      <span class="eyebrow-dark"><Icon name="lucide:route" class="w-3.5 h-3.5" />Cómo trabajamos</span>
+      <h2 class="display-sm mt-5 text-white">
+        Cuatro pasos,
+        <span class="italic-display text-accent-400">cero sorpresas</span>.
+      </h2>
+      <p class="mt-5 text-lg text-white/70 max-w-xl">
+        Una forma de trabajar simple, transparente y pensada para que sepas exactamente qué va a pasar antes, durante y después.
+      </p>
+    </div>
+
+    <ol class="mt-14 grid md:grid-cols-2 lg:grid-cols-4 gap-4 relative">
+      <div aria-hidden="true" class="hidden lg:block absolute top-8 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      {steps.map((s) => (
+        <li class="reveal card-dark relative">
+          <div class="flex items-center justify-between">
+            <span class="grid place-items-center w-10 h-10 rounded-lg bg-white/10 text-white">
+              <Icon name={s.icon} class="w-5 h-5" />
+            </span>
+            <span class="font-mono text-xs text-white/40">{s.n}</span>
+          </div>
+          <h3 class="mt-6 text-lg font-semibold text-white">{s.title}</h3>
+          <p class="mt-2 text-sm text-white/65 leading-relaxed">{s.desc}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

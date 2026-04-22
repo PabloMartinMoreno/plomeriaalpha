@@ -1,63 +1,177 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50:  #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-200: #bfdbfe;
-  --color-brand-300: #93c5fd;
-  --color-brand-400: #60a5fa;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
-  --color-brand-800: #1e40af;
-  --color-brand-900: #1e3a8a;
-  --color-brand-950: #0b1a3a;
+  /* ink / neutrals */
+  --color-ink: #0b1220;
+  --color-ink-soft: #1e293b;
+  --color-muted: #64748b;
 
-  --color-accent-500: #22c55e;
-  --color-accent-600: #16a34a;
-  --color-accent-700: #15803d;
+  /* brand — navy deep + electric blue */
+  --color-brand-50:  #eef4ff;
+  --color-brand-100: #dbe6ff;
+  --color-brand-200: #b8cfff;
+  --color-brand-300: #8bb0ff;
+  --color-brand-400: #5c8bff;
+  --color-brand-500: #3b6bff;
+  --color-brand-600: #2a4fdb;
+  --color-brand-700: #1f3cab;
+  --color-brand-800: #17307f;
+  --color-brand-900: #0f1f55;
+  --color-brand-950: #0a1538;
+
+  /* accent — warm amber for CTAs secundarios */
+  --color-accent-300: #fcd34d;
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+  --color-accent-700: #b45309;
+
+  /* success = WhatsApp */
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
 
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --shadow-brand: 0 20px 60px -15px rgb(42 79 219 / 0.35);
+  --shadow-glow: 0 0 0 1px rgb(255 255 255 / 0.05), 0 30px 60px -30px rgb(0 0 0 / 0.5);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
-  html { scroll-behavior: smooth; }
-  body {
-    @apply bg-white text-slate-800 antialiased;
-    font-feature-settings: "cv11", "ss01";
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
   }
-  h1, h2, h3, h4 { @apply font-display tracking-tight text-slate-900; }
-  :focus-visible { @apply outline-2 outline-offset-2 outline-brand-600 rounded-sm; }
+  body {
+    @apply bg-white text-slate-700 antialiased selection:bg-brand-600 selection:text-white;
+    font-feature-settings: "cv11", "ss01", "ss03";
+  }
+  h1, h2, h3, h4, h5 { @apply tracking-tight text-ink; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.02em; }
+  :focus-visible { outline: 2px solid var(--color-brand-600); outline-offset: 3px; border-radius: 4px; }
 }
 
 @layer components {
-  .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
+  .container-x { @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10; }
+  .container-narrow { @apply mx-auto w-full max-w-5xl px-5 sm:px-8; }
 
   .btn-primary,
   .btn-whatsapp,
   .btn-outline,
-  .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 font-medium
-           transition-all duration-200 focus-visible:outline-offset-4
-           motion-safe:hover:-translate-y-0.5 active:translate-y-0;
+  .btn-ghost,
+  .btn-dark {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold
+           transition-all duration-300 whitespace-nowrap;
+    transition-timing-function: var(--ease-out-expo);
   }
-  .btn-primary  { @apply bg-brand-600 text-white shadow-lg shadow-brand-600/20 hover:bg-brand-700; }
-  .btn-whatsapp { @apply bg-accent-600 text-white shadow-lg shadow-accent-600/25 hover:bg-accent-700; }
-  .btn-outline  { @apply border border-slate-300 bg-white text-slate-800 hover:border-brand-600 hover:text-brand-700; }
+  .btn-primary  { @apply bg-brand-600 text-white hover:bg-brand-700 motion-safe:hover:-translate-y-0.5; box-shadow: var(--shadow-brand); }
+  .btn-whatsapp { @apply bg-success-600 text-white hover:bg-success-700 motion-safe:hover:-translate-y-0.5 shadow-lg shadow-success-600/30; }
+  .btn-outline  { @apply border border-slate-300 bg-white text-ink hover:border-ink hover:bg-ink hover:text-white; }
   .btn-ghost    { @apply bg-transparent text-slate-700 hover:bg-slate-100; }
+  .btn-dark     { @apply bg-ink text-white hover:bg-brand-700 motion-safe:hover:-translate-y-0.5; }
 
-  .section { @apply py-16 sm:py-20 lg:py-24; }
-  .section-title { @apply text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight; }
-  .section-subtitle { @apply mt-4 text-base sm:text-lg text-slate-600 max-w-2xl; }
+  .section { @apply py-20 sm:py-28 lg:py-32; }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1
+           text-xs font-semibold uppercase tracking-[0.12em] text-slate-600;
+  }
+  .eyebrow-dark {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1
+           text-xs font-semibold uppercase tracking-[0.12em] text-white/80 backdrop-blur;
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+  }
+  .display-sm {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+  }
+
+  .italic-display { font-family: var(--font-display); font-style: italic; font-weight: 300; }
 
   .card {
-    @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-sm
-           transition-all duration-200 hover:shadow-md hover:border-brand-200;
+    @apply relative rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-500;
+    transition-timing-function: var(--ease-out-expo);
+  }
+  .card:hover { @apply -translate-y-1 border-ink shadow-xl shadow-ink/5; }
+
+  .card-dark {
+    @apply relative rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm
+           transition-all duration-500;
+    transition-timing-function: var(--ease-out-expo);
+  }
+  .card-dark:hover { @apply -translate-y-1 border-white/25 bg-white/[0.06]; }
+
+  .gradient-border {
+    position: relative;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+  .gradient-border::before {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: inherit; padding: 1px;
+    background: linear-gradient(135deg, var(--color-brand-500), transparent 40%, var(--color-accent-500));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0; transition: opacity 400ms var(--ease-out-expo);
+  }
+  .gradient-border:hover::before { opacity: 1; }
+
+  .grain {
+    position: relative; isolation: isolate;
+  }
+  .grain::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: -1;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.5; mix-blend-mode: overlay;
   }
 
-  .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-slate-200
-           bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700;
+  .ring-dot {
+    @apply inline-flex h-2 w-2 rounded-full bg-success-500 relative;
   }
+  .ring-dot::before {
+    content: ""; position: absolute; inset: -3px; border-radius: 9999px;
+    background: var(--color-success-500); opacity: .4;
+    animation: ringDot 2s var(--ease-out-expo) infinite;
+  }
+
+  @keyframes ringDot { 0% { transform: scale(0.5); opacity: .6; } 100% { transform: scale(2); opacity: 0; } }
+
+  .marquee-track {
+    animation: marquee 40s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease-out-expo), transform .8s var(--ease-out-expo); }
+  .reveal.is-visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* animated orb for hero */
+  .orb {
+    background: conic-gradient(from 180deg at 50% 50%,
+      var(--color-brand-500), var(--color-accent-500), var(--color-brand-700), var(--color-brand-500));
+    filter: blur(80px);
+    animation: orbSpin 20s linear infinite;
+  }
+  @keyframes orbSpin { to { transform: rotate(360deg); } }
 }

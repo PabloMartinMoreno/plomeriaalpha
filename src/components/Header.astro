@@ -4,37 +4,40 @@ import { site, waLink, telLink } from '../data/site';
 
 const nav = [
   { href: '#servicios', label: 'Servicios' },
+  { href: '#proceso', label: 'Proceso' },
   { href: '#zonas', label: 'Zonas' },
-  { href: '#por-que', label: 'Por qué elegirnos' },
   { href: '#contacto', label: 'Contacto' },
 ];
 ---
-<header class="sticky top-0 z-40 w-full border-b border-slate-200/70 bg-white/80 backdrop-blur-md">
-  <div class="container-x flex h-16 items-center justify-between gap-4">
-    <a href="/" class="flex items-center gap-2 font-bold text-slate-900" aria-label={site.shortName}>
-      <span class="grid place-items-center w-9 h-9 rounded-lg bg-brand-600 text-white">
-        <Icon name="lucide:wrench" class="w-5 h-5" />
+<header class="sticky top-0 z-40 w-full border-b border-slate-200/60 bg-white/70 backdrop-blur-xl">
+  <div class="container-x flex h-16 sm:h-18 items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-2.5 font-semibold text-ink" aria-label={site.shortName}>
+      <span class="grid place-items-center w-9 h-9 rounded-xl bg-ink text-white">
+        <Icon name="lucide:droplet" class="w-[18px] h-[18px]" />
       </span>
-      <span class="hidden sm:inline">{site.owner.name}</span>
-      <span class="hidden md:inline text-slate-400 font-normal">· Plomería</span>
+      <span class="flex flex-col leading-none">
+        <span class="text-[15px] tracking-tight">{site.owner.name}</span>
+        <span class="text-[10px] uppercase tracking-[0.18em] text-slate-500 mt-0.5">Plomería · Zona Norte</span>
+      </span>
     </a>
 
     <nav class="hidden md:flex items-center gap-1" aria-label="Principal">
       {nav.map((item) => (
-        <a href={item.href} class="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition">
+        <a href={item.href} class="rounded-full px-4 py-2 text-sm font-medium text-slate-600 hover:text-ink hover:bg-slate-100 transition-colors">
           {item.label}
         </a>
       ))}
     </nav>
 
     <div class="flex items-center gap-2">
-      <a href={telLink} class="btn-ghost hidden sm:inline-flex text-sm" aria-label={`Llamar al ${site.contact.phoneDisplay}`}>
+      <a href={telLink} class="hidden sm:inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-slate-700 hover:text-ink hover:bg-slate-100 transition" aria-label={`Llamar al ${site.contact.phoneDisplay}`}>
         <Icon name="lucide:phone" class="w-4 h-4" />
         <span class="hidden lg:inline">{site.contact.phoneDisplay}</span>
       </a>
-      <a href={waLink()} class="btn-whatsapp text-sm px-4 py-2" target="_blank" rel="noopener">
+      <a href={waLink()} class="btn-dark !py-2 !px-4 text-[13px]" target="_blank" rel="noopener">
         <Icon name="lucide:message-circle" class="w-4 h-4" />
-        <span class="hidden sm:inline">WhatsApp</span>
+        <span class="hidden sm:inline">Contactar</span>
+        <Icon name="lucide:arrow-up-right" class="w-4 h-4 -mr-1" />
       </a>
     </div>
   </div>

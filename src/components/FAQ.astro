@@ -2,30 +2,12 @@
 import { Icon } from 'astro-icon/components';
 
 const faqs = [
-  {
-    q: '¿Cobran por el presupuesto o la visita?',
-    a: 'No. El diagnóstico y presupuesto son sin cargo. Solo cobramos cuando aprobás el trabajo.',
-  },
-  {
-    q: '¿Cuánto tardan en llegar?',
-    a: 'En Zona Norte, para urgencias, el objetivo es llegar en menos de 2 horas. Para trabajos coordinados, agendamos día y horario fijos.',
-  },
-  {
-    q: '¿Hacen trabajos de gas?',
-    a: 'Sí. Jonatan es plomero matriculado y firma los trabajos de gas con pruebas de hermeticidad aprobadas.',
-  },
-  {
-    q: '¿Qué formas de pago aceptan?',
-    a: 'Efectivo, transferencia, MercadoPago, débito y Cuenta DNI. Emitimos factura A o B según corresponda.',
-  },
-  {
-    q: '¿Los trabajos tienen garantía?',
-    a: 'Sí, todos nuestros trabajos incluyen garantía escrita sobre mano de obra y materiales.',
-  },
-  {
-    q: '¿Atienden fines de semana?',
-    a: 'Sí, sábados en horario normal y domingos solo urgencias. Las urgencias tienen un adicional razonable.',
-  },
+  { q: '¿Cobran por el presupuesto o la visita?', a: 'No. El diagnóstico y presupuesto son sin cargo. Solo cobramos cuando aprobás el trabajo.' },
+  { q: '¿Cuánto tardan en llegar?', a: 'Para urgencias en Zona Norte, el objetivo es menos de 2 horas. Para trabajos coordinados, agendamos día y horario fijo.' },
+  { q: '¿Hacen trabajos de gas?', a: 'Sí. Plomero matriculado con pruebas de hermeticidad aprobadas. Firmamos trámites ante la distribuidora.' },
+  { q: '¿Qué formas de pago aceptan?', a: 'Efectivo, transferencia, MercadoPago, débito y Cuenta DNI. Emitimos factura A o B según corresponda.' },
+  { q: '¿Los trabajos tienen garantía?', a: 'Sí, todos los trabajos incluyen garantía escrita sobre mano de obra y materiales.' },
+  { q: '¿Atienden fines de semana?', a: 'Sábados en horario normal; domingos solo urgencias. Las urgencias tienen un adicional razonable.' },
 ];
 
 const faqJsonLd = {
@@ -38,27 +20,32 @@ const faqJsonLd = {
   })),
 };
 ---
-<section class="section bg-white">
-  <div class="container-x">
-    <div class="max-w-3xl mx-auto text-center">
-      <span class="chip">
-        <Icon name="lucide:circle-help" class="w-3.5 h-3.5 text-brand-600" />
-        Preguntas frecuentes
-      </span>
-      <h2 class="section-title mt-3">Dudas habituales.</h2>
+<section class="section bg-slate-50">
+  <div class="container-narrow">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="eyebrow"><Icon name="lucide:circle-help" class="w-3.5 h-3.5" />Preguntas frecuentes</span>
+      <h2 class="display-sm mt-5">
+        Dudas
+        <span class="italic-display text-brand-700">habituales</span>.
+      </h2>
     </div>
 
-    <div class="mt-12 max-w-3xl mx-auto divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white shadow-sm">
-      {faqs.map((item) => (
-        <details class="group px-6 py-5">
-          <summary class="flex cursor-pointer items-center justify-between gap-4 list-none">
-            <h3 class="font-semibold text-slate-900">{item.q}</h3>
-            <span class="shrink-0 grid place-items-center w-8 h-8 rounded-full bg-slate-100 text-slate-600 group-open:bg-brand-600 group-open:text-white transition">
+    <div class="mt-14 space-y-3">
+      {faqs.map((item, i) => (
+        <details class="reveal group rounded-2xl border border-slate-200 bg-white open:border-ink open:shadow-lg open:shadow-ink/5 transition-all duration-300 overflow-hidden">
+          <summary class="flex cursor-pointer items-center justify-between gap-6 list-none px-6 py-5">
+            <div class="flex items-center gap-4">
+              <span class="font-mono text-xs text-slate-400 group-open:text-brand-600">0{i+1}</span>
+              <h3 class="text-lg font-semibold text-ink">{item.q}</h3>
+            </div>
+            <span class="shrink-0 grid place-items-center w-9 h-9 rounded-full bg-slate-100 text-ink group-open:bg-ink group-open:text-white transition-all">
               <Icon name="lucide:plus" class="w-4 h-4 group-open:hidden" />
               <Icon name="lucide:minus" class="w-4 h-4 hidden group-open:block" />
             </span>
           </summary>
-          <p class="mt-3 text-slate-600 leading-relaxed">{item.a}</p>
+          <div class="px-6 pb-6 pl-[4.25rem]">
+            <p class="text-slate-600 leading-relaxed">{item.a}</p>
+          </div>
         </details>
       ))}
     </div>

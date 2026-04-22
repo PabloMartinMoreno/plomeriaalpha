@@ -2,98 +2,85 @@
 import { Icon } from 'astro-icon/components';
 import { site, waLink, telLink } from '../data/site';
 ---
-<section id="contacto" class="section bg-slate-900 text-slate-100 relative overflow-hidden">
-  <div aria-hidden="true" class="absolute inset-0 -z-0 opacity-30">
-    <div class="absolute top-0 right-0 h-96 w-96 rounded-full bg-brand-500/30 blur-3xl"></div>
-    <div class="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-accent-500/20 blur-3xl"></div>
+<section id="contacto" class="section bg-ink text-white grain relative overflow-hidden">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-0">
+    <div class="absolute top-10 right-10 h-[500px] w-[500px] rounded-full bg-brand-500/25 blur-[140px]"></div>
+    <div class="absolute bottom-10 left-10 h-[400px] w-[400px] rounded-full bg-accent-500/15 blur-[120px]"></div>
   </div>
 
   <div class="container-x relative">
-    <div class="max-w-3xl">
-      <span class="chip bg-white/10 border-white/20 text-white">
-        <Icon name="lucide:phone-call" class="w-3.5 h-3.5" />
-        Contacto
-      </span>
-      <h2 class="section-title mt-3 text-white">¿Tenés una pérdida? Escribinos ahora.</h2>
-      <p class="section-subtitle text-slate-300">
-        Contanos el problema y te respondemos con presupuesto aproximado o coordinamos una visita.
-      </p>
-    </div>
+    <div class="grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 reveal">
+        <span class="eyebrow-dark"><Icon name="lucide:phone-call" class="w-3.5 h-3.5" />Contacto</span>
+        <h2 class="mt-5 display text-white">
+          ¿Tenés una
+          <span class="italic-display text-accent-400">pérdida</span>?
+          <br/>
+          Escribinos ahora.
+        </h2>
+        <p class="mt-6 text-lg text-white/70 max-w-xl">
+          Contanos el problema con una foto o video y te respondemos con presupuesto aproximado, o coordinamos visita sin cargo.
+        </p>
 
-    <div class="mt-12 grid lg:grid-cols-2 gap-8">
-      <div class="space-y-4">
-        <a href={waLink()} target="_blank" rel="noopener" class="group flex items-center gap-4 p-5 rounded-2xl bg-accent-600 hover:bg-accent-700 transition shadow-xl shadow-black/20">
-          <div class="grid place-items-center w-14 h-14 rounded-xl bg-white/20">
-            <Icon name="lucide:message-circle" class="w-7 h-7" />
-          </div>
-          <div class="flex-1">
-            <p class="text-xs uppercase tracking-wider opacity-80">Más rápido</p>
-            <p class="text-lg font-semibold">WhatsApp</p>
-            <p class="text-sm opacity-90">Respuesta inmediata en horario laboral</p>
-          </div>
-          <Icon name="lucide:arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition" />
-        </a>
-
-        <a href={telLink} class="group flex items-center gap-4 p-5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition">
-          <div class="grid place-items-center w-14 h-14 rounded-xl bg-brand-500/20 text-brand-300">
-            <Icon name="lucide:phone" class="w-7 h-7" />
-          </div>
-          <div class="flex-1">
-            <p class="text-xs uppercase tracking-wider opacity-70">Llamar</p>
-            <p class="text-lg font-semibold">{site.contact.phoneDisplay}</p>
-            <p class="text-sm opacity-80">{site.contact.hours}</p>
-          </div>
-          <Icon name="lucide:arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition" />
-        </a>
-
-        <a href={`mailto:${site.contact.email}`} class="group flex items-center gap-4 p-5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition">
-          <div class="grid place-items-center w-14 h-14 rounded-xl bg-brand-500/20 text-brand-300">
-            <Icon name="lucide:mail" class="w-7 h-7" />
-          </div>
-          <div class="flex-1">
-            <p class="text-xs uppercase tracking-wider opacity-70">Email</p>
-            <p class="text-lg font-semibold break-all">{site.contact.email}</p>
-          </div>
-          <Icon name="lucide:arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition" />
-        </a>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href={waLink()} class="btn-whatsapp" target="_blank" rel="noopener">
+            <Icon name="lucide:message-circle" class="w-5 h-5" />
+            WhatsApp
+            <Icon name="lucide:arrow-up-right" class="w-4 h-4" />
+          </a>
+          <a href={telLink} class="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold border border-white/20 text-white hover:bg-white hover:text-ink transition">
+            <Icon name="lucide:phone" class="w-4 h-4" />
+            {site.contact.phoneDisplay}
+          </a>
+        </div>
       </div>
 
-      <form
-        action="https://formspree.io/f/REEMPLAZAR"
-        method="POST"
-        class="rounded-2xl bg-white text-slate-800 p-6 sm:p-8 shadow-2xl"
-      >
-        <h3 class="text-xl font-semibold text-slate-900">Dejanos tus datos</h3>
-        <p class="text-sm text-slate-500 mt-1">Te contactamos en el día.</p>
+      <div class="lg:col-span-5 reveal">
+        <div class="rounded-3xl bg-white text-slate-800 p-7 sm:p-8 shadow-2xl relative">
+          <div aria-hidden="true" class="absolute -top-3 left-8 right-8 h-3 bg-white/30 rounded-t-3xl blur-sm"></div>
+          <div class="flex items-center gap-3">
+            <span class="grid place-items-center w-10 h-10 rounded-xl bg-ink text-white">
+              <Icon name="lucide:mail" class="w-5 h-5" />
+            </span>
+            <div>
+              <h3 class="text-lg font-semibold text-ink">Dejanos tus datos</h3>
+              <p class="text-sm text-slate-500">Te contactamos en el día.</p>
+            </div>
+          </div>
 
-        <div class="mt-6 space-y-4">
-          <div>
-            <label for="name" class="block text-sm font-medium text-slate-700">Nombre</label>
-            <input id="name" name="name" required class="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-brand-600 focus:ring-1 focus:ring-brand-600 outline-none" />
-          </div>
-          <div class="grid sm:grid-cols-2 gap-4">
+          <form
+            action="https://formspree.io/f/REEMPLAZAR"
+            method="POST"
+            class="mt-6 space-y-4"
+          >
             <div>
-              <label for="phone" class="block text-sm font-medium text-slate-700">Teléfono</label>
-              <input id="phone" name="phone" type="tel" required class="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-brand-600 focus:ring-1 focus:ring-brand-600 outline-none" />
+              <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-slate-500">Nombre</label>
+              <input id="name" name="name" required class="mt-1.5 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm focus:border-ink focus:bg-white focus:ring-0 outline-none transition" />
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="phone" class="block text-xs font-semibold uppercase tracking-wider text-slate-500">Teléfono</label>
+                <input id="phone" name="phone" type="tel" required class="mt-1.5 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm focus:border-ink focus:bg-white outline-none transition" />
+              </div>
+              <div>
+                <label for="area" class="block text-xs font-semibold uppercase tracking-wider text-slate-500">Zona</label>
+                <input id="area" name="area" placeholder="Martínez" class="mt-1.5 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm focus:border-ink focus:bg-white outline-none transition" />
+              </div>
             </div>
             <div>
-              <label for="area" class="block text-sm font-medium text-slate-700">Zona</label>
-              <input id="area" name="area" placeholder="Ej: Martínez" class="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-brand-600 focus:ring-1 focus:ring-brand-600 outline-none" />
+              <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-slate-500">Contanos el problema</label>
+              <textarea id="message" name="message" rows="3" required class="mt-1.5 block w-full rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm focus:border-ink focus:bg-white outline-none transition resize-none"></textarea>
             </div>
-          </div>
-          <div>
-            <label for="message" class="block text-sm font-medium text-slate-700">Contanos el problema</label>
-            <textarea id="message" name="message" rows="4" required class="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-brand-600 focus:ring-1 focus:ring-brand-600 outline-none"></textarea>
-          </div>
-          <button type="submit" class="btn-primary w-full">
-            <Icon name="lucide:send" class="w-4 h-4" />
-            Enviar consulta
-          </button>
-          <p class="text-xs text-slate-500 text-center">
-            Al enviar aceptás ser contactado por Jonatan Reyes Plomería.
-          </p>
+            <button type="submit" class="btn-primary w-full">
+              <Icon name="lucide:send" class="w-4 h-4" />
+              Enviar consulta
+            </button>
+            <p class="text-[11px] text-slate-400 text-center">
+              Al enviar aceptás ser contactado por Jonatan Reyes Plomería.
+            </p>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </section>

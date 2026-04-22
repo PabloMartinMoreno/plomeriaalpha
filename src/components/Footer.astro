@@ -4,56 +4,60 @@ import { site, telLink, waLink } from '../data/site';
 
 const year = new Date().getFullYear();
 ---
-<footer class="bg-slate-950 text-slate-400">
-  <div class="container-x py-12 grid md:grid-cols-3 gap-10">
-    <div>
-      <div class="flex items-center gap-2 text-white font-bold">
-        <span class="grid place-items-center w-9 h-9 rounded-lg bg-brand-600">
-          <Icon name="lucide:wrench" class="w-5 h-5" />
-        </span>
-        {site.shortName}
+<footer class="bg-white border-t border-slate-200 text-slate-600">
+  <div class="container-x py-16">
+    <div class="grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-5">
+        <div class="flex items-center gap-2.5 text-ink font-semibold">
+          <span class="grid place-items-center w-10 h-10 rounded-xl bg-ink text-white">
+            <Icon name="lucide:droplet" class="w-5 h-5" />
+          </span>
+          <span class="flex flex-col leading-none">
+            <span class="text-base">{site.owner.name}</span>
+            <span class="text-[10px] uppercase tracking-[0.18em] text-slate-500 mt-1">Plomería · Zona Norte</span>
+          </span>
+        </div>
+        <p class="mt-5 text-sm leading-relaxed max-w-sm">
+          Plomero matriculado en Zona Norte GBA. Urgencias, gas, pérdidas, termotanques y reparaciones con garantía escrita.
+        </p>
+        <div class="mt-6 flex gap-3">
+          <a href={waLink()} target="_blank" rel="noopener" class="grid place-items-center w-10 h-10 rounded-xl border border-slate-200 hover:bg-ink hover:text-white hover:border-ink transition" aria-label="WhatsApp">
+            <Icon name="lucide:message-circle" class="w-5 h-5" />
+          </a>
+          <a href={site.social.instagram} target="_blank" rel="noopener" class="grid place-items-center w-10 h-10 rounded-xl border border-slate-200 hover:bg-ink hover:text-white hover:border-ink transition" aria-label="Instagram">
+            <Icon name="lucide:instagram" class="w-5 h-5" />
+          </a>
+          <a href={site.social.facebook} target="_blank" rel="noopener" class="grid place-items-center w-10 h-10 rounded-xl border border-slate-200 hover:bg-ink hover:text-white hover:border-ink transition" aria-label="Facebook">
+            <Icon name="lucide:facebook" class="w-5 h-5" />
+          </a>
+        </div>
       </div>
-      <p class="mt-4 text-sm leading-relaxed">
-        Plomero matriculado en Zona Norte GBA. Urgencias, gas, pérdidas y reparaciones.
-      </p>
-    </div>
 
-    <div>
-      <h4 class="text-white font-semibold text-sm uppercase tracking-wider">Contacto</h4>
-      <ul class="mt-4 space-y-2 text-sm">
-        <li>
-          <a href={telLink} class="hover:text-white flex items-center gap-2">
-            <Icon name="lucide:phone" class="w-4 h-4" /> {site.contact.phoneDisplay}
-          </a>
-        </li>
-        <li>
-          <a href={waLink()} target="_blank" rel="noopener" class="hover:text-white flex items-center gap-2">
-            <Icon name="lucide:message-circle" class="w-4 h-4" /> WhatsApp
-          </a>
-        </li>
-        <li>
-          <a href={`mailto:${site.contact.email}`} class="hover:text-white flex items-center gap-2 break-all">
-            <Icon name="lucide:mail" class="w-4 h-4" /> {site.contact.email}
-          </a>
-        </li>
-        <li class="flex items-center gap-2">
-          <Icon name="lucide:clock" class="w-4 h-4" /> {site.contact.hours}
-        </li>
-      </ul>
-    </div>
+      <div class="md:col-span-3">
+        <h4 class="text-ink font-semibold text-sm">Contacto</h4>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li><a href={telLink} class="hover:text-ink flex items-center gap-2"><Icon name="lucide:phone" class="w-4 h-4" /> {site.contact.phoneDisplay}</a></li>
+          <li><a href={waLink()} target="_blank" rel="noopener" class="hover:text-ink flex items-center gap-2"><Icon name="lucide:message-circle" class="w-4 h-4" /> WhatsApp</a></li>
+          <li><a href={`mailto:${site.contact.email}`} class="hover:text-ink flex items-center gap-2 break-all"><Icon name="lucide:mail" class="w-4 h-4" /> {site.contact.email}</a></li>
+          <li class="flex items-center gap-2"><Icon name="lucide:clock" class="w-4 h-4" /> {site.contact.hours}</li>
+        </ul>
+      </div>
 
-    <div>
-      <h4 class="text-white font-semibold text-sm uppercase tracking-wider">Áreas</h4>
-      <p class="mt-4 text-sm leading-relaxed">
-        {site.address.areaServed.join(' · ')}
-      </p>
+      <div class="md:col-span-4">
+        <h4 class="text-ink font-semibold text-sm">Áreas de cobertura</h4>
+        <p class="mt-4 text-sm leading-relaxed">{site.address.areaServed.join(' · ')}</p>
+      </div>
     </div>
   </div>
 
-  <div class="border-t border-slate-800">
-    <div class="container-x py-6 text-xs flex flex-col sm:flex-row items-center justify-between gap-2">
+  <div class="border-t border-slate-200">
+    <div class="container-x py-5 text-xs flex flex-col sm:flex-row items-center justify-between gap-2 text-slate-500">
       <p>© {year} {site.shortName}. Todos los derechos reservados.</p>
-      <p>Sitio desarrollado con Astro.</p>
+      <p class="flex items-center gap-2">
+        <span>Hecho con</span>
+        <Icon name="lucide:heart" class="w-3.5 h-3.5 text-accent-500 fill-current" />
+        <span>en Buenos Aires</span>
+      </p>
     </div>
   </div>
 </footer>
