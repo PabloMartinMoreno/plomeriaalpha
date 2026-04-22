@@ -277,34 +277,6 @@
   [data-split].is-visible .split-word:nth-child(10) .split-inner { transition-delay: 470ms; }
   [data-split].is-visible .split-word:nth-child(n+11) .split-inner { transition-delay: 520ms; }
 
-  /* custom cursor */
-  .cursor-dot, .cursor-ring {
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 100;
-    mix-blend-mode: difference;
-  }
-  .cursor-dot {
-    width: 6px; height: 6px;
-    background: #fff;
-    border-radius: 9999px;
-    transition: opacity 200ms;
-  }
-  .cursor-ring {
-    width: 36px; height: 36px;
-    border: 1px solid rgb(255 255 255 / 0.7);
-    border-radius: 9999px;
-    transition: width 400ms var(--ease-out-expo), height 400ms var(--ease-out-expo), opacity 200ms, border-color 300ms, background 300ms;
-  }
-  .cursor-ring.is-active {
-    width: 60px; height: 60px;
-    background: rgb(255 255 255 / 0.08);
-  }
-  @media (hover: none) {
-    .cursor-dot, .cursor-ring { display: none; }
-  }
-
   /* hero intro */
   [data-hero] .hero-line,
   [data-hero] .hero-stat,

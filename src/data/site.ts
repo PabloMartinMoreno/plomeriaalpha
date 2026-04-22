@@ -1,21 +1,21 @@
 export const site = {
-  name: "Jonatan Reyes — Plomero Matriculado",
-  shortName: "Jonatan Reyes Plomería",
-  tagline: "Plomero matriculado en Zona Norte — urgencias, gas y reparaciones",
+  name: "Plomería Alpha — Zona Norte",
+  shortName: "Plomería Alpha",
+  tagline: "Plomería matriculada en Zona Norte — urgencias, gas y reparaciones",
   description:
-    "Plomero profesional en Zona Norte GBA. Destapaciones, pérdidas, gas, termotanques y reparaciones. Respuesta rápida, presupuesto sin cargo y trabajo con garantía.",
-  url: "https://plomerojonatanreyes.com.ar",
+    "Plomería Alpha: servicio profesional en Zona Norte GBA. Destapaciones, pérdidas, gas, termotanques y reparaciones. Respuesta rápida, presupuesto sin cargo y trabajo con garantía.",
+  url: "https://plomeriaalpha.com.ar",
   locale: "es_AR",
   owner: {
     name: "Jonatan Reyes",
-    role: "Plomero matriculado",
+    role: "Plomero matriculado · Fundador",
   },
   contact: {
     phone: "+54 9 11 0000 0000",
     phoneDisplay: "11 0000-0000",
     whatsapp: "5491100000000",
-    whatsappMessage: "Hola Jonatan, necesito un plomero.",
-    email: "contacto@plomerojonatanreyes.com.ar",
+    whatsappMessage: "Hola, necesito un plomero de Plomería Alpha.",
+    email: "contacto@plomeriaalpha.com.ar",
     hours: "Lunes a Sábado · 8 a 20 hs · Urgencias 24/7",
   },
   address: {

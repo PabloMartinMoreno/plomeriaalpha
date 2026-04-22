@@ -26,54 +26,6 @@ function initScrollProgress() {
   window.addEventListener('resize', update);
 }
 
-// ─────────────────────────────────────────────── custom cursor
-function initCustomCursor() {
-  if (!isFinePointer) return;
-  const dot = document.createElement('div');
-  const ring = document.createElement('div');
-  dot.className = 'cursor-dot';
-  ring.className = 'cursor-ring';
-  document.body.append(dot, ring);
-
-  let mx = window.innerWidth / 2;
-  let my = window.innerHeight / 2;
-  let rx = mx;
-  let ry = my;
-
-  window.addEventListener('pointermove', (e) => {
-    mx = e.clientX;
-    my = e.clientY;
-    dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
-  });
-
-  const tick = () => {
-    rx = lerp(rx, mx, 0.18);
-    ry = lerp(ry, my, 0.18);
-    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
-    requestAnimationFrame(tick);
-  };
-  tick();
-
-  const hoverables = 'a, button, [data-magnetic], details > summary, input, textarea, label';
-  document.addEventListener('pointerover', (e) => {
-    const t = e.target as Element;
-    if (t.closest?.(hoverables)) ring.classList.add('is-active');
-  });
-  document.addEventListener('pointerout', (e) => {
-    const t = e.target as Element;
-    if (t.closest?.(hoverables)) ring.classList.remove('is-active');
-  });
-
-  document.addEventListener('pointerleave', () => {
-    dot.style.opacity = '0';
-    ring.style.opacity = '0';
-  });
-  document.addEventListener('pointerenter', () => {
-    dot.style.opacity = '';
-    ring.style.opacity = '';
-  });
-}
-
 // ─────────────────────────────────────────────── magnetic hover
 function initMagnetic() {
   if (!isFinePointer) return;
@@ -304,7 +256,6 @@ function boot() {
     initParallax();
     initTilt();
     initMagnetic();
-    if (isFinePointer) initCustomCursor();
   }
 }
 
