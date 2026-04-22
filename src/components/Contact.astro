@@ -63,6 +63,7 @@ import { site, waLink, telLink } from '../data/site';
             data-contact-form
             novalidate
           >
+            <input type="hidden" name="_next" value={`${site.url}/gracias`} />
             <label class="block">
               <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Nombre</span>
               <input name="name" required autocomplete="name" class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400" placeholder="Tu nombre" />
@@ -86,14 +87,19 @@ import { site, waLink, telLink } from '../data/site';
               <label>No completar este campo <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
             </div>
 
+            <label class="flex items-start gap-3 text-[12px] text-slate-600 leading-relaxed cursor-pointer">
+              <input type="checkbox" name="consent" required class="mt-0.5 w-4 h-4 rounded border-slate-300 text-ink focus:ring-ink" />
+              <span>
+                Autorizo a {site.shortName} a contactarme por los medios que dejé.
+                Ver <a href="/privacidad" class="underline hover:text-ink">política de privacidad</a>.
+              </span>
+            </label>
+
             <button type="submit" class="btn-dark w-full mt-4">
               <Icon name="lucide:send" class="w-4 h-4" />
               Enviar consulta
             </button>
             <p aria-live="polite" data-form-status class="text-[13px] text-center min-h-[1.2em]"></p>
-            <p class="text-[11px] text-slate-400 text-center">
-              Al enviar aceptás ser contactado por {site.shortName}. Ver <a href="/privacidad" class="underline hover:text-ink">privacidad</a>.
-            </p>
           </form>
         </div>
       </div>

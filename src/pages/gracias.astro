@@ -1,0 +1,79 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import { site, waLink, telLink, cta } from '../data/site';
+---
+<BaseLayout
+  title="Consulta recibida"
+  description="Recibimos tu consulta. Te respondemos a la brevedad."
+  noindex={true}
+>
+  <Header />
+  <main id="main">
+    <section class="relative isolate bg-white">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 opacity-60">
+        <div class="absolute inset-0 mesh-bg"></div>
+      </div>
+
+      <div class="container-x pt-32 sm:pt-40 pb-24 text-center">
+        <span class="inline-grid place-items-center w-20 h-20 rounded-3xl bg-emerald-50 text-emerald-600 mb-8">
+          <Icon name="lucide:check-check" class="w-10 h-10" stroke-width="1.5" />
+        </span>
+
+        <h1 class="display-xl text-ink !leading-[0.95]">
+          Consulta
+          <span class="italic-display text-brand-700">recibida</span>.
+        </h1>
+
+        <p class="mt-8 text-xl text-slate-600 leading-relaxed font-light max-w-2xl mx-auto">
+          Gracias por escribirnos. Te respondemos en el día hábil con presupuesto orientativo o coordinando visita.
+        </p>
+
+        <div class="mt-12 grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto text-left">
+          <div class="p-6 rounded-2xl border border-slate-200 bg-white">
+            <span class="grid place-items-center w-11 h-11 rounded-xl bg-slate-100 text-ink mb-4">
+              <Icon name="lucide:clock" class="w-5 h-5" stroke-width="1.5" />
+            </span>
+            <p class="text-sm font-semibold text-ink">Respuesta rápida</p>
+            <p class="mt-1 text-[13px] text-slate-600 leading-relaxed">Lun a Sáb dentro del horario comercial.</p>
+          </div>
+          <div class="p-6 rounded-2xl border border-slate-200 bg-white">
+            <span class="grid place-items-center w-11 h-11 rounded-xl bg-slate-100 text-ink mb-4">
+              <Icon name="lucide:image" class="w-5 h-5" stroke-width="1.5" />
+            </span>
+            <p class="text-sm font-semibold text-ink">Podés enviar fotos</p>
+            <p class="mt-1 text-[13px] text-slate-600 leading-relaxed">Por WhatsApp adelantás tiempo y diagnóstico.</p>
+          </div>
+          <div class="p-6 rounded-2xl border border-slate-200 bg-white">
+            <span class="grid place-items-center w-11 h-11 rounded-xl bg-slate-100 text-ink mb-4">
+              <Icon name="lucide:siren" class="w-5 h-5" stroke-width="1.5" />
+            </span>
+            <p class="text-sm font-semibold text-ink">¿Es urgencia?</p>
+            <p class="mt-1 text-[13px] text-slate-600 leading-relaxed">Llamanos directo al {site.contact.phoneDisplay}.</p>
+          </div>
+        </div>
+
+        <div class="mt-12 flex flex-wrap justify-center gap-3">
+          <a href={waLink({ source: 'thanks' })} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-track="cta:thanks:whatsapp">
+            <Icon name="lucide:message-circle" class="w-[18px] h-[18px]" />
+            Abrir WhatsApp
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
+          </a>
+          <a href={telLink} class="btn-outline" data-track="cta:thanks:phone">
+            <Icon name="lucide:phone" class="w-4 h-4" />
+            {site.contact.phoneDisplay}
+          </a>
+          <a href="/" class="btn-ghost">
+            <Icon name="lucide:arrow-left" class="w-4 h-4" />
+            Volver al inicio
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>

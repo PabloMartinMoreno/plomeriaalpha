@@ -5,6 +5,7 @@ import '@fontsource-variable/fraunces/wght-italic.css';
 import '@fontsource-variable/inter';
 import { SEO } from 'astro-seo';
 import { site, zones, licenseLabel } from '../data/site';
+import MobileStickyBar from '../components/MobileStickyBar.astro';
 
 interface Props {
   title?: string;
@@ -97,11 +98,12 @@ const jsonLd = {
       </>
     )}
   </head>
-  <body class="overflow-x-hidden">
+  <body class="overflow-x-hidden pb-16 md:pb-0">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:px-3 focus:py-2 focus:rounded focus:shadow">
       Saltar al contenido
     </a>
     <slot />
+    <MobileStickyBar />
 
     <script>
       import '../scripts/motion';

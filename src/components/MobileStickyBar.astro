@@ -1,0 +1,32 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site, waLink, telLink } from '../data/site';
+---
+<div
+  class="fixed bottom-0 inset-x-0 z-30 md:hidden pointer-events-none"
+  aria-hidden="false"
+>
+  <div class="pointer-events-auto bg-white/95 backdrop-blur-xl border-t border-slate-200 shadow-[0_-8px_32px_-12px_rgba(15,23,42,0.18)]">
+    <div class="grid grid-cols-2 divide-x divide-slate-200" style="padding-bottom: env(safe-area-inset-bottom);">
+      <a
+        href={telLink}
+        class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-semibold text-ink hover:bg-slate-50 transition"
+        data-track="cta:mobile-bar:phone"
+        aria-label={`Llamar urgencia al ${site.contact.phoneDisplay}`}
+      >
+        <Icon name="lucide:phone" class="w-4 h-4 text-brand-700" />
+        Llamar urgencia
+      </a>
+      <a
+        href={waLink({ source: 'mobile-bar' })}
+        class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition"
+        target="_blank"
+        rel="noopener"
+        data-track="cta:mobile-bar:whatsapp"
+      >
+        <Icon name="lucide:message-circle" class="w-4 h-4" />
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</div>

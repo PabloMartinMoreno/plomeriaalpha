@@ -13,7 +13,7 @@ export default defineConfig({
     inlineStylesheets: 'auto',
     assets: '_assets',
   },
-  prefetch: { prefetchAll: true },
+  prefetch: { prefetchAll: false, defaultStrategy: 'viewport' },
   vite: {
     plugins: [tailwindcss()],
   },
