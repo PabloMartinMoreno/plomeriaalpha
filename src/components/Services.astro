@@ -20,7 +20,7 @@ const services = [
           <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">— Servicios</span>
           <span class="h-px flex-1 max-w-24 bg-slate-200"></span>
         </div>
-        <h2 class="display-lg">
+        <h2 class="display-lg" data-split="words">
           Todo lo que puede
           <span class="italic-display text-brand-700">fallar</span>,
           lo reparamos.
@@ -73,20 +73,4 @@ const services = [
     </div>
   </div>
 
-  <script>
-    const tiltEls = document.querySelectorAll<HTMLElement>('[data-tilt]');
-    if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      tiltEls.forEach((el) => {
-        el.addEventListener('pointermove', (e) => {
-          const r = el.getBoundingClientRect();
-          const px = (e.clientX - r.left) / r.width - 0.5;
-          const py = (e.clientY - r.top) / r.height - 0.5;
-          el.style.transform = `perspective(1000px) rotateX(${-py * 3}deg) rotateY(${px * 3}deg) translateY(-6px)`;
-        });
-        el.addEventListener('pointerleave', () => {
-          el.style.transform = '';
-        });
-      });
-    }
-  </script>
 </section>

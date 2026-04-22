@@ -10,16 +10,16 @@ import { site, waLink, telLink } from '../data/site';
           <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-white/50">— Contacto</span>
           <span class="h-px flex-1 max-w-24 bg-white/20"></span>
         </div>
-        <h2 class="display-xl text-white">
+        <h2 class="display-xl text-white" data-split="words">
           ¿Tenés una
-          <span class="italic-display text-accent-400 block sm:inline">pérdida</span>?
+          <span class="italic-display text-accent-400">pérdida</span>?
         </h2>
         <p class="mt-8 text-xl text-white/70 max-w-xl font-light leading-relaxed">
           Escribinos con una foto o video del problema. Te respondemos con presupuesto aproximado o coordinamos visita sin cargo.
         </p>
 
         <div class="mt-12 flex flex-wrap gap-3">
-          <a href={waLink()} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener">
+          <a href={waLink()} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-magnetic="0.3">
             <Icon name="lucide:message-circle" class="w-[18px] h-[18px]" />
             Abrir WhatsApp
             <Icon name="lucide:arrow-right" class="w-4 h-4" />

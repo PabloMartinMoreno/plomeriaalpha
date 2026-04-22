@@ -8,17 +8,15 @@ import { waLink } from '../data/site';
       <div aria-hidden="true" class="absolute inset-0 mesh-dark opacity-90"></div>
       <div class="relative grid lg:grid-cols-12 gap-10 items-center">
         <div class="lg:col-span-8 reveal">
-          <h2 class="display-lg text-white !leading-[0.95]">
-            La pérdida de ayer
-            <br/>
-            no espera a mañana.
+          <h2 class="display-lg text-white !leading-[0.95]" data-split="words">
+            La pérdida de ayer no espera a mañana.
           </h2>
           <p class="mt-6 text-lg text-white/70 max-w-xl">
             Escribinos ahora y recibí presupuesto el mismo día.
           </p>
         </div>
         <div class="lg:col-span-4 flex lg:justify-end reveal">
-          <a href={waLink()} target="_blank" rel="noopener" class="btn-whatsapp btn-arrow text-base !px-8 !py-4">
+          <a href={waLink()} target="_blank" rel="noopener" class="btn-whatsapp btn-arrow text-base !px-8 !py-4" data-magnetic="0.35">
             <Icon name="lucide:message-circle" class="w-5 h-5" />
             Escribinos ahora
             <Icon name="lucide:arrow-right" class="w-4 h-4" />
