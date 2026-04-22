@@ -243,6 +243,64 @@ function initSmoothAnchor() {
   });
 }
 
+// ─────────────────────────────────────────────── open-now indicator
+type OpenHours = { opens: string; closes: string; days: number[] };
+function initOpenNow() {
+  const nodes = document.querySelectorAll<HTMLElement>('[data-open-now]');
+  if (!nodes.length) return;
+  const hm = (s: string) => { const [h, m] = s.split(':').map(Number); return h * 60 + m; };
+  nodes.forEach((el) => {
+    const raw = el.dataset.openNow;
+    if (!raw) return;
+    let spec: OpenHours;
+    try { spec = JSON.parse(raw); } catch { return; }
+    const now = new Date();
+    const mins = now.getHours() * 60 + now.getMinutes();
+    const openNow = spec.days.includes(now.getDay()) && mins >= hm(spec.opens) && mins < hm(spec.closes);
+    el.dataset.state = openNow ? 'open' : 'closed';
+    const label = el.querySelector<HTMLElement>('[data-open-label]');
+    if (label) label.textContent = openNow ? 'Abierto ahora' : 'Urgencias 24/7';
+  });
+}
+
+// ─────────────────────────────────────────────── contact form
+function initContactForm() {
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  if (!form) return;
+  const status = form.querySelector<HTMLElement>('[data-form-status]');
+  const setStatus = (msg: string, ok: boolean) => {
+    if (!status) return;
+    status.textContent = msg;
+    status.style.color = ok ? 'rgb(16 122 81)' : 'rgb(190 49 49)';
+  };
+  form.addEventListener('submit', async (e) => {
+    const honeypot = form.querySelector<HTMLInputElement>('input[name="_gotcha"]');
+    if (honeypot?.value) { e.preventDefault(); return; }
+    if (form.action.includes('REEMPLAZAR')) {
+      e.preventDefault();
+      setStatus('Formulario no configurado todavía — escribinos por WhatsApp.', false);
+      return;
+    }
+    e.preventDefault();
+    setStatus('Enviando…', true);
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        form.reset();
+        setStatus('Recibido. Te contactamos en el día.', true);
+      } else {
+        setStatus('No se pudo enviar. Probá por WhatsApp.', false);
+      }
+    } catch {
+      setStatus('Error de red. Probá por WhatsApp.', false);
+    }
+  });
+}
+
 // ─────────────────────────────────────────────── boot
 function boot() {
   initReveal();
@@ -251,6 +309,8 @@ function boot() {
   initHeroIntro();
   initMarqueeHover();
   initSmoothAnchor();
+  initOpenNow();
+  initContactForm();
   if (!isReduced) {
     initSplitText();
     initParallax();

@@ -3,11 +3,13 @@ import { Icon } from 'astro-icon/components';
 import { site, waLink, telLink } from '../data/site';
 
 const nav = [
-  { href: '#servicios', label: 'Servicios' },
-  { href: '#proceso', label: 'Proceso' },
-  { href: '#zonas', label: 'Zonas' },
-  { href: '#contacto', label: 'Contacto' },
+  { href: '/#servicios', label: 'Servicios' },
+  { href: '/#proceso', label: 'Proceso' },
+  { href: '/#zonas', label: 'Zonas' },
+  { href: '/#trabajos', label: 'Trabajos' },
+  { href: '/#contacto', label: 'Contacto' },
 ];
+const openSpec = JSON.stringify(site.contact.openingHours.weekdays);
 ---
 <header class="sticky top-0 z-40 w-full border-b border-slate-200/60 bg-white/70 backdrop-blur-xl">
   <div class="container-x flex h-16 sm:h-18 items-center justify-between gap-4">
@@ -30,6 +32,16 @@ const nav = [
     </nav>
 
     <div class="flex items-center gap-2">
+      <span
+        data-open-now={openSpec}
+        class="hidden md:inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-600 bg-slate-100/70 data-[state=open]:bg-emerald-50 data-[state=open]:text-emerald-700 data-[state=closed]:bg-amber-50 data-[state=closed]:text-amber-700"
+      >
+        <span class="relative flex w-1.5 h-1.5">
+          <span class="absolute inline-flex w-full h-full rounded-full bg-current opacity-60 animate-ping"></span>
+          <span class="relative rounded-full w-1.5 h-1.5 bg-current"></span>
+        </span>
+        <span data-open-label>Disponible</span>
+      </span>
       <a href={telLink} class="hidden sm:inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-slate-700 hover:text-ink hover:bg-slate-100 transition" aria-label={`Llamar al ${site.contact.phoneDisplay}`}>
         <Icon name="lucide:phone" class="w-4 h-4" />
         <span class="hidden lg:inline">{site.contact.phoneDisplay}</span>

@@ -1,7 +1,10 @@
 ---
 import '../styles/global.css';
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/fraunces/wght-italic.css';
+import '@fontsource-variable/inter';
 import { SEO } from 'astro-seo';
-import { site } from '../data/site';
+import { site, zones, licenseLabel } from '../data/site';
 
 interface Props {
   title?: string;
@@ -37,15 +40,21 @@ const jsonLd = {
     addressRegion: site.address.region,
     addressCountry: site.address.country,
   },
-  areaServed: site.address.areaServed.map((name) => ({ '@type': 'City', name })),
+  areaServed: zones.map((z) => ({ '@type': 'City', name: z.name })),
+  geo: site.address.geo
+    ? { '@type': 'GeoCoordinates', latitude: site.address.geo.lat, longitude: site.address.geo.lng }
+    : undefined,
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      opens: '08:00',
-      closes: '20:00',
+      opens: site.contact.openingHours.weekdays.opens,
+      closes: site.contact.openingHours.weekdays.closes,
     },
   ],
+  ...(site.license.active && site.license.number
+    ? { hasCredential: { '@type': 'EducationalOccupationalCredential', name: licenseLabel() } }
+    : {}),
   sameAs: [site.social.instagram, site.social.facebook].filter(Boolean),
 };
 ---
@@ -58,12 +67,6 @@ const jsonLd = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
-
-    <link rel="preconnect" href="https://rsms.me" crossorigin />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" />
 
     <SEO
       title={fullTitle}

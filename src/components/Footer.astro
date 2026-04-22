@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { site, telLink, waLink } from '../data/site';
+import { site, telLink, waLink, zones, licenseLabel } from '../data/site';
 
 const year = new Date().getFullYear();
 ---
@@ -45,7 +45,12 @@ const year = new Date().getFullYear();
 
       <div class="md:col-span-4">
         <h4 class="text-ink font-semibold text-sm">Áreas de cobertura</h4>
-        <p class="mt-4 text-sm leading-relaxed">{site.address.areaServed.join(' · ')}</p>
+        <ul class="mt-4 flex flex-wrap gap-x-3 gap-y-1.5 text-sm leading-relaxed">
+          {zones.map((z) => (
+            <li><a href={`/zonas/${z.slug}`} class="hover:text-ink transition">{z.name}</a></li>
+          ))}
+        </ul>
+        <p class="mt-6 text-[11px] uppercase tracking-[0.18em] text-slate-400">{licenseLabel()}</p>
       </div>
     </div>
   </div>

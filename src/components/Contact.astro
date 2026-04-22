@@ -60,31 +60,39 @@ import { site, waLink, telLink } from '../data/site';
             action="https://formspree.io/f/REEMPLAZAR"
             method="POST"
             class="mt-8 space-y-5"
+            data-contact-form
+            novalidate
           >
             <label class="block">
               <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Nombre</span>
-              <input name="name" required class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400" placeholder="Tu nombre" />
+              <input name="name" required autocomplete="name" class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400" placeholder="Tu nombre" />
             </label>
             <div class="grid grid-cols-2 gap-5">
               <label class="block">
                 <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Teléfono</span>
-                <input name="phone" type="tel" required class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400" placeholder="11 0000-0000" />
+                <input name="phone" type="tel" required autocomplete="tel" inputmode="tel" class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400" placeholder="11 0000-0000" />
               </label>
               <label class="block">
                 <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Zona</span>
-                <input name="area" class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400" placeholder="Martínez" />
+                <input name="area" autocomplete="address-level2" class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400" placeholder="Martínez" />
               </label>
             </div>
             <label class="block">
               <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Contanos el problema</span>
               <textarea name="message" rows="3" required class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400 resize-none" placeholder="¿Qué está pasando?"></textarea>
             </label>
+
+            <div class="hidden" aria-hidden="true">
+              <label>No completar este campo <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+            </div>
+
             <button type="submit" class="btn-dark w-full mt-4">
               <Icon name="lucide:send" class="w-4 h-4" />
               Enviar consulta
             </button>
-            <p class="text-[11px] text-slate-400 text-center pt-2">
-              Al enviar aceptás ser contactado por {site.shortName}.
+            <p aria-live="polite" data-form-status class="text-[13px] text-center min-h-[1.2em]"></p>
+            <p class="text-[11px] text-slate-400 text-center">
+              Al enviar aceptás ser contactado por {site.shortName}. Ver <a href="/privacidad" class="underline hover:text-ink">privacidad</a>.
             </p>
           </form>
         </div>

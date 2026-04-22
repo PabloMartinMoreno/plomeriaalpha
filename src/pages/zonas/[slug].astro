@@ -1,0 +1,148 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
+import BigCTA from '../../components/BigCTA.astro';
+import { zones, services, site, waLink, telLink } from '../../data/site';
+
+export function getStaticPaths() {
+  return zones.map((z) => ({ params: { slug: z.slug }, props: { zone: z } }));
+}
+
+const { zone } = Astro.props;
+const otherZones = zones.filter((z) => z.slug !== zone.slug).slice(0, 8);
+const topServices = services.slice(0, 6);
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Zonas', item: `${site.url}/zonas` },
+    { '@type': 'ListItem', position: 3, name: zone.name, item: `${site.url}/zonas/${zone.slug}` },
+  ],
+};
+
+const localBusinessJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Plumber',
+  name: `${site.shortName} — ${zone.name}`,
+  description: `Plomería matriculada en ${zone.name}, Zona Norte GBA. Urgencias, gas, pérdidas y reparaciones.`,
+  url: `${site.url}/zonas/${zone.slug}`,
+  telephone: site.contact.phone,
+  areaServed: { '@type': 'City', name: zone.name },
+};
+---
+<BaseLayout
+  title={`Plomero en ${zone.name}`}
+  description={`Plomería matriculada en ${zone.name}. Urgencias, gas, pérdidas y reparaciones con presupuesto sin cargo y garantía escrita.`}
+>
+  <Header />
+  <main id="main">
+    <article class="relative isolate bg-white">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
+        <div class="absolute inset-0 mesh-bg opacity-60"></div>
+        <svg class="absolute inset-0 w-full h-full text-slate-900/[0.03]" aria-hidden="true">
+          <defs>
+            <pattern id="zgrid" width="72" height="72" patternUnits="userSpaceOnUse">
+              <path d="M 72 0 L 0 0 0 72" fill="none" stroke="currentColor" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#zgrid)"/>
+        </svg>
+      </div>
+
+      <div class="container-x pt-28 sm:pt-36 pb-20">
+        <nav class="text-xs uppercase tracking-[0.18em] text-slate-500 flex items-center gap-2 mb-10" aria-label="Migas de pan">
+          <a href="/" class="hover:text-ink transition">Inicio</a>
+          <span class="text-slate-300">/</span>
+          <a href="/#zonas" class="hover:text-ink transition">Zonas</a>
+          <span class="text-slate-300">/</span>
+          <span class="text-ink">{zone.name}</span>
+        </nav>
+
+        <div class="max-w-3xl">
+          <span class="eyebrow">
+            <Icon name="lucide:map-pin" class="w-3.5 h-3.5" />
+            Zona Norte GBA
+          </span>
+          <h1 class="mt-6 display-xl text-ink !leading-[0.95]" data-split="words">
+            Plomero en <span class="italic-display text-brand-700">{zone.name}</span>.
+          </h1>
+          <p class="mt-8 text-xl text-slate-600 leading-relaxed font-light">
+            {zone.lead} Atendemos urgencias en menos de 2 horas, trabajos programados con presupuesto sin cargo y todo tipo de reparaciones con garantía escrita.
+          </p>
+
+          <div class="mt-10 flex flex-wrap gap-3">
+            <a href={waLink(`Hola, necesito un plomero en ${zone.name}.`)} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-magnetic="0.3">
+              <Icon name="lucide:message-circle" class="w-[18px] h-[18px]" />
+              WhatsApp directo
+              <Icon name="lucide:arrow-right" class="w-4 h-4" />
+            </a>
+            <a href={telLink} class="btn-outline" data-magnetic="0.25">
+              <Icon name="lucide:phone" class="w-4 h-4" />
+              {site.contact.phoneDisplay}
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <section class="section bg-white border-t border-slate-200">
+      <div class="container-x">
+        <div class="grid lg:grid-cols-12 gap-12">
+          <div class="lg:col-span-5">
+            <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">— Servicios en {zone.name}</span>
+            <h2 class="mt-4 display-lg" data-split="words">Todo lo que <span class="italic-display text-brand-700">reparamos</span>.</h2>
+            <p class="mt-6 text-lg text-slate-600 max-w-md">
+              Desde una canilla que gotea hasta instalaciones completas de gas. Hacé clic en el servicio que necesitás.
+            </p>
+          </div>
+          <div class="lg:col-span-7 grid sm:grid-cols-2 gap-3">
+            {topServices.map((s) => (
+              <a href={`/servicios/${s.slug}`} class="card group flex items-start gap-4">
+                <span class="grid place-items-center w-11 h-11 rounded-xl bg-slate-100 text-ink group-hover:bg-ink group-hover:text-white transition-colors shrink-0">
+                  <Icon name={s.icon} class="w-5 h-5" stroke-width="1.5" />
+                </span>
+                <div>
+                  <h3 class="text-base font-display text-ink">{s.title}</h3>
+                  <p class="mt-1 text-[13px] text-slate-600 line-clamp-2">{s.short}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight bg-slate-50 border-t border-slate-200">
+      <div class="container-x">
+        <div class="flex items-end justify-between mb-10">
+          <h2 class="display-sm text-ink">Otras zonas</h2>
+        </div>
+        <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+          {otherZones.map((z) => (
+            <li>
+              <a href={`/zonas/${z.slug}`} class="group flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-5 py-4 hover:border-ink hover:bg-ink hover:text-white transition-all">
+                <span class="flex items-center gap-2.5">
+                  <Icon name="lucide:map-pin" class="w-4 h-4 text-brand-600 group-hover:text-accent-400 transition-colors" />
+                  <span class="text-sm font-medium">{z.name}</span>
+                </span>
+                <Icon name="lucide:arrow-up-right" class="w-4 h-4 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <BigCTA />
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
+</BaseLayout>

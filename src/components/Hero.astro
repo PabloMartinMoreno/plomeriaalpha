@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { site, waLink, telLink } from '../data/site';
+import { site, waLink, telLink, licenseLabel } from '../data/site';
 
 const stats = [
   { n: '10+', label: 'años de oficio', icon: 'lucide:hammer' },
@@ -67,7 +67,7 @@ const stats = [
             <span class="uppercase tracking-[0.18em] text-[11px] font-semibold">Reconocimientos</span>
           </div>
           <div class="flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-slate-600">
-            <span class="flex items-center gap-2"><Icon name="lucide:shield-check" class="w-4 h-4 text-brand-700" /> Matriculado</span>
+            <span class="flex items-center gap-2"><Icon name="lucide:shield-check" class="w-4 h-4 text-brand-700" /> {licenseLabel()}</span>
             <span class="flex items-center gap-2"><Icon name="lucide:flame" class="w-4 h-4 text-brand-700" /> Gas aprobado</span>
             <span class="flex items-center gap-2"><Icon name="lucide:badge-check" class="w-4 h-4 text-brand-700" /> Garantía escrita</span>
             <span class="flex items-center gap-2"><Icon name="lucide:clock" class="w-4 h-4 text-brand-700" /> 24/7 urgencias</span>
