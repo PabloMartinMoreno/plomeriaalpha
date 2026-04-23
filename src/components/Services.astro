@@ -33,7 +33,7 @@ import { site, waLink, services, cta, priceHintLabel } from '../data/site';
         return (
           <a
             href={`/servicios/${s.slug}`}
-            class={`card group relative overflow-hidden flex flex-col justify-between ${span} ${isAccent ? '!bg-ink !border-ink text-white hover:!border-ink' : ''}`}
+            class={`card group relative overflow-hidden flex flex-col ${span} ${isAccent ? '!bg-ink !border-ink text-white hover:!border-ink' : ''}`}
             data-tilt
           >
             <div class="flex items-start justify-between">
@@ -44,35 +44,36 @@ import { site, waLink, services, cta, priceHintLabel } from '../data/site';
                 / 0{i+1}
               </span>
             </div>
-            <div class="mt-auto pt-8">
-              {(s as any).tag && (
-                <span class={`inline-block text-[10px] uppercase tracking-[0.18em] font-semibold mb-3 ${isAccent ? 'text-accent-400' : 'text-brand-700'}`}>
-                  {(s as any).tag}
-                </span>
-              )}
-              <h3 class={`display-sm ${isAccent ? 'text-white' : ''}`}>{s.title}</h3>
-              <p class={`mt-3 text-[15px] leading-relaxed ${isAccent ? 'text-white/70' : 'text-slate-600'}`}>{s.short}</p>
-              <div class={`mt-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] ${isAccent ? 'text-white/60' : 'text-slate-500'}`}>
-                <Icon name="lucide:tag" class="w-3 h-3" />
-                {priceHintLabel(s.slug)}
-              </div>
-              <div class="mt-5 flex items-center gap-4">
-                <span class={`inline-flex items-center gap-1.5 text-[13px] font-semibold ${isAccent ? 'text-accent-400' : 'text-brand-700'} group-hover:gap-2.5 transition-all`}>
-                  Ver detalle <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5" />
-                </span>
-                <span
-                  role="button"
-                  tabindex="0"
-                  data-wa-card
-                  data-wa-service={s.title}
-                  data-wa-source={`services-card-${s.slug}`}
-                  class={`inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 rounded-full ${isAccent ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-slate-100 text-ink hover:bg-ink hover:text-white'} transition cursor-pointer`}
-                >
-                  <Icon name="lucide:message-circle" class="w-3 h-3" />
-                  Consultar
-                </span>
-              </div>
+
+            <span class={`mt-8 block text-[10px] uppercase tracking-[0.18em] font-semibold min-h-[1.2em] ${isAccent ? 'text-accent-400' : 'text-brand-700'}`}>
+              {(s as any).tag || ' '}
+            </span>
+
+            <h3 class={`mt-2 display-sm ${isAccent ? 'text-white' : ''}`}>{s.title}</h3>
+            <p class={`mt-3 text-[15px] leading-relaxed ${isAccent ? 'text-white/70' : 'text-slate-600'}`}>{s.short}</p>
+
+            <div class={`mt-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] ${isAccent ? 'text-white/60' : 'text-slate-500'}`}>
+              <Icon name="lucide:tag" class="w-3 h-3" />
+              {priceHintLabel(s.slug)}
             </div>
+
+            <div class="mt-auto pt-6 flex items-center gap-4">
+              <span class={`inline-flex items-center gap-1.5 text-[13px] font-semibold ${isAccent ? 'text-accent-400' : 'text-brand-700'} group-hover:gap-2.5 transition-all`}>
+                Ver detalle <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5" />
+              </span>
+              <span
+                role="button"
+                tabindex="0"
+                data-wa-card
+                data-wa-service={s.title}
+                data-wa-source={`services-card-${s.slug}`}
+                class={`inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 rounded-full ${isAccent ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-slate-100 text-ink hover:bg-ink hover:text-white'} transition cursor-pointer`}
+              >
+                <Icon name="lucide:message-circle" class="w-3 h-3" />
+                Consultar
+              </span>
+            </div>
+
             {s.big && (
               <div aria-hidden="true" class={`absolute -right-10 -bottom-10 text-[180px] font-display italic leading-none opacity-[0.04] ${isAccent ? 'text-white opacity-[0.08]' : 'text-ink'}`}>
                 {String(i+1).padStart(2, '0')}
