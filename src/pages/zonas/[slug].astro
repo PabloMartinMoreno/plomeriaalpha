@@ -112,6 +112,24 @@ const localBusinessJsonLd = {
                 </div>
               </a>
             ))}
+            <a
+              href={waLink({ zone: zone.name, source: `zona-${zone.slug}-grid` })}
+              target="_blank"
+              rel="noopener"
+              class="card group flex items-center justify-between gap-4 bg-slate-50 hover:bg-ink hover:text-white border-dashed"
+              data-track={`cta:zona-${zone.slug}-grid:whatsapp`}
+            >
+              <div class="flex items-start gap-4">
+                <span class="grid place-items-center w-11 h-11 rounded-xl bg-white text-ink group-hover:bg-accent-500 group-hover:text-ink transition-colors shrink-0 border border-slate-200 group-hover:border-accent-500">
+                  <Icon name="lucide:message-circle" class="w-5 h-5" stroke-width="1.5" />
+                </span>
+                <div>
+                  <h3 class="text-base font-display">¿Otro problema?</h3>
+                  <p class="mt-1 text-[13px] text-slate-600 group-hover:text-white/80 line-clamp-2">Consultanos por WhatsApp.</p>
+                </div>
+              </div>
+              <Icon name="lucide:arrow-up-right" class="w-4 h-4 shrink-0 opacity-60 group-hover:opacity-100" />
+            </a>
           </div>
         </div>
       </div>

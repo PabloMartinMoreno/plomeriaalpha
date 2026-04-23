@@ -7,6 +7,13 @@ mkdirSync(OUT, { recursive: true });
 // Above-the-fold viewport screenshots for README.
 // Fullpage variants saved in /full for deeper review.
 const targets = [
+  { name: 'home-full',           url: '/',                        mobile: false, height: 900,  fullPage: true },
+  { name: 'servicios-full',      url: '/servicios',               mobile: false, height: 900,  fullPage: true },
+  { name: 'zonas-full',          url: '/zonas',                   mobile: false, height: 900,  fullPage: true },
+  { name: 'servicios-gas-full',  url: '/servicios/gas',           mobile: false, height: 900,  fullPage: true },
+  { name: 'servicios-gas-tigre-full', url: '/servicios/gas/tigre', mobile: false, height: 900, fullPage: true },
+  { name: 'zonas-tigre-full',    url: '/zonas/tigre',             mobile: false, height: 900,  fullPage: true },
+  { name: 'contacto-full',       url: '/contacto',                mobile: false, height: 900,  fullPage: true },
   { name: 'home',                url: '/',                        mobile: false, height: 1000 },
   { name: 'home-mobile',         url: '/',                        mobile: true,  height: 900 },
   { name: 'servicios',           url: '/servicios',               mobile: false, height: 1000, scrollY: 600 },
@@ -50,7 +57,7 @@ for (const t of targets) {
   }, t.scrollY || 0);
   await new Promise((r) => setTimeout(r, 800));
   const path = `${OUT}/${t.name}.png`;
-  await page.screenshot({ path, fullPage: false, type: 'png' });
+  await page.screenshot({ path, fullPage: !!t.fullPage, type: 'png' });
   console.log('captured', t.name);
   await page.close();
 }
