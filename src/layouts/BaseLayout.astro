@@ -6,6 +6,7 @@ import '@fontsource-variable/inter';
 import { SEO } from 'astro-seo';
 import { site, zones, services, licenseLabel } from '../data/site';
 import MobileStickyBar from '../components/MobileStickyBar.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 
 interface Props {
   title?: string;
@@ -128,7 +129,18 @@ const organizationJsonLd = {
     )}
 
     {clarityId && (
-      <script is:inline set:html={`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${clarityId}");`} />
+      <script is:inline set:html={`
+        (function(){
+          var loadClarity = function(){
+            (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${clarityId}");
+          };
+          try {
+            var c = localStorage.getItem('cookie-consent');
+            if (c === 'accepted') loadClarity();
+            window.__loadClarity = loadClarity;
+          } catch(e) { /* storage blocked */ }
+        })();
+      `} />
     )}
   </head>
   <body class="overflow-x-hidden pb-16 md:pb-0">
@@ -137,6 +149,7 @@ const organizationJsonLd = {
     </a>
     <slot />
     <MobileStickyBar />
+    <CookieBanner />
 
     <script>
       import '../scripts/motion';

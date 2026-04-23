@@ -473,6 +473,24 @@ function initMiniWizard() {
   render();
 }
 
+// ─────────────────────────────────────────────── cookie consent
+function initCookieBanner() {
+  const banner = document.querySelector<HTMLElement>('[data-cookie-banner]');
+  if (!banner) return;
+  let stored: string | null = null;
+  try { stored = localStorage.getItem('cookie-consent'); } catch {}
+  if (!stored) banner.hidden = false;
+  const persist = (value: 'accepted' | 'rejected') => {
+    try { localStorage.setItem('cookie-consent', value); } catch {}
+    banner.hidden = true;
+    if (value === 'accepted' && typeof (window as any).__loadClarity === 'function') {
+      (window as any).__loadClarity();
+    }
+  };
+  banner.querySelector('[data-cookie-accept]')?.addEventListener('click', () => persist('accepted'));
+  banner.querySelector('[data-cookie-reject]')?.addEventListener('click', () => persist('rejected'));
+}
+
 // ─────────────────────────────────────────────── header compact on scroll
 function initHeaderCompact() {
   const header = document.querySelector<HTMLElement>('[data-header]');
@@ -536,6 +554,7 @@ function boot() {
   initMiniWizard();
   initScrollDepth();
   initHeaderCompact();
+  initCookieBanner();
   initTrackCTAs();
   if (!isReduced) {
     initSplitText();

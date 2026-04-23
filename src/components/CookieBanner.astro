@@ -1,0 +1,25 @@
+---
+const clarityId = import.meta.env.PUBLIC_CLARITY_ID;
+if (!clarityId) return null;
+---
+<div
+  data-cookie-banner
+  hidden
+  class="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:bottom-6 md:max-w-sm z-50 rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/10 p-5 text-[13px] text-slate-600"
+  role="dialog"
+  aria-labelledby="cookie-banner-title"
+>
+  <p id="cookie-banner-title" class="font-semibold text-ink text-sm">Cookies opcionales</p>
+  <p class="mt-2 leading-relaxed">
+    Usamos cookies de análisis (Microsoft Clarity) para entender cómo navegás el sitio y mejorar tu experiencia. Podés aceptarlas o seguir sin ellas.
+  </p>
+  <div class="mt-4 flex flex-wrap gap-2">
+    <button type="button" data-cookie-accept class="inline-flex items-center justify-center rounded-full px-4 py-2 text-[12px] font-semibold bg-ink text-white hover:bg-slate-800 transition">
+      Aceptar
+    </button>
+    <button type="button" data-cookie-reject class="inline-flex items-center justify-center rounded-full px-4 py-2 text-[12px] font-semibold bg-slate-100 text-ink hover:bg-slate-200 transition">
+      Rechazar
+    </button>
+    <a href="/privacidad" class="inline-flex items-center text-[12px] text-slate-500 underline hover:text-ink transition">Más info</a>
+  </div>
+</div>

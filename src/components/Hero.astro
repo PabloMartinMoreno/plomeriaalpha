@@ -65,17 +65,42 @@ const stats = [
       </div>
 
       <div class="lg:col-span-6 xl:col-span-7 lg:pl-10 hero-side">
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center gap-3 text-sm text-slate-500">
-            <span class="h-px w-10 bg-slate-300"></span>
-            <span class="uppercase tracking-[0.18em] text-[11px] font-semibold">Reconocimientos</span>
+        <div class="relative rounded-[32px] border border-slate-200 bg-white/70 backdrop-blur-sm p-8 sm:p-10 overflow-hidden">
+          <svg class="absolute -right-6 -top-6 w-48 h-48 text-brand-600/10" viewBox="0 0 160 160" fill="none" aria-hidden="true">
+            <circle cx="80" cy="80" r="72" stroke="currentColor" stroke-width="1" />
+            <circle cx="80" cy="80" r="48" stroke="currentColor" stroke-width="1" />
+            <circle cx="80" cy="80" r="24" stroke="currentColor" stroke-width="1" />
+          </svg>
+
+          <div class="relative flex items-start gap-6">
+            <div class="shrink-0">
+              <svg class="w-20 h-20" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="hero-mon" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#1d4ed8" />
+                    <stop offset="100%" stop-color="#0f172a" />
+                  </linearGradient>
+                </defs>
+                <rect x="2" y="2" width="76" height="76" rx="20" fill="url(#hero-mon)" />
+                <path d="M40 18 C30 30 22 40 22 48 a18 18 0 0 0 36 0 c0-8-8-18-18-30z" fill="white" opacity="0.95" />
+                <circle cx="40" cy="50" r="4" fill="#1d4ed8" />
+              </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-[10px] uppercase tracking-[0.22em] font-semibold text-slate-500">Reconocimientos</p>
+              <p class="mt-2 text-xl font-display text-ink leading-snug">Matrícula · Gas · Garantía · 24/7</p>
+              <p class="mt-3 text-[13px] text-slate-600 leading-relaxed max-w-sm">
+                Trabajos documentados, planillas firmadas y atención directa con el plomero responsable del trabajo.
+              </p>
+            </div>
           </div>
-          <div class="flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-slate-600">
-            <span class="flex items-center gap-2"><Icon name="lucide:shield-check" class="w-4 h-4 text-brand-700" /> {licenseLabel()}</span>
-            <span class="flex items-center gap-2"><Icon name="lucide:flame" class="w-4 h-4 text-brand-700" /> Gas aprobado</span>
-            <span class="flex items-center gap-2"><Icon name="lucide:badge-check" class="w-4 h-4 text-brand-700" /> Garantía escrita</span>
-            <span class="flex items-center gap-2"><Icon name="lucide:clock" class="w-4 h-4 text-brand-700" /> 24/7 urgencias</span>
-          </div>
+
+          <ul class="relative mt-8 grid grid-cols-2 gap-x-6 gap-y-3 text-[13px] text-slate-600">
+            <li class="flex items-center gap-2"><Icon name="lucide:shield-check" class="w-4 h-4 text-brand-700 shrink-0" /> {licenseLabel()}</li>
+            <li class="flex items-center gap-2"><Icon name="lucide:flame" class="w-4 h-4 text-brand-700 shrink-0" /> Gas aprobado</li>
+            <li class="flex items-center gap-2"><Icon name="lucide:badge-check" class="w-4 h-4 text-brand-700 shrink-0" /> Garantía escrita</li>
+            <li class="flex items-center gap-2"><Icon name="lucide:clock" class="w-4 h-4 text-brand-700 shrink-0" /> 24/7 urgencias</li>
+          </ul>
         </div>
       </div>
     </div>

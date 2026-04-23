@@ -84,6 +84,10 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : '#for
               </label>
             </div>
             <label class="block">
+              <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Email <span class="text-slate-400 normal-case tracking-normal">(opcional)</span></span>
+              <input name="email" type="email" autocomplete="email" inputmode="email" class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400" placeholder="tu@email.com" />
+            </label>
+            <label class="block">
               <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Contanos el problema</span>
               <textarea name="message" rows="3" required class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400 resize-none" placeholder="¿Qué está pasando?"></textarea>
             </label>
