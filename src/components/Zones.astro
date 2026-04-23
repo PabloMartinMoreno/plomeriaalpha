@@ -47,27 +47,26 @@ import { site, waLink, zones } from '../data/site';
               </a>
             </li>
           ))}
+          <li class="col-span-2">
+            <a
+              href={waLink({ notes: 'Urgencia fuera de zona', source: 'zones-out-of-area' })}
+              target="_blank"
+              rel="noopener"
+              class="group relative flex items-center justify-between gap-4 rounded-xl bg-ink text-white px-5 py-4 hover:bg-slate-900 transition-colors"
+              data-track="cta:zones-out-of-area:whatsapp"
+            >
+              <span class="flex items-center gap-3">
+                <Icon name="lucide:siren" class="w-4 h-4 text-accent-400 shrink-0" stroke-width="1.5" />
+                <span class="flex flex-col leading-tight">
+                  <span class="text-sm font-semibold">Urgencias fuera de zona</span>
+                  <span class="text-[12px] text-white/70">CABA y primer cordón Oeste — consultanos</span>
+                </span>
+              </span>
+              <Icon name="lucide:arrow-up-right" class="w-4 h-4 shrink-0 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+            </a>
+          </li>
         </ul>
       </div>
     </div>
-
-    <a
-      href={waLink({ notes: 'Urgencia fuera de zona', source: 'zones-out-of-area' })}
-      target="_blank"
-      rel="noopener"
-      class="mt-14 flex items-center justify-between gap-6 p-6 sm:p-7 rounded-2xl bg-ink text-white hover:bg-slate-900 transition-colors group"
-      data-track="cta:zones-out-of-area:whatsapp"
-    >
-      <div class="flex items-center gap-5">
-        <span class="grid place-items-center w-12 h-12 rounded-xl bg-accent-500 text-ink shrink-0">
-          <Icon name="lucide:siren" class="w-5 h-5" stroke-width="1.5" />
-        </span>
-        <div>
-          <p class="text-sm sm:text-base font-semibold">Urgencias fuera de zona</p>
-          <p class="text-[13px] sm:text-sm text-white/70 mt-1 leading-relaxed">Casos críticos: CABA y primer cordón Oeste. Consultanos por WhatsApp.</p>
-        </div>
-      </div>
-      <Icon name="lucide:arrow-up-right" class="w-5 h-5 shrink-0 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
-    </a>
   </div>
 </section>
