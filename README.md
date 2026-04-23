@@ -7,15 +7,11 @@ y Tigre. Fundado por **Jonatan Reyes**.
 Construido con Astro + Tailwind CSS v4, optimizado para conversión, SEO
 local y performance en mobile.
 
-![Landing — desktop](docs/screenshots/home.png)
+![Plomería Alpha — landing](docs/screenshots/home.png)
 
 ---
 
 ## Preview
-
-### Home
-
-![Home](docs/screenshots/home.png)
 
 | Hub de servicios | Detalle de servicio |
 | :--- | :--- |
