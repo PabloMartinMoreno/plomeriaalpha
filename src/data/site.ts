@@ -174,6 +174,15 @@ export const zones = [
 export type Service = (typeof services)[number];
 export type Zone = (typeof zones)[number];
 
+export const servicePrices: Partial<Record<(typeof services)[number]["slug"], { from: number; unit?: string }>> = {
+};
+
+export const priceHintLabel = (slug: Service["slug"]) => {
+  const p = servicePrices[slug];
+  if (p) return `Desde $${p.from.toLocaleString("es-AR")}${p.unit ? ` ${p.unit}` : ""}`;
+  return "Presupuesto sin cargo";
+};
+
 export type WaContext = {
   service?: string;
   zone?: string;

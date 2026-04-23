@@ -87,7 +87,7 @@ const stats = [
         {stats.map((s) => (
           <div class="hero-stat px-6 sm:px-8 py-10 sm:py-14 flex items-start justify-between gap-6 hover:bg-slate-50/70 transition-colors group">
             <div>
-              <p class="display-md text-ink ticker" data-counter={s.counter}>
+              <p class="display-md text-ink ticker tabular-nums min-w-[3ch]" data-counter={s.counter}>
                 {s.n}
               </p>
               <p class="mt-2 text-sm text-slate-500">{s.label}</p>

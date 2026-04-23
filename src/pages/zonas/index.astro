@@ -1,0 +1,85 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
+import { zones, site, waLink, cta } from '../../data/site';
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Zonas', item: `${site.url}/zonas` },
+  ],
+};
+---
+<BaseLayout
+  title="Zonas que atendemos"
+  description="Plomería Alpha atiende Vicente López, San Isidro, Tigre, Nordelta, Martínez y toda Zona Norte GBA con urgencias en menos de 2 horas."
+>
+  <Header />
+  <main id="main">
+    <article class="relative isolate bg-white">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 opacity-60">
+        <div class="absolute inset-0 mesh-bg"></div>
+      </div>
+      <div class="container-x pt-28 sm:pt-36 pb-16">
+        <nav class="text-xs uppercase tracking-[0.18em] text-slate-500 flex items-center gap-2 mb-10" aria-label="Migas de pan">
+          <a href="/" class="hover:text-ink transition">Inicio</a>
+          <span class="text-slate-300">/</span>
+          <span class="text-ink">Zonas</span>
+        </nav>
+        <div class="max-w-3xl">
+          <span class="eyebrow">
+            <Icon name="lucide:map" class="w-3.5 h-3.5" />
+            Zona Norte GBA
+          </span>
+          <h1 class="mt-6 display-xl text-ink !leading-[0.95]" data-split="words">
+            Atendemos <span class="italic-display text-brand-700">toda Zona Norte</span>.
+          </h1>
+          <p class="mt-8 text-xl text-slate-600 leading-relaxed font-light">
+            Urgencias con llegada en menos de 2 horas y trabajos programados con presupuesto sin cargo en los partidos de Vicente López, San Isidro, San Fernando y Tigre.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <section class="section-tight bg-white border-t border-slate-200">
+      <div class="container-x">
+        <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {zones.map((z) => (
+            <li>
+              <a href={`/zonas/${z.slug}`} class="group flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-5 hover:border-ink hover:bg-ink hover:text-white transition-all">
+                <span class="flex items-center gap-2">
+                  <Icon name="lucide:map-pin" class="w-4 h-4 text-brand-600 group-hover:text-accent-400 transition-colors" />
+                  <span class="text-sm font-display">{z.name}</span>
+                </span>
+                <span class="text-[12px] leading-snug text-slate-500 group-hover:text-white/70 transition-colors line-clamp-2">{z.lead}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section-tight bg-slate-50 border-t border-slate-200">
+      <div class="container-x text-center">
+        <h2 class="display-lg text-ink">¿Tu zona no está?</h2>
+        <p class="mt-6 text-lg text-slate-600 max-w-xl mx-auto">
+          Consultanos igual. Cubrimos algunos partidos linderos según disponibilidad.
+        </p>
+        <a href={waLink({ source: 'zonas-index' })} class="btn-whatsapp btn-arrow mt-8 inline-flex" target="_blank" rel="noopener" data-track="cta:zonas-index:whatsapp">
+          <Icon name="lucide:message-circle" class="w-[18px] h-[18px]" />
+          {cta.primary}
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+</BaseLayout>

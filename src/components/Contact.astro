@@ -1,6 +1,9 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { site, waLink, telLink } from '../data/site';
+
+const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
+const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : '#form-not-configured';
 ---
 <section id="contacto" class="section relative overflow-hidden text-white mesh-dark grain">
   <div class="container-x relative z-10">
@@ -57,10 +60,12 @@ import { site, waLink, telLink } from '../data/site';
           </div>
 
           <form
-            action="https://formspree.io/f/REEMPLAZAR"
+            action={formAction}
             method="POST"
+            enctype="multipart/form-data"
             class="mt-8 space-y-5"
             data-contact-form
+            data-form-configured={formspreeId ? 'true' : 'false'}
             novalidate
           >
             <input type="hidden" name="_next" value={`${site.url}/gracias`} />
@@ -71,7 +76,7 @@ import { site, waLink, telLink } from '../data/site';
             <div class="grid grid-cols-2 gap-5">
               <label class="block">
                 <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Teléfono</span>
-                <input name="phone" type="tel" required autocomplete="tel" inputmode="tel" class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400" placeholder="11 0000-0000" />
+                <input name="phone" type="tel" required autocomplete="tel" inputmode="tel" pattern="^(\+?54)?\s?(9)?\s?\(?\d{2,4}\)?[\s-]?\d{3,4}[\s-]?\d{4}$" title="Ej: 11 1234-5678 o +54 9 11 1234 5678" class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400 invalid:[&:not(:placeholder-shown)]:border-red-400" placeholder="11 1234-5678" />
               </label>
               <label class="block">
                 <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Zona</span>
@@ -81,6 +86,15 @@ import { site, waLink, telLink } from '../data/site';
             <label class="block">
               <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Contanos el problema</span>
               <textarea name="message" rows="3" required class="mt-1.5 block w-full border-0 border-b border-slate-300 bg-transparent px-0 py-2.5 text-base focus:border-ink focus:ring-0 outline-none transition placeholder:text-slate-400 resize-none" placeholder="¿Qué está pasando?"></textarea>
+            </label>
+            <label class="block">
+              <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Foto o video <span class="text-slate-400 normal-case tracking-normal">(opcional, hasta 10 MB)</span></span>
+              <input
+                type="file"
+                name="attachment"
+                accept="image/*,video/*"
+                class="mt-1.5 block w-full text-[13px] text-slate-600 file:mr-4 file:rounded-full file:border-0 file:bg-slate-100 file:px-4 file:py-2 file:text-[12px] file:font-semibold file:text-ink hover:file:bg-slate-200 file:cursor-pointer cursor-pointer"
+              />
             </label>
 
             <div class="hidden" aria-hidden="true">

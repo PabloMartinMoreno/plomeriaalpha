@@ -4,7 +4,7 @@ import '@fontsource-variable/fraunces';
 import '@fontsource-variable/fraunces/wght-italic.css';
 import '@fontsource-variable/inter';
 import { SEO } from 'astro-seo';
-import { site, zones, licenseLabel } from '../data/site';
+import { site, zones, services, licenseLabel } from '../data/site';
 import MobileStickyBar from '../components/MobileStickyBar.astro';
 
 interface Props {
@@ -27,6 +27,7 @@ const fullTitle = title === site.name ? title : `${title} · ${site.shortName}`;
 
 const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 const plausibleSrc = import.meta.env.PUBLIC_PLAUSIBLE_SRC || 'https://plausible.io/js/script.js';
+const clarityId = import.meta.env.PUBLIC_CLARITY_ID;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -59,6 +60,33 @@ const jsonLd = {
   ...(site.license.active && site.license.number
     ? { hasCredential: { '@type': 'EducationalOccupationalCredential', name: licenseLabel() } }
     : {}),
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios de plomería',
+    itemListElement: services.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: s.title,
+        description: s.meta,
+        url: `${site.url}/servicios/${s.slug}`,
+      },
+    })),
+  },
+  sameAs: [site.social.instagram, site.social.facebook].filter(Boolean),
+};
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.shortName,
+  legalName: site.name,
+  url: site.url,
+  logo: new URL('/favicon.svg', site.url).toString(),
+  image: new URL(image, site.url).toString(),
+  email: site.contact.email,
+  telephone: site.contact.phone,
+  founder: { '@type': 'Person', name: site.owner.name, jobTitle: site.owner.role },
   sameAs: [site.social.instagram, site.social.facebook].filter(Boolean),
 };
 ---
@@ -90,12 +118,17 @@ const jsonLd = {
     />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
 
     {plausibleDomain && (
       <>
         <script defer data-domain={plausibleDomain} src={plausibleSrc}></script>
         <script is:inline set:html={`window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}`} />
       </>
+    )}
+
+    {clarityId && (
+      <script is:inline set:html={`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${clarityId}");`} />
     )}
   </head>
   <body class="overflow-x-hidden pb-16 md:pb-0">
