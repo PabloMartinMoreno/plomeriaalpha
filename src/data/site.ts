@@ -3,7 +3,7 @@ export const site = {
   shortName: "Plomería Alpha",
   tagline: "Plomería matriculada en Zona Norte — urgencias, gas y reparaciones",
   description:
-    "Plomería Alpha: servicio profesional en Zona Norte GBA. Destapaciones, pérdidas, gas, termotanques y reparaciones. Respuesta rápida, presupuesto sin cargo y trabajo con garantía.",
+    "Plomería Alpha: servicio profesional en Zona Norte GBA. Destapes, pérdidas, gas, termotanques y reparaciones. Respuesta rápida, presupuesto sin cargo y trabajo con garantía.",
   url: "https://plomeriaalpha.com.ar",
   locale: "es_AR",
   owner: {
@@ -59,13 +59,13 @@ export const services = [
     ],
   },
   {
-    slug: "destapaciones",
+    slug: "destapes",
     icon: "lucide:droplets",
-    title: "Destapaciones",
+    title: "Destapes",
     short: "Piletas, inodoros y cloacas obstruidas. Equipo profesional.",
-    meta: "Destapaciones de cloacas, piletas, inodoros y bachas en Zona Norte con equipo profesional.",
+    meta: "Destapes y desobstrucción de cloacas, piletas, inodoros y bachas en Zona Norte con equipo profesional.",
     longDesc:
-      "Destapaciones con equipo de sondas eléctricas y máquina rotativa. Trabajamos en viviendas, PH, edificios y comercios. Detectamos la obstrucción sin romper siempre que sea posible y dejamos el sistema limpio, no solo desbloqueado.",
+      "Destapes con sonda eléctrica y máquina rotativa. Trabajamos en viviendas, PH, edificios y comercios. Detectamos la obstrucción sin romper siempre que sea posible y dejamos el sistema limpio, no solo desbloqueado.",
     bullets: [
       "Sondas eléctricas y máquina rotativa",
       "Inspección con cámara cuando corresponde",
@@ -189,7 +189,7 @@ export const serviceFaqs: Record<(typeof services)[number]["slug"], { q: string;
     { q: "¿Hay costo extra por urgencia fuera de horario?", a: "Hay un adicional razonable sobre la tarifa de visita por atención nocturna o feriados. Siempre se informa antes de viajar." },
     { q: "¿Pueden cortar el agua si hay inundación?", a: "Sí. Ante una pérdida grande sabemos dónde cortar y aislar el tramo. Mientras viajamos te guiamos por teléfono para frenar el daño." },
   ],
-  "destapaciones": [
+  "destapes": [
     { q: "¿Destapan sin romper?", a: "Siempre intentamos primero con sonda eléctrica y máquina rotativa. Recién rompemos si la obstrucción es estructural y no hay otra vía." },
     { q: "¿Hacen inspección con cámara?", a: "Sí, cuando el caso lo amerita. Grabamos y te pasamos el video para que veas la obstrucción y la causa." },
     { q: "¿Trabajan en edificios y PHs?", a: "Sí. Tenemos experiencia con bajadas comunes, coordinación con administración y cumplimiento de horarios de consorcio." },
