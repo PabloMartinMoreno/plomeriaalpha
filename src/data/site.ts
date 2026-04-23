@@ -94,7 +94,6 @@ export const services = [
     title: "Gas domiciliario",
     short: "Instalación, reparación y pruebas de hermeticidad. Matrícula vigente.",
     tag: "Matriculado",
-    big: true,
     meta: "Instalaciones de gas, pruebas de hermeticidad y trámites ante distribuidora en Zona Norte.",
     longDesc:
       "Instalaciones nuevas y reformas de gas con matrícula activa. Pruebas de hermeticidad con planilla firmada, trámite ante la distribuidora y acompañamiento hasta la habilitación. Arreglo de pérdidas, cambios de rejilla y ventilaciones a norma.",
