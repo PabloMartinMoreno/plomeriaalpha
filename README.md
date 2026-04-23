@@ -17,10 +17,6 @@ local y performance en mobile.
 
 ![Home](docs/screenshots/home.png)
 
-<p align="center">
-  <img src="docs/screenshots/home-mobile.png" alt="Home mobile" width="300" />
-</p>
-
 | Hub de servicios | Detalle de servicio |
 | :--- | :--- |
 | ![Servicios](docs/screenshots/servicios.png) | ![Servicio gas](docs/screenshots/servicios-gas.png) |
