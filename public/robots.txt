@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://plomerojonatanreyes.com.ar/sitemap-index.xml
+Sitemap: https://plomeriaalpha.com.ar/sitemap-index.xml

@@ -1,26 +1,48 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { licenseLabel } from '../data/site';
+
+const badges = [
+  { icon: 'lucide:shield-check', label: licenseLabel() },
+  { icon: 'lucide:receipt', label: 'Factura A · B' },
+  { icon: 'lucide:badge-check', label: 'Garantía escrita' },
+  { icon: 'lucide:clock', label: 'Urgencias 24/7' },
+];
 
 const logos = [
   'Metrogas', 'AySA', 'Edenor', 'Ferrum', 'FV', 'Peisa', 'Hidronor', 'Escurri', 'Saladillo', 'Acqua System',
 ];
 ---
 <section class="relative bg-white border-y border-slate-200 overflow-hidden">
-  <div class="container-x py-10 grid md:grid-cols-[auto_1fr] items-center gap-6">
-    <p class="text-xs uppercase tracking-[0.2em] font-semibold text-slate-500 md:border-r md:border-slate-200 md:pr-8 whitespace-nowrap">
-      Trabajamos con<br/>marcas y entes líderes
-    </p>
-    <div class="relative overflow-hidden">
-      <div class="flex gap-14 marquee-track-slow w-max items-center">
-        {[...logos, ...logos, ...logos].map((name) => (
-          <div class="flex items-center gap-2 text-2xl font-display font-light italic text-slate-400 hover:text-ink transition-colors whitespace-nowrap">
-            <Icon name="lucide:circle-dot" class="w-4 h-4 opacity-40" />
-            {name}
-          </div>
-        ))}
+  <div class="container-x py-8">
+    <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      {badges.map((b) => (
+        <li class="flex items-center gap-3 text-sm">
+          <span class="grid place-items-center w-10 h-10 rounded-xl bg-slate-100 text-brand-700 shrink-0">
+            <Icon name={b.icon} class="w-5 h-5" stroke-width="1.5" />
+          </span>
+          <span class="font-semibold text-ink leading-snug">{b.label}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <div class="border-t border-slate-200">
+    <div class="container-x py-6 grid md:grid-cols-[auto_1fr] items-center gap-6">
+      <p class="text-xs uppercase tracking-[0.2em] font-semibold text-slate-500 md:border-r md:border-slate-200 md:pr-8 whitespace-nowrap">
+        Trabajamos con<br/>marcas y entes líderes
+      </p>
+      <div class="relative overflow-hidden">
+        <div class="flex gap-14 marquee-track-slow w-max items-center">
+          {[...logos, ...logos, ...logos].map((name) => (
+            <div class="flex items-center gap-2 text-2xl font-display font-light italic text-slate-500 hover:text-ink transition-colors whitespace-nowrap">
+              <Icon name="lucide:circle-dot" class="w-4 h-4 opacity-40" />
+              {name}
+            </div>
+          ))}
+        </div>
+        <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent"></div>
+        <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"></div>
       </div>
-      <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent"></div>
-      <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"></div>
     </div>
   </div>
 </section>

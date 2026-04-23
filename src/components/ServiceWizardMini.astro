@@ -4,10 +4,16 @@ import { zones, site } from '../data/site';
 
 interface Props {
   service: { slug: string; title: string };
+  zone?: { slug: string; name: string };
 }
-const { service } = Astro.props as Props;
+const { service, zone } = Astro.props as Props;
+const zonePreset = zone ? 'true' : 'false';
+const totalSteps = zone ? 1 : 2;
+const copy = zone
+  ? `Solo decinos si es urgencia o programado. El mensaje ya lleva ${service.title.toLowerCase()} en ${zone.name}.`
+  : 'Elegí zona y tipo de trabajo. Armamos el mensaje con tu servicio ya seleccionado.';
 ---
-<section class="section-tight bg-white border-t border-slate-200" id={`wizard-${service.slug}`}>
+<section class="section-tight bg-white border-t border-slate-200" id={`wizard-${service.slug}${zone ? `-${zone.slug}` : ''}`}>
   <div class="container-x">
     <div class="grid lg:grid-cols-12 gap-10 items-start">
       <div class="lg:col-span-5">
@@ -16,7 +22,7 @@ const { service } = Astro.props as Props;
           Llegá a WhatsApp con <span class="italic-display text-brand-700">todo listo</span>.
         </h2>
         <p class="mt-6 text-lg text-slate-600 leading-relaxed max-w-md">
-          Elegí zona y tipo de trabajo. Armamos el mensaje con tu servicio ya seleccionado.
+          {copy}
         </p>
       </div>
 
@@ -26,16 +32,19 @@ const { service } = Astro.props as Props;
         data-phone={site.contact.whatsapp}
         data-service={service.title}
         data-service-slug={service.slug}
+        data-zone-preset={zonePreset}
+        data-zone-name={zone?.name ?? ''}
+        data-zone-slug={zone?.slug ?? ''}
       >
         <div class="flex items-center justify-between text-xs uppercase tracking-[0.18em] text-slate-500">
-          <span data-mini-step-label>Paso 1 de 2</span>
+          <span data-mini-step-label>Paso 1 de {totalSteps}</span>
           <div class="flex gap-1.5">
-            <span class="w-8 h-1 rounded-full bg-ink" data-mini-bar="1"></span>
-            <span class="w-8 h-1 rounded-full bg-slate-200" data-mini-bar="2"></span>
+            {!zone && <span class="w-8 h-1 rounded-full bg-ink" data-mini-bar="1"></span>}
+            <span class={`w-8 h-1 rounded-full ${zone ? 'bg-ink' : 'bg-slate-200'}`} data-mini-bar={zone ? '1' : '2'}></span>
           </div>
         </div>
 
-        <div data-mini-slot="1">
+        <div data-mini-slot="1" class={zone ? 'hidden' : ''}>
           <h3 class="mt-6 display-sm text-ink !font-medium">¿En qué zona?</h3>
           <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-2">
             {zones.map((z) => (
@@ -62,7 +71,7 @@ const { service } = Astro.props as Props;
           </div>
         </div>
 
-        <div data-mini-slot="2" class="hidden">
+        <div data-mini-slot="2" class={zone ? '' : 'hidden'}>
           <h3 class="mt-6 display-sm text-ink !font-medium">¿Es urgencia o programado?</h3>
           <div class="mt-6 grid sm:grid-cols-2 gap-3">
             <button

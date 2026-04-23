@@ -1,13 +1,14 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { site, telLink, waLink, zones, licenseLabel } from '../data/site';
+import { site, telLink, waLink, zones, services, licenseLabel } from '../data/site';
 
 const year = new Date().getFullYear();
+const footerServices = services.slice(0, 6);
 ---
 <footer class="bg-white border-t border-slate-200 text-slate-600">
   <div class="container-x py-16">
     <div class="grid md:grid-cols-12 gap-10">
-      <div class="md:col-span-5">
+      <div class="md:col-span-4">
         <div class="flex items-center gap-2.5 text-ink font-semibold">
           <span class="grid place-items-center w-10 h-10 rounded-xl bg-ink text-white">
             <Icon name="lucide:droplet" class="w-5 h-5" />
@@ -34,6 +35,27 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="md:col-span-3">
+        <h4 class="text-ink font-semibold text-sm">Servicios</h4>
+        <ul class="mt-4 space-y-2 text-sm">
+          {footerServices.map((s) => (
+            <li><a href={`/servicios/${s.slug}`} class="hover:text-ink transition">{s.title}</a></li>
+          ))}
+          <li><a href="/servicios" class="font-semibold text-ink hover:underline">Ver todos los servicios</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-2">
+        <h4 class="text-ink font-semibold text-sm">Sitio</h4>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li><a href="/" class="hover:text-ink transition">Inicio</a></li>
+          <li><a href="/servicios" class="hover:text-ink transition">Servicios</a></li>
+          <li><a href="/zonas" class="hover:text-ink transition">Zonas</a></li>
+          <li><a href="/contacto" class="hover:text-ink transition">Contacto</a></li>
+          <li><a href="/privacidad" class="hover:text-ink transition">Privacidad</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-3">
         <h4 class="text-ink font-semibold text-sm">Contacto</h4>
         <ul class="mt-4 space-y-3 text-sm">
           <li><a href={telLink} class="hover:text-ink flex items-center gap-2"><Icon name="lucide:phone" class="w-4 h-4" /> {site.contact.phoneDisplay}</a></li>
@@ -41,17 +63,18 @@ const year = new Date().getFullYear();
           <li><a href={`mailto:${site.contact.email}`} class="hover:text-ink flex items-center gap-2 break-all"><Icon name="lucide:mail" class="w-4 h-4" /> {site.contact.email}</a></li>
           <li class="flex items-center gap-2"><Icon name="lucide:clock" class="w-4 h-4" /> {site.contact.hours}</li>
         </ul>
-      </div>
-
-      <div class="md:col-span-4">
-        <h4 class="text-ink font-semibold text-sm">Áreas de cobertura</h4>
-        <ul class="mt-4 flex flex-wrap gap-x-3 gap-y-1.5 text-sm leading-relaxed">
-          {zones.map((z) => (
-            <li><a href={`/zonas/${z.slug}`} class="hover:text-ink transition">{z.name}</a></li>
-          ))}
-        </ul>
         <p class="mt-6 text-[11px] uppercase tracking-[0.18em] text-slate-500">{licenseLabel()}</p>
       </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-slate-200">
+      <h4 class="text-ink font-semibold text-sm">Áreas de cobertura</h4>
+      <ul class="mt-4 flex flex-wrap gap-x-3 gap-y-1.5 text-sm leading-relaxed">
+        {zones.map((z) => (
+          <li><a href={`/zonas/${z.slug}`} class="hover:text-ink transition">{z.name}</a></li>
+        ))}
+        <li><a href="/zonas" class="font-semibold text-ink hover:underline">Ver todas</a></li>
+      </ul>
     </div>
   </div>
 

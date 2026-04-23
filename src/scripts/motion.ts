@@ -407,8 +407,13 @@ function initMiniWizard() {
   const phone = root.dataset.phone || '';
   const service = root.dataset.service || '';
   const slug = root.dataset.serviceSlug || '';
+  const zonePreset = root.dataset.zonePreset === 'true';
+  const presetZoneName = root.dataset.zoneName || '';
+  const presetZoneSlug = root.dataset.zoneSlug || '';
   const state: { zone?: string; urgency?: 'urgencia' | 'programado' } = {};
-  let step: 1 | 2 = 1;
+  if (zonePreset && presetZoneName) state.zone = presetZoneName;
+  let step: 1 | 2 = zonePreset ? 2 : 1;
+  const totalSteps = zonePreset ? 1 : 2;
 
   const slots = Array.from(root.querySelectorAll<HTMLElement>('[data-mini-slot]'));
   const bars = Array.from(root.querySelectorAll<HTMLElement>('[data-mini-bar]'));
@@ -422,10 +427,12 @@ function initMiniWizard() {
       b.classList.toggle('bg-ink', n <= step);
       b.classList.toggle('bg-slate-200', n > step);
     });
-    if (label) label.textContent = `Paso ${step} de 2`;
+    const shown = zonePreset ? 1 : step;
+    if (label) label.textContent = `Paso ${shown} de ${totalSteps}`;
     if (backBtn) {
-      backBtn.classList.toggle('hidden', step === 1);
-      backBtn.classList.toggle('inline-flex', step !== 1);
+      const canBack = !zonePreset && step > 1;
+      backBtn.classList.toggle('hidden', !canBack);
+      backBtn.classList.toggle('inline-flex', canBack);
     }
   };
 
@@ -434,10 +441,10 @@ function initMiniWizard() {
     if (state.zone) lines.push(`· Zona: ${state.zone}`);
     if (state.urgency) lines.push(`· Tipo: ${state.urgency === 'urgencia' ? 'Urgencia' : 'Programado'}`);
     const msg = lines.join('\n');
-    const src = `mini-wizard-${slug}`;
+    const src = zonePreset ? `cross-wizard-${slug}-${presetZoneSlug}` : `mini-wizard-${slug}`;
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}&utm_source=web&utm_content=${encodeURIComponent(src)}`;
     const plausible = (window as any).plausible;
-    if (typeof plausible === 'function') plausible('wizard:complete', { props: { service: slug, urgency: state.urgency || '' } });
+    if (typeof plausible === 'function') plausible('wizard:complete', { props: { service: slug, zone: state.zone || '', urgency: state.urgency || '' } });
     window.open(url, '_blank', 'noopener');
   };
 
