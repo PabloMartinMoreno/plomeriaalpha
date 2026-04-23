@@ -183,6 +183,44 @@ export const priceHintLabel = (slug: Service["slug"]) => {
   return "Presupuesto sin cargo";
 };
 
+export const serviceFaqs: Record<(typeof services)[number]["slug"], { q: string; a: string }[]> = {
+  "urgencias": [
+    { q: "¿Atienden de noche y fines de semana?", a: "Sí. Urgencias 24/7 incluyendo feriados. Llegada objetivo en menos de 2 horas dentro de zona." },
+    { q: "¿Hay costo extra por urgencia fuera de horario?", a: "Hay un adicional razonable sobre la tarifa de visita por atención nocturna o feriados. Siempre se informa antes de viajar." },
+    { q: "¿Pueden cortar el agua si hay inundación?", a: "Sí. Ante una pérdida grande sabemos dónde cortar y aislar el tramo. Mientras viajamos te guiamos por teléfono para frenar el daño." },
+  ],
+  "destapaciones": [
+    { q: "¿Destapan sin romper?", a: "Siempre intentamos primero con sonda eléctrica y máquina rotativa. Recién rompemos si la obstrucción es estructural y no hay otra vía." },
+    { q: "¿Hacen inspección con cámara?", a: "Sí, cuando el caso lo amerita. Grabamos y te pasamos el video para que veas la obstrucción y la causa." },
+    { q: "¿Trabajan en edificios y PHs?", a: "Sí. Tenemos experiencia con bajadas comunes, coordinación con administración y cumplimiento de horarios de consorcio." },
+  ],
+  "perdidas-filtraciones": [
+    { q: "¿Pueden detectar la pérdida sin romper?", a: "Sí. Usamos geófono acústico y cámara térmica para localizar antes de intervenir. La rotura es mínima y puntual." },
+    { q: "¿Qué tipo de caños reparan?", a: "Termofusión, epoxi, hierro galvanizado y cobre. También adaptamos uniones entre materiales distintos cuando hace falta." },
+    { q: "¿Dejan probado antes de irse?", a: "Sí. Cerramos con prueba de presión y verificamos que no quede goteo antes de dar por cerrado el trabajo." },
+  ],
+  "gas": [
+    { q: "¿Tienen matrícula vigente?", a: "Sí. Todos los trabajos de gas llevan matrícula activa, planilla firmada y prueba de hermeticidad documentada." },
+    { q: "¿Hacen el trámite ante la distribuidora?", a: "Sí. Armamos la documentación, presentamos en la distribuidora y acompañamos hasta la habilitación efectiva del servicio." },
+    { q: "¿Arreglan artefactos a gas?", a: "Reparamos y ajustamos hornallas, calefones, termotanques y estufas. Si el artefacto no tiene repuesto, recomendamos recambio." },
+  ],
+  "termotanques-calefones": [
+    { q: "¿Con qué marcas trabajan?", a: "Peisa, Orbis, Sherman, Rheem, Longvie y Escorial. Conseguimos repuestos originales para las líneas más comunes." },
+    { q: "¿Instalan termotanque eléctrico y a gas?", a: "Sí. Resolvemos instalación con ventilación a norma, conexión eléctrica o de gas según corresponda, y regulación final." },
+    { q: "¿Cuánto dura un termotanque?", a: "Dependiendo de la calidad del agua y el uso, entre 6 y 12 años. Hacemos limpieza de sarro para extender vida útil." },
+  ],
+  "banos-cocinas": [
+    { q: "¿Hacen reformas completas?", a: "Coordinamos la parte de plomería y derivamos albañilería, electricidad y revestimientos a profesionales de confianza si hace falta." },
+    { q: "¿Consiguen la grifería o la pongo yo?", a: "Las dos opciones. Si la conseguimos nosotros, elegís línea y nosotros nos encargamos. Si la comprás vos, te indicamos qué modelo evita problemas." },
+    { q: "¿Reparan flexibles y sellos?", a: "Sí. Cambio de flexibles, canillas con pérdida, sifones, rejillas, sellado anti-humedad y ajuste de descarga de inodoro." },
+  ],
+  "obra-refaccion": [
+    { q: "¿Trabajan con plano?", a: "Sí. Revisamos el plano sanitario del proyecto, proponemos ajustes y ejecutamos con cronograma acordado." },
+    { q: "¿Cobran por etapa?", a: "Sí. Cotización desglosada por etapa (agua fría, caliente, cloaca, pruebas) y certificación al cierre de cada una." },
+    { q: "¿Coordinan con el resto de los gremios?", a: "Sí. Sincronizamos con albañil, electricista y gasista matriculado para evitar superposición de tareas." },
+  ],
+};
+
 export type WaContext = {
   service?: string;
   zone?: string;

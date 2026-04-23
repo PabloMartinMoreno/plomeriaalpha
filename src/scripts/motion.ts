@@ -299,7 +299,7 @@ function initContactForm() {
   form.addEventListener('submit', async (e) => {
     const honeypot = form.querySelector<HTMLInputElement>('input[name="_gotcha"]');
     if (honeypot?.value) { e.preventDefault(); return; }
-    if (form.action.includes('REEMPLAZAR')) {
+    if (form.dataset.formConfigured === 'false') {
       e.preventDefault();
       setStatus('Formulario no configurado todavía — escribinos por WhatsApp.', false);
       return;
@@ -315,6 +315,10 @@ function initContactForm() {
       if (res.ok) {
         form.reset();
         setStatus('Recibido. Te contactamos en el día.', true);
+        const plausible = (window as any).plausible;
+        if (typeof plausible === 'function') plausible('form:submit', { props: { location: window.location.pathname } });
+        const nextInput = form.querySelector<HTMLInputElement>('input[name="_next"]');
+        if (nextInput?.value) window.location.assign(nextInput.value);
       } else {
         setStatus('No se pudo enviar. Probá por WhatsApp.', false);
       }
@@ -396,6 +400,108 @@ function initQuickWizard() {
   render();
 }
 
+// ─────────────────────────────────────────────── mini wizard (service detail)
+function initMiniWizard() {
+  const root = document.querySelector<HTMLElement>('[data-mini-wizard]');
+  if (!root) return;
+  const phone = root.dataset.phone || '';
+  const service = root.dataset.service || '';
+  const slug = root.dataset.serviceSlug || '';
+  const state: { zone?: string; urgency?: 'urgencia' | 'programado' } = {};
+  let step: 1 | 2 = 1;
+
+  const slots = Array.from(root.querySelectorAll<HTMLElement>('[data-mini-slot]'));
+  const bars = Array.from(root.querySelectorAll<HTMLElement>('[data-mini-bar]'));
+  const label = root.querySelector<HTMLElement>('[data-mini-step-label]');
+  const backBtn = root.querySelector<HTMLButtonElement>('[data-mini-back]');
+
+  const render = () => {
+    slots.forEach((s) => s.classList.toggle('hidden', Number(s.dataset.miniSlot) !== step));
+    bars.forEach((b) => {
+      const n = Number(b.dataset.miniBar);
+      b.classList.toggle('bg-ink', n <= step);
+      b.classList.toggle('bg-slate-200', n > step);
+    });
+    if (label) label.textContent = `Paso ${step} de 2`;
+    if (backBtn) {
+      backBtn.classList.toggle('hidden', step === 1);
+      backBtn.classList.toggle('inline-flex', step !== 1);
+    }
+  };
+
+  const submit = () => {
+    const lines = ['Hola, consulta desde la web:', `· Servicio: ${service}`];
+    if (state.zone) lines.push(`· Zona: ${state.zone}`);
+    if (state.urgency) lines.push(`· Tipo: ${state.urgency === 'urgencia' ? 'Urgencia' : 'Programado'}`);
+    const msg = lines.join('\n');
+    const src = `mini-wizard-${slug}`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}&utm_source=web&utm_content=${encodeURIComponent(src)}`;
+    const plausible = (window as any).plausible;
+    if (typeof plausible === 'function') plausible('wizard:complete', { props: { service: slug, urgency: state.urgency || '' } });
+    window.open(url, '_blank', 'noopener');
+  };
+
+  root.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-mini-option]');
+    if (!btn) return;
+    const opt = btn.dataset.miniOption;
+    const value = btn.dataset.value || '';
+    if (opt === 'zone') {
+      state.zone = value;
+      step = 2;
+      render();
+    } else if (opt === 'urgency') {
+      state.urgency = value as 'urgencia' | 'programado';
+      submit();
+    }
+  });
+
+  backBtn?.addEventListener('click', () => {
+    if (step > 1) {
+      step = (step - 1) as 1 | 2;
+      render();
+    }
+  });
+
+  render();
+}
+
+// ─────────────────────────────────────────────── header compact on scroll
+function initHeaderCompact() {
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const inner = document.querySelector<HTMLElement>('[data-header-inner]');
+  if (!header || !inner) return;
+  const threshold = 24;
+  const update = () => {
+    const compact = window.scrollY > threshold;
+    header.dataset.compact = compact ? 'true' : 'false';
+    inner.dataset.compact = compact ? 'true' : 'false';
+  };
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+}
+
+// ─────────────────────────────────────────────── scroll depth tracking
+function initScrollDepth() {
+  const marks = [25, 50, 75, 90];
+  const fired = new Set<number>();
+  const onScroll = () => {
+    const doc = document.documentElement;
+    const h = doc.scrollHeight - doc.clientHeight;
+    if (h <= 0) return;
+    const pct = Math.round((doc.scrollTop / h) * 100);
+    for (const m of marks) {
+      if (pct >= m && !fired.has(m)) {
+        fired.add(m);
+        const plausible = (window as any).plausible;
+        if (typeof plausible === 'function') plausible('scroll', { props: { depth: String(m) } });
+      }
+    }
+    if (fired.size === marks.length) window.removeEventListener('scroll', onScroll);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
 // ─────────────────────────────────────────────── CTA event tracking
 function initTrackCTAs() {
   document.addEventListener('click', (e) => {
@@ -420,6 +526,9 @@ function boot() {
   initOpenNow();
   initContactForm();
   initQuickWizard();
+  initMiniWizard();
+  initScrollDepth();
+  initHeaderCompact();
   initTrackCTAs();
   if (!isReduced) {
     initSplitText();

@@ -1,0 +1,104 @@
+---
+import { Icon } from 'astro-icon/components';
+import { zones, site } from '../data/site';
+
+interface Props {
+  service: { slug: string; title: string };
+}
+const { service } = Astro.props as Props;
+---
+<section class="section-tight bg-white border-t border-slate-200" id={`wizard-${service.slug}`}>
+  <div class="container-x">
+    <div class="grid lg:grid-cols-12 gap-10 items-start">
+      <div class="lg:col-span-5">
+        <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">— Consulta rápida</span>
+        <h2 class="mt-4 display-lg">
+          Llegá a WhatsApp con <span class="italic-display text-brand-700">todo listo</span>.
+        </h2>
+        <p class="mt-6 text-lg text-slate-600 leading-relaxed max-w-md">
+          Elegí zona y tipo de trabajo. Armamos el mensaje con tu servicio ya seleccionado.
+        </p>
+      </div>
+
+      <div
+        class="lg:col-span-7 rounded-[28px] border border-slate-200 bg-white p-7 sm:p-10 shadow-xl shadow-slate-200/50"
+        data-mini-wizard
+        data-phone={site.contact.whatsapp}
+        data-service={service.title}
+        data-service-slug={service.slug}
+      >
+        <div class="flex items-center justify-between text-xs uppercase tracking-[0.18em] text-slate-500">
+          <span data-mini-step-label>Paso 1 de 2</span>
+          <div class="flex gap-1.5">
+            <span class="w-8 h-1 rounded-full bg-ink" data-mini-bar="1"></span>
+            <span class="w-8 h-1 rounded-full bg-slate-200" data-mini-bar="2"></span>
+          </div>
+        </div>
+
+        <div data-mini-slot="1">
+          <h3 class="mt-6 display-sm text-ink !font-medium">¿En qué zona?</h3>
+          <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {zones.map((z) => (
+              <button
+                type="button"
+                data-mini-option="zone"
+                data-value={z.name}
+                data-slug={z.slug}
+                class="group flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-[13px] font-medium hover:border-ink hover:bg-slate-50 transition-all"
+              >
+                <Icon name="lucide:map-pin" class="w-3.5 h-3.5 text-brand-600" />
+                {z.name}
+              </button>
+            ))}
+            <button
+              type="button"
+              data-mini-option="zone"
+              data-value="Otra zona"
+              class="group col-span-2 sm:col-span-1 flex items-center gap-2 rounded-xl border border-dashed border-slate-300 bg-white px-4 py-3 text-[13px] font-medium hover:border-ink hover:bg-slate-50 transition-all"
+            >
+              <Icon name="lucide:map" class="w-3.5 h-3.5 text-brand-600" />
+              Otra zona
+            </button>
+          </div>
+        </div>
+
+        <div data-mini-slot="2" class="hidden">
+          <h3 class="mt-6 display-sm text-ink !font-medium">¿Es urgencia o programado?</h3>
+          <div class="mt-6 grid sm:grid-cols-2 gap-3">
+            <button
+              type="button"
+              data-mini-option="urgency"
+              data-value="urgencia"
+              class="group text-left rounded-2xl border-2 border-slate-200 hover:border-accent-500 bg-white p-6 transition-all"
+            >
+              <span class="grid place-items-center w-11 h-11 rounded-xl bg-accent-500 text-ink mb-4">
+                <Icon name="lucide:siren" class="w-5 h-5" stroke-width="1.5" />
+              </span>
+              <span class="block text-lg font-display text-ink">Urgencia</span>
+              <span class="block mt-1 text-[13px] text-slate-600">Necesito resolver hoy.</span>
+            </button>
+            <button
+              type="button"
+              data-mini-option="urgency"
+              data-value="programado"
+              class="group text-left rounded-2xl border-2 border-slate-200 hover:border-ink bg-white p-6 transition-all"
+            >
+              <span class="grid place-items-center w-11 h-11 rounded-xl bg-slate-100 text-ink mb-4">
+                <Icon name="lucide:calendar-check" class="w-5 h-5" stroke-width="1.5" />
+              </span>
+              <span class="block text-lg font-display text-ink">Programado</span>
+              <span class="block mt-1 text-[13px] text-slate-600">Coordinamos día y hora.</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-8 flex items-center justify-between text-xs text-slate-500">
+          <button type="button" data-mini-back class="hidden items-center gap-1.5 text-slate-500 hover:text-ink transition">
+            <Icon name="lucide:arrow-left" class="w-3.5 h-3.5" />
+            Volver
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -11,8 +11,8 @@ const nav = [
 ];
 const openSpec = JSON.stringify(site.contact.openingHours.weekdays);
 ---
-<header class="sticky top-0 z-40 w-full border-b border-slate-200/60 bg-white/70 backdrop-blur-xl">
-  <div class="container-x flex h-16 sm:h-18 items-center justify-between gap-4">
+<header data-header class="sticky top-0 z-40 w-full border-b border-slate-200/60 bg-white/70 backdrop-blur-xl transition-[background-color,box-shadow] duration-300 data-[compact=true]:bg-white/90 data-[compact=true]:shadow-[0_1px_12px_-6px_rgba(15,23,42,0.18)]">
+  <div class="container-x flex items-center justify-between gap-4 h-16 sm:h-18 transition-[height] duration-300 data-[compact=true]:h-14 sm:data-[compact=true]:h-14" data-header-inner>
     <a href="/" class="flex items-center gap-2.5 font-semibold text-ink" aria-label={site.shortName}>
       <span class="grid place-items-center w-9 h-9 rounded-xl bg-ink text-white">
         <Icon name="lucide:droplet" class="w-[18px] h-[18px]" />

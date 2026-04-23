@@ -1,0 +1,88 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import { site, services, zones, waLink, telLink, cta } from '../data/site';
+
+const popularServices = services.slice(0, 4);
+const popularZones = zones.slice(0, 6);
+---
+<BaseLayout
+  title="Página no encontrada"
+  description="La página que buscás no existe o se movió."
+  noindex={true}
+>
+  <Header />
+  <main id="main">
+    <section class="relative isolate bg-white">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 opacity-60">
+        <div class="absolute inset-0 mesh-bg"></div>
+      </div>
+
+      <div class="container-x pt-32 sm:pt-40 pb-20">
+        <div class="max-w-3xl">
+          <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">— Error 404</span>
+          <h1 class="mt-4 display-xl text-ink !leading-[0.95]">
+            Se nos
+            <span class="italic-display text-brand-700">escapó</span>
+            el caño.
+          </h1>
+          <p class="mt-8 text-xl text-slate-600 leading-relaxed font-light">
+            Esta página no existe o se movió. Si estabas buscando un servicio o zona, probá con los accesos de abajo o escribinos directo.
+          </p>
+
+          <div class="mt-10 flex flex-wrap gap-3">
+            <a href={waLink({ source: '404' })} class="btn-whatsapp btn-arrow" target="_blank" rel="noopener" data-track="cta:404:whatsapp">
+              <Icon name="lucide:message-circle" class="w-[18px] h-[18px]" />
+              {cta.primary}
+              <Icon name="lucide:arrow-right" class="w-4 h-4" />
+            </a>
+            <a href="/" class="btn-outline">
+              <Icon name="lucide:home" class="w-4 h-4" />
+              Inicio
+            </a>
+            <a href={telLink} class="btn-ghost hidden sm:inline-flex" data-track="cta:404:phone">
+              <Icon name="lucide:phone" class="w-4 h-4" />
+              {site.contact.phoneDisplay}
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-16 grid md:grid-cols-2 gap-8">
+          <div>
+            <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Servicios frecuentes</p>
+            <ul class="mt-4 grid sm:grid-cols-2 gap-2">
+              {popularServices.map((s) => (
+                <li>
+                  <a href={`/servicios/${s.slug}`} class="group flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm hover:border-ink hover:bg-slate-50 transition">
+                    <Icon name={s.icon} class="w-4 h-4 text-brand-700" />
+                    <span class="flex-1">{s.title}</span>
+                    <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5 text-slate-400 group-hover:text-ink" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Zonas frecuentes</p>
+            <ul class="mt-4 grid grid-cols-2 gap-2">
+              {popularZones.map((z) => (
+                <li>
+                  <a href={`/zonas/${z.slug}`} class="group flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm hover:border-ink hover:bg-slate-50 transition">
+                    <Icon name="lucide:map-pin" class="w-4 h-4 text-brand-700" />
+                    <span class="flex-1">{z.name}</span>
+                    <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5 text-slate-400 group-hover:text-ink" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</BaseLayout>

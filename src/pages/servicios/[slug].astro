@@ -4,8 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
-import BigCTA from '../../components/BigCTA.astro';
-import { services, zones, site, waLink, telLink, cta } from '../../data/site';
+import ServiceWizardMini from '../../components/ServiceWizardMini.astro';
+import { services, zones, site, waLink, telLink, cta, serviceFaqs } from '../../data/site';
 
 export function getStaticPaths() {
   return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
@@ -13,6 +13,17 @@ export function getStaticPaths() {
 
 const { service } = Astro.props;
 const otherServices = services.filter((s) => s.slug !== service.slug).slice(0, 4);
+const faqs = serviceFaqs[service.slug] ?? [];
+
+const faqJsonLd = faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+} : null;
 
 const serviceJsonLd = {
   '@context': 'https://schema.org',
@@ -132,11 +143,49 @@ const breadcrumbJsonLd = {
       </div>
     </section>
 
-    <BigCTA />
+    <ServiceWizardMini service={{ slug: service.slug, title: service.title }} />
+
+    {faqs.length > 0 && (
+      <section class="section-tight bg-slate-50 border-t border-slate-200">
+        <div class="container-x">
+          <div class="grid md:grid-cols-12 gap-10 mb-10">
+            <div class="md:col-span-6">
+              <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">— Preguntas sobre {service.title.toLowerCase()}</span>
+              <h2 class="mt-4 display-lg">Dudas <span class="italic-display text-brand-700">puntuales</span>.</h2>
+            </div>
+            <div class="md:col-span-6 flex items-end">
+              <p class="text-lg text-slate-600 leading-relaxed">
+                Las consultas más frecuentes sobre este servicio. Si la tuya no está, escribinos por WhatsApp.
+              </p>
+            </div>
+          </div>
+          <div class="space-y-2">
+            {faqs.map((item, i) => (
+              <details class="reveal group rounded-2xl bg-white border border-slate-200 open:border-ink open:shadow-xl open:shadow-ink/5 transition-all duration-500 overflow-hidden">
+                <summary class="flex cursor-pointer items-center justify-between gap-6 list-none px-7 py-6">
+                  <div class="flex items-center gap-6">
+                    <span class="font-mono text-xs text-slate-500 group-open:text-brand-600 transition-colors">{String(i+1).padStart(2,'0')}</span>
+                    <h3 class="text-lg sm:text-xl font-display text-ink">{item.q}</h3>
+                  </div>
+                  <span class="shrink-0 relative w-5 h-5">
+                    <span class="absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 bg-ink"></span>
+                    <span class="absolute inset-y-0 left-1/2 w-[2px] -translate-x-1/2 bg-ink transition-transform duration-500 group-open:rotate-90 group-open:scale-0"></span>
+                  </span>
+                </summary>
+                <div class="px-7 pb-7 pl-[5rem]">
+                  <p class="text-slate-600 leading-relaxed text-[15px]">{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
   </main>
   <Footer />
   <WhatsAppFloat />
 
   <script type="application/ld+json" set:html={JSON.stringify(serviceJsonLd)} />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+  {faqJsonLd && <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />}
 </BaseLayout>
