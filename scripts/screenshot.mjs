@@ -4,14 +4,16 @@ import { mkdirSync } from 'node:fs';
 const OUT = 'docs/screenshots';
 mkdirSync(OUT, { recursive: true });
 
+// Above-the-fold viewport screenshots for README.
+// Fullpage variants saved in /full for deeper review.
 const targets = [
-  { name: 'home', url: '/', mobile: false, fullPage: true },
-  { name: 'home-mobile', url: '/', mobile: true, fullPage: false, height: 900 },
-  { name: 'servicios', url: '/servicios', mobile: false, fullPage: true },
-  { name: 'servicios-gas', url: '/servicios/gas', mobile: false, fullPage: true },
-  { name: 'servicios-gas-tigre', url: '/servicios/gas/tigre', mobile: false, fullPage: true },
-  { name: 'zonas', url: '/zonas', mobile: false, fullPage: true },
-  { name: 'contacto', url: '/contacto', mobile: false, fullPage: true },
+  { name: 'home',                url: '/',                        mobile: false, height: 1000 },
+  { name: 'home-mobile',         url: '/',                        mobile: true,  height: 1600 },
+  { name: 'servicios',           url: '/servicios',               mobile: false, height: 1000 },
+  { name: 'servicios-gas',       url: '/servicios/gas',           mobile: false, height: 1000 },
+  { name: 'servicios-gas-tigre', url: '/servicios/gas/tigre',     mobile: false, height: 1000 },
+  { name: 'zonas',               url: '/zonas',                   mobile: false, height: 1000 },
+  { name: 'contacto',            url: '/contacto',                mobile: false, height: 1000 },
 ];
 
 const BASE = 'http://localhost:4321';
@@ -25,10 +27,10 @@ const browser = await puppeteer.launch({
 for (const t of targets) {
   const page = await browser.newPage();
   if (t.mobile) {
-    await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+    await page.setViewport({ width: 414, height: t.height || 1600, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
     await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Version/17.0 Mobile/15E148 Safari/604.1');
   } else {
-    await page.setViewport({ width: 1440, height: t.height || 900, deviceScaleFactor: 1 });
+    await page.setViewport({ width: 1440, height: t.height || 1000, deviceScaleFactor: 1 });
   }
   await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
   await page.goto(BASE + t.url, { waitUntil: 'networkidle0', timeout: 30000 });
@@ -47,7 +49,7 @@ for (const t of targets) {
   });
   await new Promise((r) => setTimeout(r, 800));
   const path = `${OUT}/${t.name}.png`;
-  await page.screenshot({ path, fullPage: !!t.fullPage, type: 'png' });
+  await page.screenshot({ path, fullPage: false, type: 'png' });
   console.log('captured', t.name);
   await page.close();
 }
