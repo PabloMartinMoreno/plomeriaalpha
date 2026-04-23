@@ -7,6 +7,28 @@ y Tigre. Fundado por **Jonatan Reyes**.
 Construido con Astro + Tailwind CSS v4, optimizado para conversión, SEO
 local y performance en mobile.
 
+![Landing — desktop](docs/screenshots/home.png)
+
+---
+
+## Preview
+
+| Desktop | Mobile |
+| :--- | :--- |
+| ![Home](docs/screenshots/home.png) | ![Home mobile](docs/screenshots/home-mobile.png) |
+
+| Hub de servicios | Detalle de servicio |
+| :--- | :--- |
+| ![Servicios](docs/screenshots/servicios.png) | ![Servicio gas](docs/screenshots/servicios-gas.png) |
+
+| Cross page (servicio × zona) | Hub de zonas |
+| :--- | :--- |
+| ![Gas en Tigre](docs/screenshots/servicios-gas-tigre.png) | ![Zonas](docs/screenshots/zonas.png) |
+
+| Contacto |
+| :--- |
+| ![Contacto](docs/screenshots/contacto.png) |
+
 ---
 
 ## Stack
