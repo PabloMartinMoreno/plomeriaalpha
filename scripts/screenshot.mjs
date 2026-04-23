@@ -8,7 +8,7 @@ mkdirSync(OUT, { recursive: true });
 // Fullpage variants saved in /full for deeper review.
 const targets = [
   { name: 'home',                url: '/',                        mobile: false, height: 1000 },
-  { name: 'home-mobile',         url: '/',                        mobile: true,  height: 1600 },
+  { name: 'home-mobile',         url: '/',                        mobile: true,  height: 900 },
   { name: 'servicios',           url: '/servicios',               mobile: false, height: 1000 },
   { name: 'servicios-gas',       url: '/servicios/gas',           mobile: false, height: 1000 },
   { name: 'servicios-gas-tigre', url: '/servicios/gas/tigre',     mobile: false, height: 1000 },

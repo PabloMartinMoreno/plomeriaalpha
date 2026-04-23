@@ -13,9 +13,13 @@ local y performance en mobile.
 
 ## Preview
 
-| Desktop | Mobile |
-| :--- | :--- |
-| ![Home](docs/screenshots/home.png) | ![Home mobile](docs/screenshots/home-mobile.png) |
+### Home
+
+![Home](docs/screenshots/home.png)
+
+<p align="center">
+  <img src="docs/screenshots/home-mobile.png" alt="Home mobile" width="300" />
+</p>
 
 | Hub de servicios | Detalle de servicio |
 | :--- | :--- |
