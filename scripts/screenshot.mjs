@@ -9,7 +9,7 @@ mkdirSync(OUT, { recursive: true });
 const targets = [
   { name: 'home',                url: '/',                        mobile: false, height: 1000 },
   { name: 'home-mobile',         url: '/',                        mobile: true,  height: 900 },
-  { name: 'servicios',           url: '/servicios',               mobile: false, height: 1000 },
+  { name: 'servicios',           url: '/servicios',               mobile: false, height: 1000, scrollY: 600 },
   { name: 'servicios-gas',       url: '/servicios/gas',           mobile: false, height: 1000 },
   { name: 'servicios-gas-tigre', url: '/servicios/gas/tigre',     mobile: false, height: 1000 },
   { name: 'zonas',               url: '/zonas',                   mobile: false, height: 1000 },
@@ -34,7 +34,7 @@ for (const t of targets) {
   }
   await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
   await page.goto(BASE + t.url, { waitUntil: 'networkidle0', timeout: 30000 });
-  await page.evaluate(async () => {
+  await page.evaluate(async (scrollY) => {
     document.querySelectorAll('.reveal, .reveal-stagger > *').forEach((el) => {
       el.classList.add('is-visible');
       el.style.opacity = '1';
@@ -45,8 +45,9 @@ for (const t of targets) {
       el.style.transform = 'none';
     });
     if (document.fonts && document.fonts.ready) await document.fonts.ready;
+    if (scrollY) window.scrollTo({ top: scrollY, behavior: 'instant' });
     await new Promise((r) => setTimeout(r, 500));
-  });
+  }, t.scrollY || 0);
   await new Promise((r) => setTimeout(r, 800));
   const path = `${OUT}/${t.name}.png`;
   await page.screenshot({ path, fullPage: false, type: 'png' });
